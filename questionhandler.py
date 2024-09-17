@@ -1,6 +1,9 @@
 import customtkinter as ctk
 import tkinter as tk
 
+global compliance 
+compliance = 0
+
 def deselect_other(selected_var, other_var):
     if selected_var.get() == 1:
         other_var.set(0)
@@ -10,6 +13,13 @@ def handle_answer1():
 
 def handle_answer2():
     deselect_other(var2, var1)
+
+def add_compliance():
+    global compliance
+    if var1.get() == 1:
+        compliance = compliance + 10
+    elif var2.get() == 1:
+        compliance = compliance + 5
 
 def question1():
     root = ctk.CTk()
@@ -31,7 +41,7 @@ def question1():
     answer2check.pack(pady=15)
 
     #Create start and close buttons
-    submit_button = ctk.CTkButton(root, text="Submit", font=normalfont)
+    submit_button = ctk.CTkButton(root, text="Submit", command=add_compliance, font=normalfont)
     submit_button.pack(pady=15)
 
     #Run the main loop
