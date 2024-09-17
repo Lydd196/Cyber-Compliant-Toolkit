@@ -21,7 +21,7 @@ label_title = ctk.CTkLabel(root, text="Welcome to CyberComply: The Cyber Law Com
 label_title.pack(pady=25)
 
 label_description = ctk.CTkLabel(root, text="Find out how compliant your accountancy business is with cyber laws", font=normalfont)
-label_description.pack(pady=15)
+label_description.pack(pady=20)
 
 #Create start and close buttons
 start_button = ctk.CTkButton(root, text="Start", command=start, font=normalfont)
