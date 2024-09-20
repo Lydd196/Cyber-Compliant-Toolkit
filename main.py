@@ -17,7 +17,11 @@ def start():
     compliancelevel = questionhandler.question1(compliancelevel)
     print("Compliance Level in main.py:", compliancelevel)
     
-    root.destroy()
+    compliancetitlelabel = ctk.CTkLabel(root, text= "Final compliance level:", font=titlefont)
+    compliancetitlelabel.pack(pady=15)
+
+    compliancelevellabel = ctk.CTkLabel(root, text=str(compliancelevel), font=normalfont)
+    compliancelevellabel.pack(pady=15)
     
 def cancel():
     root.destroy()
@@ -26,6 +30,7 @@ titlefont = ctk.CTkFont(family="Helvetic", size=25, weight="bold")
 normalfont = ctk.CTkFont(family="Times New Roman", size=18)
 label_title = ctk.CTkLabel(root, text="Welcome to CyberComply: The Cyber Law Compliance Toolkit for Accountants", font=titlefont)
 label_title.pack(pady=25)
+
 
 label_description = ctk.CTkLabel(root, text="Find out how compliant your accountancy business is with cyber laws", font=normalfont)
 label_description.pack(pady=15)
