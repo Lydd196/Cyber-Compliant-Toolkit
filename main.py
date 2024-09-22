@@ -7,14 +7,18 @@ root = ctk.CTk()
 root.title("Cyber Law Compliance Toolkit")
 root.geometry("1000x500")
 
-# Initial compliance level
-compliancelevel = 5
+# Initial compliance level as a percentage
+compliancelevel = 100
 
-# Define start and close functions
+# Start function for running the questions (starting the test)
 def start():
     global compliancelevel
-    # Get updated compliance level from question1
+
+    # Get updated compliance level from previous questions and use them in the next questions
     compliancelevel = questionhandler.question1(compliancelevel)
+    compliancelevel = questionhandler.question2(compliancelevel)
+
+    # Final compliance score title and value
     print("Compliance Level in main.py:", compliancelevel)
     
     compliancetitlelabel = ctk.CTkLabel(root, text= "Final compliance level:", font=titlefont)
@@ -22,28 +26,29 @@ def start():
 
     compliancelevellabel = ctk.CTkLabel(root, text=str(compliancelevel), font=normalfont)
     compliancelevellabel.pack(pady=15)
-    
-def cancel():
+
+# Cancel function to not run the test and to close the program
+def close():
     root.destroy()
 
 titlefont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
 normalfont = ctk.CTkFont(family="Times New Roman", size=18)
-label_title = ctk.CTkLabel(root, text="Welcome to CyberComply: The Cyber Law Compliance Toolkit for Accountants", font=titlefont)
-label_title.pack(pady=25)
+labeltitle = ctk.CTkLabel(root, text="Welcome to CyberComply: The Cyber Law Compliance Toolkit for Accountants", font=titlefont)
+labeltitle.pack(pady=25)
 
 
-label_description = ctk.CTkLabel(root, text="Find out how compliant your accountancy business is with cyber laws", font=normalfont)
-label_description.pack(pady=15)
+labeldescription = ctk.CTkLabel(root, text="Find out how compliant your accountancy business is with cyber laws", font=normalfont)
+labeldescription.pack(pady=15)
 
 # Create start and close buttons
-start_button = ctk.CTkButton(root, text="Start", command=start, font=normalfont)
-start_button.pack(pady=15)
+startbutton = ctk.CTkButton(root, text="Start", command=start, font=normalfont)
+startbutton.pack(pady=15)
 
-close_button = ctk.CTkButton(root, text="Cancel", command=cancel, font=normalfont)
-close_button.pack(pady=15)
+closebutton = ctk.CTkButton(root, text="Close", command=close, font=normalfont)
+closebutton.pack(pady=15)
 
 # Run the main loop
 root.mainloop()
 
-# After running questionhandler, you can check the updated compliance level
+# Print final compliance score in the terminal (debugging purposes)
 print("Final compliance level:", compliancelevel)
