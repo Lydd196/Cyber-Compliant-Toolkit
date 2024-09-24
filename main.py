@@ -18,14 +18,20 @@ def start():
     compliancelevel = questionhandler.question1(compliancelevel)
     compliancelevel = questionhandler.question2(compliancelevel)
 
-    # Final compliance score title and value
-    print("Compliance Level in main.py:", compliancelevel)
+    titlelabel.configure(text="Your Results")
+    descriptionlabel.destroy()
+    startbutton.destroy()
+    closebutton.destroy()
     
+    # Display final compliance value as a percentage
     compliancetitlelabel = ctk.CTkLabel(root, text= "Final compliance level:", font=titlefont)
     compliancetitlelabel.pack(pady=15)
 
-    compliancelevellabel = ctk.CTkLabel(root, text=str(compliancelevel), font=normalfont)
+    compliancelevellabel = ctk.CTkLabel(root, text=str(compliancelevel) + "%", font=normalfont)
     compliancelevellabel.pack(pady=15)
+
+    endbutton = ctk.CTkButton(root, text="End", command=close, font=normalfont)
+    endbutton.pack(pady=15)
 
 # Cancel function to not run the test and to close the program
 def close():
@@ -33,12 +39,12 @@ def close():
 
 titlefont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
 normalfont = ctk.CTkFont(family="Times New Roman", size=18)
-labeltitle = ctk.CTkLabel(root, text="Welcome to CyberComply: The Cyber Law Compliance Toolkit for Accountants", font=titlefont)
-labeltitle.pack(pady=25)
+titlelabel= ctk.CTkLabel(root, text="Welcome to CyberComply: The Cyber Law Compliance Toolkit for Accountants", font=titlefont)
+titlelabel.pack(pady=25)
 
 
-labeldescription = ctk.CTkLabel(root, text="Find out how compliant your accountancy business is with cyber laws", font=normalfont)
-labeldescription.pack(pady=15)
+descriptionlabel = ctk.CTkLabel(root, text="Find out how compliant your accountancy business is with cyber laws", font=normalfont)
+descriptionlabel.pack(pady=15)
 
 # Create start and close buttons
 startbutton = ctk.CTkButton(root, text="Start", command=start, font=normalfont)

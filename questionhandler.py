@@ -14,8 +14,8 @@ def handle_answer1():
 def handle_answer2():
     deselect_other(var2, var1)
 
+# Function to update compliance level based on user input
 def q1compliance(compliance):
-    # Update compliance level based on user input
     if var1.get() == 1:
         compliance = compliance - 2
     elif var2.get() == 1:
@@ -23,8 +23,8 @@ def q1compliance(compliance):
     root.destroy()
     return compliance
 
+# Function to update compliance level based on user input
 def q2compliance(compliance):
-    # Update compliance level based on user input
     if var1.get() == 0:
         compliance = compliance - 3
     if var2.get() == 0:
@@ -45,8 +45,8 @@ def question1(compliance):
     questionfont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
     normalfont = ctk.CTkFont(family="Times New Roman", size=18)
     
-    labelquestion = ctk.CTkLabel(root, text="What best describes your accountancy business?", font=questionfont)
-    labelquestion.pack(pady=25)
+    questionlabel = ctk.CTkLabel(root, text="What best describes your accountancy business?", font=questionfont)
+    questionlabel.pack(pady=25)
     
     var1 = ctk.BooleanVar()
     var2 = ctk.BooleanVar()
@@ -77,8 +77,8 @@ def question2(compliance):
     questionfont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
     normalfont = ctk.CTkFont(family="Times New Roman", size=18)
     
-    labelquestion = ctk.CTkLabel(root, text="Which of the following is true in your business?", font=questionfont)
-    labelquestion.pack(pady=25)
+    questionlabel = ctk.CTkLabel(root, text="Which of the following is true in your business?", font=questionfont)
+    questionlabel.pack(pady=25)
     
     var1 = ctk.BooleanVar()
     var2 = ctk.BooleanVar()
