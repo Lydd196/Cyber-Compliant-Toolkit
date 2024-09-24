@@ -14,7 +14,7 @@ compliancelevel = 100
 def start():
     global compliancelevel
 
-    # Get updated compliance level from previous questions and use them in the next questions
+    # Get updated compliance level from previous questions and use them in the next question
     compliancelevel = questionhandler.question1(compliancelevel)
     compliancelevel = questionhandler.question2(compliancelevel)
 
