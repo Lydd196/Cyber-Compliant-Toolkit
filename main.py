@@ -5,7 +5,7 @@ import questionhandler
 # Create the main window
 root = ctk.CTk()
 root.title("Cyber Law Compliance Toolkit")
-root.geometry("1000x500")
+root.geometry("1100x550")
 
 # Initial compliance level as a percentage
 compliancelevel = 100
@@ -30,6 +30,17 @@ def start():
     compliancelevellabel = ctk.CTkLabel(root, text=str(compliancelevel) + "%", font=normalfont)
     compliancelevellabel.pack(pady=15)
 
+    resultdescriptionlabel = ctk.CTkLabel(root, text= "sample text", font=normalfont)
+    if compliancelevel > 95:
+        resultdescriptionlabel.configure(text= "We believe that your business is very compliant with cyber laws. Great Job!")
+        resultdescriptionlabel.pack(pady=15)
+    elif compliancelevel > 90:
+        resultdescriptionlabel.configure(text= "We believe that your business is not very compliant with the Data Protection Act, read more here:")
+        resultdescriptionlabel.pack(pady=15)
+    else:
+        resultdescriptionlabel.configure(text= "Very bad!")
+        resultdescriptionlabel.pack(pady=15)
+        
     endbutton = ctk.CTkButton(root, text="End", command=close, font=normalfont)
     endbutton.pack(pady=15)
 
