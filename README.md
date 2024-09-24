@@ -1,3 +1,3 @@
 # Cyber-Compliant-Toolkit
 
-The Cyber Compliant Toolkit for Organisations is a piece of software targeted toward organisations to determine how compliant they are with cyber laws.
+The Cyber Compliant Toolkit for Accountants is a piece of software targeted toward accountants to determine how compliant they are with cyber laws.
