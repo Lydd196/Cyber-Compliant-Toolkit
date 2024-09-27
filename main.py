@@ -1,5 +1,6 @@
 import customtkinter as ctk
 import tkinter as tk
+import random
 import questionhandler 
 
 # Create the main window
@@ -12,16 +13,24 @@ compliancelevel = 100
 
 # Start function for running the questions (starting the test)
 def start():
-    global compliancelevel
-
-    # Get updated compliance level from previous questions and use them in the next question
-    compliancelevel = questionhandler.question1(compliancelevel)
-    compliancelevel = questionhandler.question2(compliancelevel)
-
-    titlelabel.configure(text="Your Results")
     descriptionlabel.destroy()
     startbutton.destroy()
     closebutton.destroy()
+    global compliancelevel
+    questionnumber = 1
+
+    # List of questions
+    questionlist = [questionhandler.question1, questionhandler.question2]
+
+    # Shuffle the questions to randomize the order
+    random.shuffle(questionlist)
+
+    # Iterate over the shuffled questions and update compliance level
+    for question in questionlist:
+        compliancelevel = question(compliancelevel, questionnumber)
+        questionnumber = questionnumber + 1
+
+    titlelabel.configure(text="Your Results")
     
     # Display final compliance value as a percentage
     compliancetitlelabel = ctk.CTkLabel(root, text= "Final compliance level:", font=titlefont)

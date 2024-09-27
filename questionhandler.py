@@ -36,14 +36,17 @@ def q2compliance(compliance):
     root.destroy()
     return compliance
 
-def question1(compliance):
+def question1(compliance, questionnumber):
     global root, var1, var2
     root = ctk.CTk()
     root.title("Question 1")
-    root.geometry("1600x800")
+    root.geometry("1500x750")
     
     questionfont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
     normalfont = ctk.CTkFont(family="Times New Roman", size=18)
+
+    questionnumberlabel = ctk.CTkLabel(root, text="Question " + str(questionnumber) + "/50", font=normalfont)
+    questionnumberlabel.place(relx=0.95, rely=0.03, anchor=tk.E)
     
     questionlabel = ctk.CTkLabel(root, text="What best describes your accountancy business?", font=questionfont)
     questionlabel.pack(pady=25)
@@ -68,14 +71,17 @@ def question1(compliance):
     compliance = q1compliance(compliance)
     return compliance
 
-def question2(compliance):
+def question2(compliance, questionnumber):
     global root, var1, var2, var3, var4
     root = ctk.CTk()
     root.title("Question 2")
-    root.geometry("1600x800")
+    root.geometry("1500x750")
     
     questionfont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
     normalfont = ctk.CTkFont(family="Times New Roman", size=18)
+
+    questionnumberlabel = ctk.CTkLabel(root, text="Question " + str(questionnumber) + "/50", font=normalfont)
+    questionnumberlabel.place(relx=0.95, rely=0.03, anchor=tk.E)
     
     questionlabel = ctk.CTkLabel(root, text="Which of the following is true in your business?", font=questionfont)
     questionlabel.pack(pady=25)
