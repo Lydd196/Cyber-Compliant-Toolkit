@@ -20,7 +20,7 @@ def start():
     questionnumber = 1
 
     # List of questions
-    questionlist = [questionhandler.question1, questionhandler.question2]
+    questionlist = [questionhandler.question1, questionhandler.question2, questionhandler.question3]
 
     # Shuffle the questions to randomize the order
     random.shuffle(questionlist)
