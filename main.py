@@ -9,72 +9,72 @@ root.title("Cyber Law Compliance Toolkit")
 root.geometry("1100x550")
 
 # Initial compliance level as a percentage
-compliancelevel = 100
+complianceLevel = 100
 
 # Start function for running the questions (starting the test)
 def start():
-    descriptionlabel.destroy()
-    startbutton.destroy()
-    closebutton.destroy()
-    global compliancelevel
-    questionnumber = 1
+    descriptionLabel.destroy()
+    startButton.destroy()
+    closeButton.destroy()
+    global complianceLevel
+    questionNumber = 1
 
     # List of questions
-    questionlist = [questionhandler.question1, questionhandler.question2, questionhandler.question3]
+    questionList = [questionhandler.q1, questionhandler.q2, questionhandler.q3]
 
     # Shuffle the questions to randomize the order
-    random.shuffle(questionlist)
+    random.shuffle(questionList)
 
     # Iterate over the shuffled questions and update compliance level
-    for question in questionlist:
-        compliancelevel = question(compliancelevel, questionnumber)
-        questionnumber = questionnumber + 1
+    for question in questionList:
+        complianceLevel = question(complianceLevel, questionNumber)
+        questionNumber = questionNumber + 1
 
-    titlelabel.configure(text="Your Results")
+    titleLabel.configure(text="Your Results")
     
     # Display final compliance value as a percentage
-    compliancetitlelabel = ctk.CTkLabel(root, text= "Final compliance level:", font=titlefont)
-    compliancetitlelabel.pack(pady=15)
+    complianceTitleLabel = ctk.CTkLabel(root, text= "Final compliance level:", font=titleFont)
+    complianceTitleLabel.pack(pady=15)
 
-    compliancelevellabel = ctk.CTkLabel(root, text=str(compliancelevel) + "%", font=normalfont)
-    compliancelevellabel.pack(pady=15)
+    complianceLevelLabel = ctk.CTkLabel(root, text=str(complianceLevel) + "%", font=normalFont)
+    complianceLevelLabel.pack(pady=15)
 
-    resultdescriptionlabel = ctk.CTkLabel(root, text= "sample text", font=normalfont)
-    if compliancelevel > 95:
-        resultdescriptionlabel.configure(text= "We believe that your business is very compliant with cyber laws. Great Job!")
-        resultdescriptionlabel.pack(pady=15)
-    elif compliancelevel > 90:
-        resultdescriptionlabel.configure(text= "We believe that your business is not very compliant with the Data Protection Act, read more here:")
-        resultdescriptionlabel.pack(pady=15)
+    resultDescriptionLabel = ctk.CTkLabel(root, text= "sample text", font=normalFont)
+    if complianceLevel > 95:
+        resultDescriptionLabel.configure(text= "We believe that your business is very compliant with cyber laws. Great Job!")
+        resultDescriptionLabel.pack(pady=15)
+    elif complianceLevel > 90:
+        resultDescriptionLabel.configure(text= "We believe that your business is not very compliant with the Data Protection Act, read more here:")
+        resultDescriptionLabel.pack(pady=15)
     else:
-        resultdescriptionlabel.configure(text= "Very bad!")
-        resultdescriptionlabel.pack(pady=15)
+        resultDescriptionLabel.configure(text= "Very bad!")
+        resultDescriptionLabel.pack(pady=15)
         
-    endbutton = ctk.CTkButton(root, text="End", command=close, font=normalfont)
-    endbutton.pack(pady=15)
+    endButton = ctk.CTkButton(root, text="End", command=close, font=normalFont)
+    endButton.pack(pady=15)
 
 # Cancel function to not run the test and to close the program
 def close():
     root.destroy()
 
-titlefont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
-normalfont = ctk.CTkFont(family="Times New Roman", size=18)
-titlelabel= ctk.CTkLabel(root, text="Welcome to CyberComply: The Cyber Law Compliance Toolkit for Accountants", font=titlefont)
-titlelabel.pack(pady=25)
+titleFont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
+normalFont = ctk.CTkFont(family="Times New Roman", size=18)
+titleLabel= ctk.CTkLabel(root, text="Welcome to CyberComply: The Cyber Law Compliance Toolkit for Accountants", font=titleFont)
+titleLabel.pack(pady=25)
 
 
-descriptionlabel = ctk.CTkLabel(root, text="Find out how compliant your accountancy business is with cyber laws", font=normalfont)
-descriptionlabel.pack(pady=15)
+descriptionLabel = ctk.CTkLabel(root, text="Find out how compliant your accountancy business is with cyber laws", font=normalFont)
+descriptionLabel.pack(pady=15)
 
 # Create start and close buttons
-startbutton = ctk.CTkButton(root, text="Start", command=start, font=normalfont)
-startbutton.pack(pady=15)
+startButton = ctk.CTkButton(root, text="Start", command=start, font=normalFont)
+startButton.pack(pady=15)
 
-closebutton = ctk.CTkButton(root, text="Close", command=close, font=normalfont)
-closebutton.pack(pady=15)
+closeButton = ctk.CTkButton(root, text="Close", command=close, font=normalFont)
+closeButton.pack(pady=15)
 
 # Run the main loop
 root.mainloop()
 
 # Print final compliance score in the terminal (debugging purposes)
-print("Final compliance level:", compliancelevel)
+print("Final compliance level:", complianceLevel)

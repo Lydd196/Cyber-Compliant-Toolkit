@@ -2,145 +2,145 @@ import customtkinter as ctk
 import tkinter as tk
 
 # Declare variables globally so they can be accessed inside functions
-var1, var2 = None, None, 
+ans1, ans2 = None, None, 
 
-def deselect_other(selected_var, other_var):
-    if selected_var.get() == 1:
-        other_var.set(0)
+def deselect_other(selectedAns, otherAns):
+    if selectedAns.get() == 1:
+        otherAns.set(0)
 
 def handle_answer1():
-    deselect_other(var1, var2)
+    deselect_other(ans1, ans2)
 
 def handle_answer2():
-    deselect_other(var2, var1)
+    deselect_other(ans2, ans1)
 
 # Function to update compliance level based on user input
-def q1compliance(compliance):
-    if var1.get() == 1:
+def q1_compliance(compliance):
+    if ans1.get() == 1:
         compliance = compliance - 0
-    elif var2.get() == 1:
+    elif ans2.get() == 1:
         compliance = compliance - 5
     root.destroy()
     return compliance
 
 # Function to update compliance level based on user input
-def q2compliance(compliance):
-    if var1.get() == 1:
+def q2_compliance(compliance):
+    if ans1.get() == 1:
         compliance = compliance - 5
-    elif var2.get() == 1:
+    elif ans2.get() == 1:
         compliance = compliance - 0
     root.destroy()
     return compliance
 
-def q3compliance(compliance):
-    if var1.get() == 1:
+def q3_compliance(compliance):
+    if ans1.get() == 1:
         compliance = compliance - 0
-    elif var2.get() == 1:
+    elif ans2.get() == 1:
         compliance = compliance - 7
     root.destroy()
     return compliance
 
-def question1(compliance, questionnumber):
-    global root, var1, var2
+def q1(compliance, questionNumber):
+    global root, ans1, ans2
     root = ctk.CTk()
-    root.title("Question "+ str(questionnumber))
+    root.title("Question "+ str(questionNumber))
     root.geometry("1500x750")
     
-    questionfont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
-    normalfont = ctk.CTkFont(family="Times New Roman", size=18)
+    questionFont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
+    normalFont = ctk.CTkFont(family="Times New Roman", size=18)
 
-    questionnumberlabel = ctk.CTkLabel(root, text="Question " + str(questionnumber) + "/50", font=normalfont)
-    questionnumberlabel.place(relx=0.95, rely=0.03, anchor=tk.E)
+    questionNumberLabel = ctk.CTkLabel(root, text="Question " + str(questionNumber) + "/50", font=normalFont)
+    questionNumberLabel.place(relx=0.95, rely=0.03, anchor=tk.E)
     
-    questionlabel = ctk.CTkLabel(root, text="Do you ensure that data you hold of your clients are accurate and up to date?", font=questionfont)
-    questionlabel.pack(pady=25)
+    questionLabel = ctk.CTkLabel(root, text="Do you ensure that data you hold of your clients are accurate and up to date?", font=questionFont)
+    questionLabel.pack(pady=25)
     
-    var1 = ctk.BooleanVar()
-    var2 = ctk.BooleanVar()
+    ans1 = ctk.BooleanVar()
+    ans2 = ctk.BooleanVar()
     
-    answer1check = ctk.CTkCheckBox(root, text="Yes", font=normalfont, corner_radius=1, variable=var1, command=handle_answer1)
-    answer1check.pack(pady=15)
+    answer1checkbox = ctk.CTkCheckBox(root, text="Yes", font=normalFont, corner_radius=1, variable=ans1, command=handle_answer1)
+    answer1checkbox.pack(pady=15)
 
-    answer2check = ctk.CTkCheckBox(root, text="No", font=normalfont, corner_radius=1, variable=var2, command=handle_answer2)
-    answer2check.pack(pady=15)
+    answer2checkbox = ctk.CTkCheckBox(root, text="No", font=normalFont, corner_radius=1, variable=ans2, command=handle_answer2)
+    answer2checkbox.pack(pady=15)
 
     # Create submit button to update compliance level
-    submitbutton = ctk.CTkButton(root, text="Submit", command=lambda: root.quit(), font=normalfont)
-    submitbutton.pack(pady=15)
+    submitButton = ctk.CTkButton(root, text="Submit", command=lambda: root.quit(), font=normalFont)
+    submitButton.pack(pady=15)
 
     # Run the main loop (this halts until root.quit() is called)
     root.mainloop()
 
     # After root.quit(), the function continues. Use the result.
-    compliance = q1compliance(compliance)
+    compliance = q1_compliance(compliance)
     return compliance
 
-def question2(compliance, questionnumber):
-    global root, var1, var2
+def q2(compliance, questionNumber):
+    global root, ans1, ans2
     root = ctk.CTk()
-    root.title("Question "+ str(questionnumber))
+    root.title("Question "+ str(questionNumber))
     root.geometry("1500x750")
     
-    questionfont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
-    normalfont = ctk.CTkFont(family="Times New Roman", size=18)
+    questionFont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
+    normalFont = ctk.CTkFont(family="Times New Roman", size=18)
 
-    questionnumberlabel = ctk.CTkLabel(root, text="Question " + str(questionnumber) + "/50", font=normalfont)
-    questionnumberlabel.place(relx=0.95, rely=0.03, anchor=tk.E)
+    questionNumberLabel = ctk.CTkLabel(root, text="Question " + str(questionNumber) + "/50", font=normalFont)
+    questionNumberLabel.place(relx=0.95, rely=0.03, anchor=tk.E)
     
-    questionlabel = ctk.CTkLabel(root, text="Do you keep data longer than is necessary?", font=questionfont)
-    questionlabel.pack(pady=25)
+    questionLabel = ctk.CTkLabel(root, text="Do you keep data longer than is necessary?", font=questionFont)
+    questionLabel.pack(pady=25)
     
-    var1 = ctk.BooleanVar()
-    var2 = ctk.BooleanVar()
+    ans1 = ctk.BooleanVar()
+    ans2 = ctk.BooleanVar()
 
-    answer1check = ctk.CTkCheckBox(root, text="Yes", font=normalfont, corner_radius=1, variable=var1, command=handle_answer1)
-    answer1check.pack(pady=15)
+    answer1checkbox = ctk.CTkCheckBox(root, text="Yes", font=normalFont, corner_radius=1, variable=ans1, command=handle_answer1)
+    answer1checkbox.pack(pady=15)
 
-    answer2check = ctk.CTkCheckBox(root, text="No", font=normalfont, corner_radius=1, variable=var2, command=handle_answer2)
-    answer2check.pack(pady=15)
+    answer2checkbox = ctk.CTkCheckBox(root, text="No", font=normalFont, corner_radius=1, variable=ans2, command=handle_answer2)
+    answer2checkbox.pack(pady=15)
 
     # Create submit button to update compliance level
-    submitbutton = ctk.CTkButton(root, text="Submit", command=lambda: root.quit(), font=normalfont)
-    submitbutton.pack(pady=15)
+    submitButton = ctk.CTkButton(root, text="Submit", command=lambda: root.quit(), font=normalFont)
+    submitButton.pack(pady=15)
 
     # Run the main loop (this halts until root.quit() is called)
     root.mainloop()
 
     # After root.quit(), the function continues. Use the result.
-    compliance = q2compliance(compliance)
+    compliance = q2_compliance(compliance)
     return compliance
 
-def question3(compliance, questionnumber):
-    global root, var1, var2
+def q3(compliance, questionNumber):
+    global root, ans1, ans2
     root = ctk.CTk()
-    root.title("Question " + str(questionnumber))
+    root.title("Question " + str(questionNumber))
     root.geometry("1500x750")
     
-    questionfont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
-    normalfont = ctk.CTkFont(family="Times New Roman", size=18)
+    questionFont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
+    normalFont = ctk.CTkFont(family="Times New Roman", size=18)
 
-    questionnumberlabel = ctk.CTkLabel(root, text="Question " + str(questionnumber) + "/50", font=normalfont)
-    questionnumberlabel.place(relx=0.95, rely=0.03, anchor=tk.E)
+    questionNumberLabel = ctk.CTkLabel(root, text="Question " + str(questionNumber) + "/50", font=normalFont)
+    questionNumberLabel.place(relx=0.95, rely=0.03, anchor=tk.E)
     
-    questionlabel = ctk.CTkLabel(root, text="Do you allow clients to request what data you hold on them?", font=questionfont)
-    questionlabel.pack(pady=25)
+    questionLabel = ctk.CTkLabel(root, text="Do you allow clients to request what data you hold on them?", font=questionFont)
+    questionLabel.pack(pady=25)
     
-    var1 = ctk.BooleanVar()
-    var2 = ctk.BooleanVar()
+    ans1 = ctk.BooleanVar()
+    ans2 = ctk.BooleanVar()
 
-    answer1check = ctk.CTkCheckBox(root, text="Yes", font=normalfont, corner_radius=1, variable=var1, command=handle_answer1)
-    answer1check.pack(pady=15)
+    answer1checkbox = ctk.CTkCheckBox(root, text="Yes", font=normalFont, corner_radius=1, variable=ans1, command=handle_answer1)
+    answer1checkbox.pack(pady=15)
 
-    answer2check = ctk.CTkCheckBox(root, text="No", font=normalfont, corner_radius=1, variable=var2, command=handle_answer2)
-    answer2check.pack(pady=15)
+    answer2checkbox = ctk.CTkCheckBox(root, text="No", font=normalFont, corner_radius=1, variable=ans2, command=handle_answer2)
+    answer2checkbox.pack(pady=15)
 
     # Create submit button to update compliance level
-    submitbutton = ctk.CTkButton(root, text="Submit", command=lambda: root.quit(), font=normalfont)
-    submitbutton.pack(pady=15)
+    submitButton = ctk.CTkButton(root, text="Submit", command=lambda: root.quit(), font=normalFont)
+    submitButton.pack(pady=15)
 
     # Run the main loop (this halts until root.quit() is called)
     root.mainloop()
 
     # After root.quit(), the function continues. Use the result.
-    compliance = q3compliance(compliance)
+    compliance = q3_compliance(compliance)
     return compliance
