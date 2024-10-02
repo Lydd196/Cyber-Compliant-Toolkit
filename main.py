@@ -8,10 +8,10 @@ root = ctk.CTk()
 root.title("Cyber Law Compliance Toolkit")
 root.geometry("1100x550")
 
-# Initial compliance level as a percentage
+#Initial compliance level as a percentage
 complianceLevel = 100
 
-# Start function for running the questions (starting the test)
+#Start function for running the questions (starting the test)
 def start():
     descriptionLabel.destroy()
     startButton.destroy()
@@ -19,20 +19,18 @@ def start():
     global complianceLevel
     questionNumber = 1
 
-    # List of questions
-    questionList = [questionhandler.q1, questionhandler.q2, questionhandler.q3]
-
-    # Shuffle the questions to randomize the order
+    #List of questions, gets shuffled to randomise the order
+    questionList = [questionhandler.q1, questionhandler.q2, questionhandler.q3, questionhandler.q4]
     random.shuffle(questionList)
 
-    # Iterate over the shuffled questions and update compliance level
+    #Iterate over the shuffled questions and update compliance level after each question
     for question in questionList:
         complianceLevel = question(complianceLevel, questionNumber)
         questionNumber = questionNumber + 1
 
     titleLabel.configure(text="Your Results")
     
-    # Display final compliance value as a percentage
+    #Display final compliance value as a percentage with text depending on the level itself
     complianceTitleLabel = ctk.CTkLabel(root, text= "Final compliance level:", font=titleFont)
     complianceTitleLabel.pack(pady=15)
 
@@ -44,16 +42,16 @@ def start():
         resultDescriptionLabel.configure(text= "We believe that your business is very compliant with cyber laws. Great Job!")
         resultDescriptionLabel.pack(pady=15)
     elif complianceLevel > 90:
-        resultDescriptionLabel.configure(text= "We believe that your business is not very compliant with the Data Protection Act, read more here:")
+        resultDescriptionLabel.configure(text= "We believe that you may be in minor breach of the GDPR.\nYou may face fines up to £8.7 million or 2% of global annual turnover (whichever is higher)")
         resultDescriptionLabel.pack(pady=15)
     else:
-        resultDescriptionLabel.configure(text= "Very bad!")
+        resultDescriptionLabel.configure(text= "We believe that you may be in serious breach of the GDPR.\nYou may face fines up to £17.5 million or 4% of global annual turnover (whichever is higher)")
         resultDescriptionLabel.pack(pady=15)
         
     endButton = ctk.CTkButton(root, text="End", command=close, font=normalFont)
     endButton.pack(pady=15)
 
-# Cancel function to not run the test and to close the program
+#Cancel function to not run the test and to close the program
 def close():
     root.destroy()
 
@@ -66,15 +64,15 @@ titleLabel.pack(pady=25)
 descriptionLabel = ctk.CTkLabel(root, text="Find out how compliant your accountancy business is with cyber laws", font=normalFont)
 descriptionLabel.pack(pady=15)
 
-# Create start and close buttons
+#Create start and close buttons
 startButton = ctk.CTkButton(root, text="Start", command=start, font=normalFont)
 startButton.pack(pady=15)
 
 closeButton = ctk.CTkButton(root, text="Close", command=close, font=normalFont)
 closeButton.pack(pady=15)
 
-# Run the main loop
+#Run the main loop
 root.mainloop()
 
-# Print final compliance score in the terminal (debugging purposes)
+#Print final compliance score in the terminal (debugging purposes)
 print("Final compliance level:", complianceLevel)
