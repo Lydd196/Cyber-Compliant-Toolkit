@@ -20,7 +20,7 @@ def start():
     questionNumber = 1
 
     #List of questions, gets shuffled to randomise the order
-    questionList = [questionhandler.q1, questionhandler.q2, questionhandler.q3, questionhandler.q4, questionhandler.q5, questionhandler.q6]
+    questionList = [questionhandler.q1, questionhandler.q2, questionhandler.q3, questionhandler.q4, questionhandler.q5, questionhandler.q6, questionhandler.q7]
     random.shuffle(questionList)
 
     #Iterate over the shuffled questions and update compliance level after each question
@@ -29,7 +29,8 @@ def start():
         questionNumber = questionNumber + 1
 
     titleLabel.configure(text="Your Results")
-    
+    root.title("Your Results")
+
     #Display final compliance value as a percentage with text depending on the level itself
     complianceTitleLabel = ctk.CTkLabel(root, text= "Final compliance level:", font=titleFont)
     complianceTitleLabel.pack(pady=15)
