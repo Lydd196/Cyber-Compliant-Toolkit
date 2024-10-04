@@ -3,7 +3,7 @@ import tkinter as tk
 import random
 import questionhandler 
 
-# Create the main window
+#Create the main window
 root = ctk.CTk()
 root.title("Cyber Law Compliance Toolkit")
 root.geometry("1100x550")
@@ -20,7 +20,7 @@ def start():
     questionNumber = 1
 
     #List of questions, gets shuffled to randomise the order
-    questionList = [questionhandler.q1, questionhandler.q2, questionhandler.q3, questionhandler.q4]
+    questionList = [questionhandler.q1, questionhandler.q2, questionhandler.q3, questionhandler.q4, questionhandler.q5, questionhandler.q6]
     random.shuffle(questionList)
 
     #Iterate over the shuffled questions and update compliance level after each question
@@ -57,9 +57,9 @@ def close():
 
 titleFont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
 normalFont = ctk.CTkFont(family="Times New Roman", size=18)
+
 titleLabel= ctk.CTkLabel(root, text="Welcome to CyberComply: The Cyber Law Compliance Toolkit for Accountants", font=titleFont)
 titleLabel.pack(pady=25)
-
 
 descriptionLabel = ctk.CTkLabel(root, text="Find out how compliant your accountancy business is with cyber laws", font=normalFont)
 descriptionLabel.pack(pady=15)
