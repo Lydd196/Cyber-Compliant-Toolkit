@@ -88,17 +88,24 @@ def q7_compliance(compliance):
     if selectedOption.get() == 1:
         compliance = compliance - 0
     elif selectedOption.get() == 2:
-        compliance = compliance - 1
+        compliance = compliance - 7
     elif selectedOption.get() == 3:
-        compliance = compliance - 1
+        compliance = compliance - 7
     elif selectedOption.get() == 4:
-        compliance = compliance - 5
-    elif selectedOption.get() == 5:
+        compliance = compliance - 15
+    root.destroy()
+    return compliance
+
+def q8_compliance(compliance):
+    if selectedOption.get() == 1:
         compliance = compliance - 0
+    elif selectedOption.get() == 2:
+        compliance = compliance - 10
     root.destroy()
     return compliance
 
 #Page for q1
+#GDPR Principles
 def q1(compliance, questionNumber):
     global root, selectedOption
     root = ctk.CTk()
@@ -136,6 +143,7 @@ def q1(compliance, questionNumber):
     return compliance
 
 #Page for q2
+#GDPR Principles
 def q2(compliance, questionNumber):
     global root, selectedOption
     root = ctk.CTk()
@@ -170,6 +178,7 @@ def q2(compliance, questionNumber):
     return compliance
 
 #Page for q3
+#GDPR Principles
 def q3(compliance, questionNumber):
     global root, selectedOption
     root = ctk.CTk()
@@ -207,6 +216,7 @@ def q3(compliance, questionNumber):
     return compliance
 
 #Page for q4
+#GDPR Principles
 def q4(compliance, questionNumber):
     global root, selectedOption
     root = ctk.CTk()
@@ -253,6 +263,7 @@ def q4(compliance, questionNumber):
     return compliance
 
 #Page for q5
+#GDPR Principles
 def q5(compliance, questionNumber):
     global root, selectedOption
     root = ctk.CTk()
@@ -290,6 +301,7 @@ def q5(compliance, questionNumber):
     return compliance
 
 #Page for q6
+#GDPR Principles
 def q6(compliance, questionNumber):
     global root, selectedOption
     root = ctk.CTk()
@@ -330,6 +342,7 @@ def q6(compliance, questionNumber):
     return compliance
 
 #Page for q7
+#Information Security
 def q7(compliance, questionNumber):
     global root, selectedOption
     root = ctk.CTk()
@@ -359,9 +372,6 @@ def q7(compliance, questionNumber):
     answer4checkbox = ctk.CTkRadioButton(root, text="No, we do not use encryption or access control when processing client data", font=normalFont, variable=selectedOption, value=4)
     answer4checkbox.pack(pady=15)
 
-    answer5checkbox = ctk.CTkRadioButton(root, text="We do not process client data", font=normalFont, variable=selectedOption, value=5)
-    answer5checkbox.pack(pady=15)
-
     #Create submit button to check if an option has been selected and update compliance level
     submitButton = ctk.CTkButton(root, text="Submit", command=lambda: checkSelected(), font=normalFont)
     submitButton.pack(pady=15)
@@ -370,4 +380,39 @@ def q7(compliance, questionNumber):
 
     #Compliance gets updated and returns the result
     compliance = q7_compliance(compliance)
+    return compliance
+
+#Page for q8
+#Legal Basis
+def q8(compliance, questionNumber):
+    global root, selectedOption
+    root = ctk.CTk()
+    root.title("Question " + str(questionNumber))
+    root.geometry("1500x750")
+    
+    questionFont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
+    normalFont = ctk.CTkFont(family="Times New Roman", size=18)
+
+    questionNumberLabel = ctk.CTkLabel(root, text="Question " + str(questionNumber) + "/50", font=normalFont)
+    questionNumberLabel.place(relx=0.95, rely=0.03, anchor=tk.E)
+    
+    questionLabel = ctk.CTkLabel(root, text="Do you ensure that client data collected is specific, explicit and legitimate for what you need it for?", font=questionFont)
+    questionLabel.pack(pady=25)
+    
+    selectedOption = tk.IntVar()
+
+    answer1checkbox = ctk.CTkRadioButton(root, text="Yes", font=normalFont, variable=selectedOption, value=1)
+    answer1checkbox.pack(pady=15)
+
+    answer2checkbox = ctk.CTkRadioButton(root, text="No", font=normalFont, variable=selectedOption, value=2)
+    answer2checkbox.pack(pady=15)
+
+    #Create submit button to check if an option has been selected and update compliance level
+    submitButton = ctk.CTkButton(root, text="Submit", command=lambda: checkSelected(), font=normalFont)
+    submitButton.pack(pady=15)
+
+    root.mainloop()
+
+    #Compliance gets updated and returns the result
+    compliance = q8_compliance(compliance)
     return compliance

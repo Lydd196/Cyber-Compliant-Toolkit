@@ -20,13 +20,14 @@ def start():
     questionNumber = 1
 
     #List of questions, gets shuffled to randomise the order
-    questionList = [questionhandler.q1, questionhandler.q2, questionhandler.q3, questionhandler.q4, questionhandler.q5, questionhandler.q6, questionhandler.q7]
+    questionList = [questionhandler.q1, questionhandler.q2, questionhandler.q3, questionhandler.q4, questionhandler.q5, questionhandler.q6, questionhandler.q7, questionhandler.q8]
     random.shuffle(questionList)
 
     #Iterate over the shuffled questions and update compliance level after each question
     for question in questionList:
         complianceLevel = question(complianceLevel, questionNumber)
         questionNumber = questionNumber + 1
+        print(complianceLevel)
 
     titleLabel.configure(text="Your Results")
     root.title("Your Results")
