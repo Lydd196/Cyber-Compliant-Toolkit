@@ -45,7 +45,7 @@ def showQuestion(root, questionData, compliance, questionNumber, questionAmount)
         selected = selectedOption.get()
         if selected == 0 and noSelect == False:
             noSelectLabel = ctk.CTkLabel(root, text="Please select an option")
-            noSelectLabel.pack(pady=10)
+            noSelectLabel.pack(pady=7.5)
             noSelect = True
         elif selected != 0:
             newCompliance = updateCompliance(compliance, selected, questionData['deduction'])
@@ -63,4 +63,6 @@ def showQuestion(root, questionData, compliance, questionNumber, questionAmount)
 #Function to update compliance level based on user input for each question
 def updateCompliance(compliance, selectedOption, deduction):
     compliance = compliance + deduction[selectedOption - 1]
+    if compliance < 0:
+        compliance = 0
     return compliance
