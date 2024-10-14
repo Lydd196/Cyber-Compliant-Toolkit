@@ -6,44 +6,29 @@ import questionhandler
 #Create the main window
 root = ctk.CTk()
 root.title("Cyber Law Compliance Toolkit")
-root.geometry("1100x550")
+root.geometry("1300x650")
 
 #Initial compliance level as a percentage
 complianceLevel = 100
 
-#Start function for running the questions (starting the test)
-def start():
-    descriptionLabel.destroy()
-    startButton.destroy()
-    closeButton.destroy()
-    global complianceLevel
-    questionNumber = 1
-
-    #List of questions, gets shuffled to randomise the order
-    questionList = [questionhandler.q1, questionhandler.q2, questionhandler.q3, questionhandler.q4, questionhandler.q5, questionhandler.q6, questionhandler.q7, questionhandler.q8 , questionhandler.q9]
-    random.shuffle(questionList)
-
-    #Iterate over the shuffled questions and update compliance level after each question
-    for question in questionList:
-        complianceLevel = question(complianceLevel, questionNumber)
-        questionNumber = questionNumber + 1
-        print(complianceLevel)
-
-    titleLabel.configure(text="Your Results")
+def showResults():
+    #Remove all the elements to prepare the results and change window title
+    for elements in root.winfo_children():
+        elements.destroy()  
     root.title("Your Results")
 
-    #Display final compliance value as a percentage with text depending on the level itself
-    complianceTitleLabel = ctk.CTkLabel(root, text= "Final compliance level:", font=titleFont)
+    #Display final compliance value as a percentage with text depending on the final value itself
+    complianceTitleLabel = ctk.CTkLabel(root, text= "Final compliance level:", font=titleFont)        
     complianceTitleLabel.pack(pady=15)
-
+    
     complianceLevelLabel = ctk.CTkLabel(root, text=str(complianceLevel) + "%", font=normalFont)
     complianceLevelLabel.pack(pady=15)
 
     resultDescriptionLabel = ctk.CTkLabel(root, text= "sample text", font=normalFont)
-    if complianceLevel > 95:
+    if complianceLevel > 80:
         resultDescriptionLabel.configure(text= "We believe that your business is very compliant with cyber laws. Great Job!")
         resultDescriptionLabel.pack(pady=15)
-    elif complianceLevel > 90:
+    elif complianceLevel > 50:
         resultDescriptionLabel.configure(text= "We believe that you may be in minor breach of the GDPR.\nYou may face fines up to £8.7 million or 2% of global annual turnover (whichever is higher)")
         resultDescriptionLabel.pack(pady=15)
     else:
@@ -53,6 +38,31 @@ def start():
     endButton = ctk.CTkButton(root, text="End", command=close, font=normalFont)
     endButton.pack(pady=15)
 
+#Start function for running the questions (starting the test)
+def start():
+    #Remove all the elements to prepare the test
+    for elements in root.winfo_children():
+        elements.destroy()  
+    global complianceLevel
+    questionNumber = 1
+    
+    #List of questions from json file gets shuffled to randomise the order
+    questionList = questionhandler.loadQuestions('questions.json')
+    random.shuffle(questionList)
+    questionAmount = len(questionList)
+
+    #Run each question dynamically
+    while questionNumber <= len(questionList):
+        question = questionList[questionNumber - 1]
+        complianceLevel = questionhandler.showQuestion(root, question, complianceLevel, questionNumber, questionAmount)
+        #Print compliance level in terminal (debugging purposes)
+        print("Compliance Level after question", questionNumber, ":", complianceLevel)
+        questionNumber = questionNumber + 1
+
+    #After each of the questions have been answered, show the results
+    showResults()
+
+    
 #Cancel function to not run the test and to close the program
 def close():
     root.destroy()

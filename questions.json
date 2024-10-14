@@ -1,0 +1,67 @@
+{
+    "questions": [
+      {
+        "id": 1,
+        "text": "Do you ensure that data you hold of your clients are accurate and up to date?",
+        "options": ["Yes, we allow clients to contact us if their details have changed", "Yes, we frequently contact our clients to ensure their details are up to date", "No, we do not check if our clients data is up to date"],
+        "deduction": [0, 0, -5],
+        "type": "GDPR Principles"
+      },
+      {
+        "id": 2,
+        "text": "Do your company keep data longer than is necessary?",
+        "options": ["Yes, we keep hold of it in case we need it", "No, we delete it when it is not needed anymore"],
+        "deduction": [-6, 0],
+        "type": "GDPR Principles"
+      },
+      {
+        "id": 3,
+        "text": "Do your company allow clients rights to access a copy of the personal data you hold on them?",
+        "options": ["Yes, we have a simple process for clients to obtain a copy of their personal data", "Yes, but only after getting in contact with us", "No, we do not allow clients to obtain a copy of their personal data"],
+        "deduction": [0, -2, -7],
+        "type": "GDPR Principles"
+      },
+      {
+        "id": 4,
+        "text": "If your business processes sensitive data (such as ethnicity or health data);\n how often do you carry out Data Protection Impact Assessments (DPIAs)?",
+        "options": ["Every year", "Every 3 year", "Every 5 years", "Every 7+ years", "We do not carry out data protection impact assessments", "We do not process sensitive data"],
+        "deduction": [0, 0, -3, -6, -10, 0],
+        "type": "GDPR Principles"
+      },
+      {
+        "id": 5,
+        "text": "Do you ensure that clients give detailed consent prior to data collection/processing",
+        "options": ["Yes, we ensure clients give detailed consent prior to data collection", "We ensure clients give consent prior to data collection but consent is not detailed", "No, we do not ask for consent prior to data collection"],
+        "deduction": [0, -4, -10],
+        "type": "GDPR Principles"
+      },
+      {
+        "id": 6,
+        "text": "Do you delete client data that is innacurate and outdated?",
+        "options": ["Yes, we delete outdated or inaccurate data", "Yes, but only after they ask us", "No, we keep it for our records", "We dont know if our client data is outdated or not"],
+        "deduction": [0, -5, -12, -9],
+        "type": "GDPR Principles"
+      },
+      {
+        "id": 7,
+        "text": "Do you use encryption and access control technologies when processing client data?",
+        "options": ["Yes, we use both encryption and access control technologies when processing client data", "We use encryption but not access control when processing client data", "We use access control but not encryption when processing client data", "No, we do not use encryption or access control when processing client data"],
+        "deduction": [0, -7, -7, -15],
+        "type": "Information Security"
+      },
+      {
+        "id": 8,
+        "text": "Do you ensure that client data collected is specific, explicit and legitimate for what you need it for?",
+        "options": ["Yes", "No"],
+        "deduction": [0, -10],
+        "type": "Legal Basis"
+      },
+      {
+        "id": 9,
+        "text": "Do your company keep data longer than is necessary?",
+        "options": ["Within 36 Hours", "Within 72 Hours", "72+ Hours", "We do not contact the ICO in the event of a data breach"],
+        "deduction": [0, 0, -10, -10],
+        "type": "GDPR Principles"
+      }
+    ]
+  }
