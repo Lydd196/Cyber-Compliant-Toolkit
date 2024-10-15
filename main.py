@@ -28,6 +28,8 @@ def showResults():
     complianceLevelLabel.pack(pady=15)
 
     resultDescriptionLabel = ctk.CTkLabel(window, text= "sample text", font=normalFont)
+
+    #Different result descriptions based on the compliance value
     if complianceLevel > 80:
         resultDescriptionLabel.configure(text= "We believe that your business is very compliant with cyber laws. Great Job!")
         resultDescriptionLabel.pack(pady=15)
@@ -60,7 +62,7 @@ def start():
         #Print compliance level in terminal (debugging purposes)
         print("Compliance Level after question", questionNumber, ":", complianceLevel)
         questionNumber = questionNumber + 1
-
+    
     #After each of the questions have been answered, show the results
     showResults()
 
