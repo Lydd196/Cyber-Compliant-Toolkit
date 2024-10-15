@@ -11,6 +11,7 @@ window.geometry("1300x650")
 #Initial compliance level as a percentage
 complianceLevel = 100
 
+
 #Function to clear previous question elements
 def clearElements(window):
     for elements in window.winfo_children():

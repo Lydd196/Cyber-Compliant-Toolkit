@@ -6,7 +6,8 @@
         "options": ["Yes, we allow clients to contact us if their details have changed", "Yes, we frequently contact our clients to ensure their details are up to date", "No, we do not check if our clients data is up to date"],
         "deduction": [0, 0, -3],
         "type": "GDPR Principles",
-        "law" : "UK GDPR"
+        "law" : "UK GDPR",
+        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/the-principles/accuracy/"
       },
       {
         "id": 2,
@@ -14,7 +15,8 @@
         "options": ["Yes, we keep hold of it in case we need it", "No, we delete it when it is not needed anymore"],
         "deduction": [-3, 0],
         "type": "GDPR Principles",
-        "law" : "UK GDPR"
+        "law" : "UK GDPR",
+        "link" : "https://www.google.com"
       },
       {
         "id": 3,
@@ -22,7 +24,8 @@
         "options": ["Yes, we have a simple process for clients to obtain a copy of their personal data", "Yes, but only after getting in contact with us", "No, we do not allow clients to obtain a copy of their personal data"],
         "deduction": [0, -1, -4],
         "type": "GDPR Principles",
-        "law" : "UK GDPR"
+        "law" : "UK GDPR",
+        "link" : "https://www.google.com"
       },
       {
         "id": 4,
@@ -30,7 +33,8 @@
         "options": ["Every year", "Every 3 year", "Every 5 years", "Every 7+ years", "We do not carry out data protection impact assessments", "We do not process sensitive data"],
         "deduction": [0, 0, -2, -3, -5, 0],
         "type": "GDPR Principles",
-        "law" : "UK GDPR"
+        "law" : "UK GDPR",
+        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/guide-to-accountability-and-governance/accountability-and-governance/data-protection-impact-assessments/"
       },
       {
         "id": 5,
@@ -38,7 +42,8 @@
         "options": ["Yes, we ensure clients give detailed consent prior to data collection", "We ensure clients give consent prior to data collection but consent is not detailed", "No, we do not ask for consent prior to data collection"],
         "deduction": [0, -2, -5],
         "type": "GDPR Principles",
-        "law" : "UK GDPR"
+        "law" : "UK GDPR",
+        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/lawful-basis/consent/what-is-valid-consent/"
       },
       {
         "id": 6,
@@ -46,7 +51,8 @@
         "options": ["Yes, we delete outdated or inaccurate data", "Yes, but only after they ask us", "No, we keep it for our records"],
         "deduction": [0, -2, -6],
         "type": "GDPR Principles",
-        "law" : "UK GDPR"
+        "law" : "UK GDPR",
+        "link" : "https://www.google.com"
       },
       {
         "id": 7,
@@ -54,7 +60,8 @@
         "options": ["Yes, we use both encryption and access control technologies when processing client data", "We use encryption but not access control when processing client data", "We use access control but not encryption when processing client data", "No, we do not use encryption or access control when processing client data"],
         "deduction": [0, -4, -4, -8],
         "type": "Information Security",
-        "law" : "UK GDPR"
+        "law" : "UK GDPR",
+        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/encryption/"
       },
       {
         "id": 8,
@@ -62,7 +69,8 @@
         "options": ["Yes", "No"],
         "deduction": [0, -5],
         "type": "Legal Basis",
-        "law" : "UK GDPR"
+        "law" : "UK GDPR",
+        "link" : "https://www.google.com"
       },
       {
         "id": 9,
@@ -70,7 +78,8 @@
         "options": ["Within 36 Hours", "Within 72 Hours", "72+ Hours", "We do not contact the ICO in the event of a data breach"],
         "deduction": [0, 0, -5, -5],
         "type": "GDPR Principles",
-        "law" : "UK GDPR"
+        "law" : "UK GDPR",
+        "link" : "https://ico.org.uk/for-organisations/report-a-breach/personal-data-breach/personal-data-breaches-a-guide/"
       },
       {
         "id": 10,
@@ -78,7 +87,8 @@
         "options": ["Once a day", "Once a week", "Once a month", "Once a year", "We do not backup our data"],
         "deduction": [0, 0, -2, -5, -8],
         "type": "Information Security",
-        "law" : "UK GDPR"
+        "law" : "UK GDPR",
+        "link" : "https://www.google.com"
       },
       {
         "id": 11,
@@ -86,7 +96,8 @@
         "options": ["Yes", "No"],
         "deduction": [0, -5],
         "type": "Information Security",
-        "law" : "UK GDPR"
+        "law" : "UK GDPR",
+        "link" : "https://www.google.com"
       },
       {
         "id": 12,
@@ -94,7 +105,8 @@
         "options": ["Once every 3 months", "Once a year", "Whenever necessary"],
         "deduction": [-2, -2, 0],
         "type": "Information Security",
-        "law" : "UK GDPR"
+        "law" : "UK GDPR",
+        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/passwords-in-online-services/"
       },
       {
         "id": 13,
@@ -102,7 +114,8 @@
         "options": ["Yes, once a year", "Yes, once every 2 years ", "Yes, every 3+ years", "No"],
         "deduction": [0, -1, -2, -4],
         "type": "Information Security",
-        "law" : "UK GDPR"
+        "law" : "UK GDPR",
+        "link" : "https://www.google.com"
       },
       {
         "id": 14,
@@ -110,15 +123,17 @@
         "options": ["Yes", "No", "We do not transfer data outside of the UK/EEA"],
         "deduction": [0, -5, 0],
         "type": "Information Security",
-        "law" : "UK GDPR"
+        "law" : "UK GDPR",
+        "link" : "https://ico.org.uk/for-organisations/data-protection-and-the-eu/data-protection-and-the-eu-in-detail/the-uk-gdpr/international-data-transfers/"
       },
       {
         "id": 15,
         "text": "When clients make a right to erasure request, how long does it take for your company to delete client data?",
-        "options": ["Within a month", "longer than a month", "We do not monitor right to erasure requests"],
+        "options": ["Within a month", "Longer than a month", "We do not monitor right to erasure requests"],
         "deduction": [0, -4, -7],
-        "type": "Information Security",
-        "law" : "UK GDPR"
+        "type": "GDPR Principles",
+        "law" : "UK GDPR",
+        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/individual-rights/right-to-erasure/"
       }
     ]
   }

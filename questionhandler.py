@@ -1,9 +1,13 @@
 import customtkinter as ctk
 import tkinter as tk
 import json
+import webbrowser
 
 #Initialise noSelect so it can be accessed by functions
 noSelect = None
+
+def callback(link):
+   webbrowser.open_new_tab(link)
 
 #Function to clear previous question elements
 def clearElements(window):
@@ -35,6 +39,7 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
     #Set fonts
     questionFont = ctk.CTkFont(family="Helvetic", size=25, weight="bold")
     normalFont = ctk.CTkFont(family="Times New Roman", size=18)
+    linkFont = ctk.CTkFont(family="Helvetic", slant="italic", underline=True, size=18)
 
     #Set question number
     questionNumberLabel = ctk.CTkLabel(window, text="Question " + str(questionNumber) + "/" + str(questionAmount), font=normalFont)
@@ -69,6 +74,10 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
     #Create submit button
     submitButton = ctk.CTkButton(window, text="Submit", command=submit, font=normalFont)
     submitButton.pack(pady=15)
+
+    linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on this topic!", font=linkFont)
+    linkLabel.pack()
+    linkLabel.bind("<Button-1>", lambda event:callback(questionData['link']))
     
     #Run the main loop
     window.mainloop()
