@@ -16,7 +16,7 @@
         "deduction": [-3, 0],
         "type": "GDPR Principles",
         "law" : "UK GDPR",
-        "link" : "https://www.google.com"
+        "link" : "https://ico.org.uk/for-organisations/advice-for-small-organisations/frequently-asked-questions/data-storage-sharing-and-security/#howlong"
       },
       {
         "id": 3,
@@ -25,7 +25,7 @@
         "deduction": [0, -1, -4],
         "type": "GDPR Principles",
         "law" : "UK GDPR",
-        "link" : "https://www.google.com"
+        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/subject-access-requests/"
       },
       {
         "id": 4,
@@ -52,7 +52,7 @@
         "deduction": [0, -2, -6],
         "type": "GDPR Principles",
         "law" : "UK GDPR",
-        "link" : "https://www.google.com"
+        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/the-principles/accuracy/"
       },
       {
         "id": 7,
@@ -70,7 +70,7 @@
         "deduction": [0, -5],
         "type": "Legal Basis",
         "law" : "UK GDPR",
-        "link" : "https://www.google.com"
+        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/the-right-to-be-informed/what-privacy-information-should-we-provide/"
       },
       {
         "id": 9,
@@ -88,7 +88,7 @@
         "deduction": [0, 0, -2, -5, -8],
         "type": "Information Security",
         "law" : "UK GDPR",
-        "link" : "https://www.google.com"
+        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/accountability-framework/records-management-and-security/"
       },
       {
         "id": 11,
@@ -97,7 +97,7 @@
         "deduction": [0, -5],
         "type": "Information Security",
         "law" : "UK GDPR",
-        "link" : "https://www.google.com"
+        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/encryption/"
       },
       {
         "id": 12,
@@ -115,7 +115,7 @@
         "deduction": [0, -1, -2, -4],
         "type": "Information Security",
         "law" : "UK GDPR",
-        "link" : "https://www.google.com"
+        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/accountability-framework/training-and-awareness/"
       },
       {
         "id": 14,

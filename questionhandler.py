@@ -75,6 +75,7 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
     submitButton = ctk.CTkButton(window, text="Submit", command=submit, font=normalFont)
     submitButton.pack(pady=15)
 
+    #Include external hyperlink for further reading based on question data from json file
     linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on this topic!", font=linkFont)
     linkLabel.pack()
     linkLabel.bind("<Button-1>", lambda event:callback(questionData['link']))
