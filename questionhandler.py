@@ -37,7 +37,7 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
     window.title("Question " + str(questionNumber))
 
     #Set fonts
-    questionFont = ctk.CTkFont(family="Helvetic", size=25, weight="bold")
+    questionFont = ctk.CTkFont(family="Helvetic", size=24, weight="bold")
     normalFont = ctk.CTkFont(family="Times New Roman", size=18)
     linkFont = ctk.CTkFont(family="Helvetic", slant="italic", underline=True, size=18)
 

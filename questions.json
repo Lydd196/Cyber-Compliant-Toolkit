@@ -6,8 +6,8 @@
         "options": ["Yes, we allow clients to contact us if their details have changed", "Yes, we frequently contact our clients to ensure their details are up to date", "No, we do not check if our clients data is up to date"],
         "deduction": [0, 0, -3],
         "type": "GDPR Principles",
-        "law" : "UK GDPR",
-        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/the-principles/accuracy/"
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/the-principles/accuracy/"
       },
       {
         "id": 2,
@@ -15,17 +15,17 @@
         "options": ["Yes, we keep hold of it in case we need it", "No, we delete it when it is not needed anymore"],
         "deduction": [-3, 0],
         "type": "GDPR Principles",
-        "law" : "UK GDPR",
-        "link" : "https://ico.org.uk/for-organisations/advice-for-small-organisations/frequently-asked-questions/data-storage-sharing-and-security/#howlong"
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/advice-for-small-organisations/frequently-asked-questions/data-storage-sharing-and-security/#howlong"
       },
       {
         "id": 3,
         "text": "Do your company allow clients rights to access a copy of the personal data you hold on them?",
-        "options": ["Yes, we have a simple process for clients to obtain a copy of their personal data", "Yes, but only after getting in contact with us", "No, we do not allow clients to obtain a copy of their personal data"],
-        "deduction": [0, -1, -4],
+        "options": ["Yes, we have a simple process for clients to obtain a copy of their personal data", "No, we do not allow clients to obtain a copy of their personal data"],
+        "deduction": [0, -4],
         "type": "GDPR Principles",
-        "law" : "UK GDPR",
-        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/subject-access-requests/"
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/subject-access-requests/"
       },
       {
         "id": 4,
@@ -33,8 +33,8 @@
         "options": ["Every year", "Every 3 year", "Every 5 years", "Every 7+ years", "We do not carry out data protection impact assessments", "We do not process sensitive data"],
         "deduction": [0, 0, -2, -3, -5, 0],
         "type": "GDPR Principles",
-        "law" : "UK GDPR",
-        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/guide-to-accountability-and-governance/accountability-and-governance/data-protection-impact-assessments/"
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/guide-to-accountability-and-governance/accountability-and-governance/data-protection-impact-assessments/"
       },
       {
         "id": 5,
@@ -42,8 +42,8 @@
         "options": ["Yes, we ensure clients give detailed consent prior to data collection", "We ensure clients give consent prior to data collection but consent is not detailed", "No, we do not ask for consent prior to data collection"],
         "deduction": [0, -2, -5],
         "type": "GDPR Principles",
-        "law" : "UK GDPR",
-        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/lawful-basis/consent/what-is-valid-consent/"
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/lawful-basis/consent/what-is-valid-consent/"
       },
       {
         "id": 6,
@@ -51,8 +51,8 @@
         "options": ["Yes, we delete outdated or inaccurate data", "Yes, but only after they ask us", "No, we keep it for our records"],
         "deduction": [0, -2, -6],
         "type": "GDPR Principles",
-        "law" : "UK GDPR",
-        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/the-principles/accuracy/"
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/the-principles/accuracy/"
       },
       {
         "id": 7,
@@ -60,8 +60,8 @@
         "options": ["Yes, we use both encryption and access control technologies when processing client data", "We use encryption but not access control when processing client data", "We use access control but not encryption when processing client data", "No, we do not use encryption or access control when processing client data"],
         "deduction": [0, -4, -4, -8],
         "type": "Information Security",
-        "law" : "UK GDPR",
-        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/encryption/"
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/encryption/"
       },
       {
         "id": 8,
@@ -69,8 +69,8 @@
         "options": ["Yes", "No"],
         "deduction": [0, -5],
         "type": "Legal Basis",
-        "law" : "UK GDPR",
-        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/the-right-to-be-informed/what-privacy-information-should-we-provide/"
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/the-right-to-be-informed/what-privacy-information-should-we-provide/"
       },
       {
         "id": 9,
@@ -78,8 +78,8 @@
         "options": ["Within 36 Hours", "Within 72 Hours", "72+ Hours", "We do not contact the ICO in the event of a data breach"],
         "deduction": [0, 0, -5, -5],
         "type": "GDPR Principles",
-        "law" : "UK GDPR",
-        "link" : "https://ico.org.uk/for-organisations/report-a-breach/personal-data-breach/personal-data-breaches-a-guide/"
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/report-a-breach/personal-data-breach/personal-data-breaches-a-guide/"
       },
       {
         "id": 10,
@@ -87,8 +87,8 @@
         "options": ["Once a day", "Once a week", "Once a month", "Once a year", "We do not backup our data"],
         "deduction": [0, 0, -2, -5, -8],
         "type": "Information Security",
-        "law" : "UK GDPR",
-        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/accountability-framework/records-management-and-security/"
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/accountability-framework/records-management-and-security/"
       },
       {
         "id": 11,
@@ -96,8 +96,8 @@
         "options": ["Yes", "No"],
         "deduction": [0, -5],
         "type": "Information Security",
-        "law" : "UK GDPR",
-        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/encryption/"
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/encryption/"
       },
       {
         "id": 12,
@@ -105,8 +105,8 @@
         "options": ["Once every 3 months", "Once a year", "Whenever necessary"],
         "deduction": [-2, -2, 0],
         "type": "Information Security",
-        "law" : "UK GDPR",
-        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/passwords-in-online-services/"
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/passwords-in-online-services/"
       },
       {
         "id": 13,
@@ -114,8 +114,8 @@
         "options": ["Yes, once a year", "Yes, once every 2 years ", "Yes, every 3+ years", "No"],
         "deduction": [0, -1, -2, -4],
         "type": "Information Security",
-        "law" : "UK GDPR",
-        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/accountability-framework/training-and-awareness/"
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/accountability-framework/training-and-awareness/"
       },
       {
         "id": 14,
@@ -123,8 +123,8 @@
         "options": ["Yes", "No", "We do not transfer data outside of the UK/EEA"],
         "deduction": [0, -5, 0],
         "type": "Information Security",
-        "law" : "UK GDPR",
-        "link" : "https://ico.org.uk/for-organisations/data-protection-and-the-eu/data-protection-and-the-eu-in-detail/the-uk-gdpr/international-data-transfers/"
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/data-protection-and-the-eu/data-protection-and-the-eu-in-detail/the-uk-gdpr/international-data-transfers/"
       },
       {
         "id": 15,
@@ -132,8 +132,53 @@
         "options": ["Within a month", "Longer than a month", "We do not monitor right to erasure requests"],
         "deduction": [0, -4, -7],
         "type": "GDPR Principles",
-        "law" : "UK GDPR",
-        "link" : "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/individual-rights/right-to-erasure/"
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/individual-rights/right-to-erasure/"
+      },
+      {
+        "id": 16,
+        "text": "Do you uphold clients right to object to their personal data being processed\n if it is being used for marketing purposes?",
+        "options": ["Yes, allow clients the right to object", "No", "We do not use data for marketing purposes"],
+        "deduction": [0, -2, 0],
+        "type": "GDPR Principles",
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/individual-rights/right-to-object/"
+      },
+      {
+        "id": 17,
+        "text": "Before collecting client data, do you inform the client of all of their detailed rights under the UK GDPR?\nsuch as the right to erasure, right to object, right to be informed, etc.",
+        "options": ["Yes, we inform clients of all of their rights before data collection", "Yes, we inform clients of all of their rights prior to data collection, but not detailed", "We inform clients of some of their rights prior to data collection", "No, we do not inform clients of their rights prior to data collection"],
+        "deduction": [0, -1, -3, -5],
+        "type": "GDPR Principles",
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-sharing/data-sharing-a-code-of-practice/the-rights-of-individuals/"
+      },
+      {
+        "id": 18,
+        "text": "In the event of a data breach, does your company have a written procedure for system recovery and mitigation?",
+        "options": ["Yes", "No"],
+        "deduction": [0, -4],
+        "type": "Information Security",
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/security-outcomes/#minimise"
+      },
+      {
+        "id": 19,
+        "text": "Does your company carry out regular audits to ensure that you are compliant with the UK GDPR?",
+        "options": ["Yes", "No"],
+        "deduction": [0, -4],
+        "type": "Information Security",
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/advice-and-services/audits/"
+      },
+      {
+        "id": 20,
+        "text": "Does your company have a procedure in place for notifying clients in an event of a data breach?",
+        "options": ["Yes, we notify client immediately", "Yes, we notify clients within a given timeframe", "No"],
+        "deduction": [0, -1, -4],
+        "type": "Information Security",
+        "law": "UK GDPR",
+        "link": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guide-to-pecr/communications-networks-and-services/security-breaches/#notifycustomers"
       }
     ]
   }
