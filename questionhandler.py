@@ -6,7 +6,7 @@ import webbrowser
 #Initialise noSelect so it can be accessed by functions
 noSelect = None
 
-def callback(link):
+def openUrl(link):
    webbrowser.open_new_tab(link)
 
 #Function to clear previous question elements
@@ -78,7 +78,7 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
     #Include external hyperlink for further reading based on question data from json file
     linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on this topic!", font=linkFont)
     linkLabel.pack()
-    linkLabel.bind("<Button-1>", lambda event:callback(questionData['link']))
+    linkLabel.bind("<Button-1>", lambda event:openUrl(questionData['link']))
     
     #Run the main loop
     window.mainloop()

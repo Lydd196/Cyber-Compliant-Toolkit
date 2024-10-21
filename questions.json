@@ -2,7 +2,7 @@
     "questions": [
       {
         "id": 1,
-        "text": "Do you ensure that data you hold of your clients are accurate and up to date?",
+        "text": "Do you ensure that data you hold of your clients like name and bank account information are accurate and up to date?",
         "options": ["Yes, we allow clients to contact us if their details have changed", "Yes, we frequently contact our clients to ensure their details are up to date", "No, we do not check if our clients data is up to date"],
         "deduction": [0, 0, -3],
         "type": "GDPR Principles",
@@ -47,7 +47,7 @@
       },
       {
         "id": 6,
-        "text": "Do you delete client data that is innacurate and outdated?",
+        "text": "Do you delete client data, such as name and bank account information, that is innacurate and outdated?",
         "options": ["Yes, we delete outdated or inaccurate data", "Yes, but only after they ask us", "No, we keep it for our records"],
         "deduction": [0, -2, -6],
         "type": "GDPR Principles",
@@ -56,7 +56,7 @@
       },
       {
         "id": 7,
-        "text": "Do you use encryption and access control technologies when processing client data?",
+        "text": "Do you use encryption and access control technologies when processing client bank account information?",
         "options": ["Yes, we use both encryption and access control technologies when processing client data", "We use encryption but not access control when processing client data", "We use access control but not encryption when processing client data", "No, we do not use encryption or access control when processing client data"],
         "deduction": [0, -4, -4, -8],
         "type": "Information Security",
