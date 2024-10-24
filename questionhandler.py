@@ -6,6 +6,7 @@ import webbrowser
 #Initialise noSelect so it can be accessed by functions
 noSelect = None
 
+#Function to open url from json file in browser
 def openUrl(link):
    webbrowser.open_new_tab(link)
 
