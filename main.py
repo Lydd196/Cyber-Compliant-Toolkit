@@ -6,7 +6,7 @@ import questionhandler
 #Create the main window
 window = ctk.CTk()
 window.title("Cyber Law Compliance Toolkit")
-window.geometry("1300x650")
+window.geometry("1500x750")
 
 #Initial compliance level as a percentage
 complianceLevel = 100

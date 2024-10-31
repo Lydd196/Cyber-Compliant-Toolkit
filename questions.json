@@ -1,184 +1,220 @@
 {
-    "questions": [
-      {
-        "id": 1,
-        "text": "Do you ensure that data you hold of your clients like name and bank account information are accurate and up to date?",
-        "options": ["Yes, we allow clients to contact us if their details have changed", "Yes, we frequently contact our clients to ensure their details are up to date", "No, we do not check if our clients data is up to date"],
-        "deduction": [0, 0, -3],
-        "type": "GDPR Principles",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/the-principles/accuracy/"
-      },
-      {
-        "id": 2,
-        "text": "Do your company keep data longer than is necessary?",
-        "options": ["Yes, we keep hold of it in case we need it", "No, we delete it when it is not needed anymore"],
-        "deduction": [-3, 0],
-        "type": "GDPR Principles",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/advice-for-small-organisations/frequently-asked-questions/data-storage-sharing-and-security/#howlong"
-      },
-      {
-        "id": 3,
-        "text": "Do your company allow clients rights to access a copy of the personal data you hold on them?",
-        "options": ["Yes, we have a simple process for clients to obtain a copy of their personal data", "No, we do not allow clients to obtain a copy of their personal data"],
-        "deduction": [0, -5],
-        "type": "GDPR Principles",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/subject-access-requests/"
-      },
-      {
-        "id": 4,
-        "text": "If your business processes sensitive data (such as ethnicity, health data or bank account information),\n how often are Data Protection Impact Assessments (DPIAs) carried out?",
-        "options": ["Every year", "Every 3 year", "Every 5 years", "Every 7+ years", "We do not carry out data protection impact assessments", "We do not process sensitive data"],
-        "deduction": [0, 0, -2, -3, -5, 0],
-        "type": "GDPR Principles",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/guide-to-accountability-and-governance/accountability-and-governance/data-protection-impact-assessments/"
-      },
-      {
-        "id": 5,
-        "text": "Do you ensure that clients give detailed consent prior to data collection/processing",
-        "options": ["Yes, we ensure clients give detailed consent prior to data collection", "We ensure clients give consent prior to data collection but consent is not detailed", "No, we do not ask for consent prior to data collection"],
-        "deduction": [0, -3, -6],
-        "type": "GDPR Principles",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/lawful-basis/consent/what-is-valid-consent/"
-      },
-      {
-        "id": 6,
-        "text": "Do you delete client data, such as name and bank account information, that is innacurate and outdated?",
-        "options": ["Yes, but only after they notify us that it is outdated", "No, we keep it for our records"],
-        "deduction": [0, -6],
-        "type": "GDPR Principles",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/the-principles/accuracy/"
-      },
-      {
-        "id": 7,
-        "text": "Do you use encryption and access control technologies when processing client data?",
-        "options": ["Yes, we use both encryption and access control technologies when processing client data", "We use encryption but not access control when processing client data", "We use access control but not encryption when processing client data", "No, we do not use encryption or access control when processing client data"],
-        "deduction": [0, -4, -4, -8],
-        "type": "Information Security",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/encryption/"
-      },
-      {
-        "id": 8,
-        "text": "Do your company ensure that client data collected is specific, explicit and legitimate for what its needed for?",
-        "options": ["Yes", "No"],
-        "deduction": [0, -5],
-        "type": "Legal Basis",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/the-right-to-be-informed/what-privacy-information-should-we-provide/"
-      },
-      {
-        "id": 9,
-        "text": "Under your company procedure, how quick does your company notify the ICO if in the event of a data breach?",
-        "options": ["Within 36 Hours", "Within 72 Hours", "72+ Hours", "We do not contact the ICO in the event of a data breach"],
-        "deduction": [0, 0, -5, -5],
-        "type": "GDPR Principles",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/report-a-breach/personal-data-breach/personal-data-breaches-a-guide/"
-      },
-      {
-        "id": 10,
-        "text": "Under your company procedure, how often is client data backed up?",
-        "options": ["Once a day", "Once a week", "Once a month", "Once a year", "We do not backup our data"],
-        "deduction": [0, 0, -2, -5, -8],
-        "type": "Information Security",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/accountability-framework/records-management-and-security/"
-      },
-      {
-        "id": 11,
-        "text": "Does your company store client passwords/bank details using encryption?",
-        "options": ["Yes", "No"],
-        "deduction": [0, -5],
-        "type": "Information Security",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/encryption/"
-      },
-      {
-        "id": 12,
-        "text": "Does your company have an appointed Data Protection Officer (DPO)?",
-        "options": ["Yes", "No"],
-        "deduction": [0, -3],
-        "type": "Information Security",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/law-enforcement/guide-to-le-processing/accountability-and-governance/data-protection-officers/"
-      },
-      {
-        "id": 13,
-        "text": "Do your accountants that handle client data receive GDPR/Data protection training?\nIf so, how often do they receive said training?",
-        "options": ["Yes, once a year", "Yes, once every 2 years ", "Yes, every 3+ years", "No"],
-        "deduction": [0, -1, -2, -4],
-        "type": "Information Security",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/accountability-framework/training-and-awareness/"
-      },
-      {
-        "id": 14,
-        "text": "If your company receives or tranfers data outside the UK or EEA,\ndo you ensure that the destination country has an adequate amount of data security?",
-        "options": ["Yes", "No", "We do not transfer data outside of the UK/EEA"],
-        "deduction": [0, -4, 0],
-        "type": "Information Security",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/data-protection-and-the-eu/data-protection-and-the-eu-in-detail/the-uk-gdpr/international-data-transfers/"
-      },
-      {
-        "id": 15,
-        "text": "When clients make a right to erasure request, how long does it take for your company to delete client data?",
-        "options": ["Within a month", "Longer than a month", "We do not monitor right to erasure requests"],
-        "deduction": [0, -5, -7],
-        "type": "GDPR Principles",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/individual-rights/right-to-erasure/"
-      },
-      {
-        "id": 16,
-        "text": "Do you ensure that third-party data processors comply with GDPR when processing client data?",
-        "options": ["Yes, have checks in place to ensure compliance", "No, we do not check for compliance", "We do not have third-party processors"],
-        "deduction": [0, -2, 0],
-        "type": "Information Security",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guidance-for-the-use-of-personal-data-in-political-campaigning-1/controllers-joint-controllers-and-processors/"
-      },
-      {
-        "id": 17,
-        "text": "Before collecting client data, do you inform the client of all of their detailed rights under the UK GDPR?\nsuch as the right to erasure, right to object, right to be informed, etc.",
-        "options": ["Yes, we inform clients of all of their rights before data collection", "Yes, we inform clients of all of their rights prior to data collection, but not detailed", "We inform clients of some of their rights prior to data collection", "No, we do not inform clients of their rights prior to data collection"],
-        "deduction": [0, -1, -3, -5],
-        "type": "GDPR Principles",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-sharing/data-sharing-a-code-of-practice/the-rights-of-individuals/"
-      },
-      {
-        "id": 18,
-        "text": "In the event of a data breach, does your company have a written procedure for system recovery and mitigation?",
-        "options": ["Yes", "No"],
-        "deduction": [0, -4],
-        "type": "Information Security",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/security-outcomes/#minimise"
-      },
-      {
-        "id": 19,
-        "text": "Does your company carry out regular audits to ensure that you are compliant with the UK GDPR?",
-        "options": ["Yes", "No"],
-        "deduction": [0, -4],
-        "type": "Information Security",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/advice-and-services/audits/"
-      },
-      {
-        "id": 20,
-        "text": "Does your company have a procedure in place for notifying clients in an event of a data breach?",
-        "options": ["Yes, we notify client immediately", "Yes, we notify clients within a given timeframe", "No"],
-        "deduction": [0, -2, -5],
-        "type": "Information Security",
-        "law": "UK GDPR",
-        "link": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guide-to-pecr/communications-networks-and-services/security-breaches/#notifycustomers"
-      }
-    ]
-  }
+  "questions": [
+    {
+      "id": 1,
+      "text": "Do you ensure that data you hold of your clients like name and bank account information are accurate and up to date?",
+      "options": ["Yes, we allow clients to contact us if their details have changed", "Yes, we frequently contact our clients to ensure their details are up to date", "No, we do not check if our clients data is up to date"],
+      "deduction": [0, 0, -3],
+      "type": "GDPR Principles",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/the-principles/accuracy/"
+    },
+    {
+      "id": 2,
+      "text": "Does your accountancy firm keep data longer than is necessary?",
+      "options": ["Yes, we keep hold of it in case we need it", "No, we delete it when it is not needed anymore"],
+      "deduction": [-3, 0],
+      "type": "GDPR Principles",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/advice-for-small-organisations/frequently-asked-questions/data-storage-sharing-and-security/#howlong"
+    },
+    {
+      "id": 3,
+      "text": "Does your accountancy firm allow clients rights to access a copy of the personal data you hold on them?",
+      "options": ["Yes, we have a simple process for clients to obtain a copy of their personal data", "No, we do not allow clients to obtain a copy of their personal data"],
+      "deduction": [0, -5],
+      "type": "GDPR Principles",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/subject-access-requests/"
+    },
+    {
+      "id": 4,
+      "text": "If your accountancy firm processes sensitive data (such as ethnicity, health data or bank account information),\n how often are Data Protection Impact Assessments (DPIAs) carried out?",
+      "options": ["Every year", "Every 3 year", "Every 5 years", "Every 7+ years", "We do not carry out data protection impact assessments", "We do not process sensitive data"],
+      "deduction": [0, 0, -2, -3, -5, 0],
+      "type": "GDPR Principles",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/guide-to-accountability-and-governance/accountability-and-governance/data-protection-impact-assessments/"
+    },
+    {
+      "id": 5,
+      "text": "Do you ensure that clients give detailed consent prior to data collection/processing",
+      "options": ["Yes, we ensure clients give detailed consent prior to data collection", "We ensure clients give consent prior to data collection but consent is not detailed", "No, we do not ask for consent prior to data collection"],
+      "deduction": [0, -3, -6],
+      "type": "GDPR Principles",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/lawful-basis/consent/what-is-valid-consent/"
+    },
+    {
+      "id": 6,
+      "text": "Does your accountancy firm delete client data, such as name and bank account information, that is innacurate and outdated?",
+      "options": ["Yes, but only after they notify us that it is outdated", "No, we keep it for our records"],
+      "deduction": [0, -6],
+      "type": "GDPR Principles",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/the-principles/accuracy/"
+    },
+    {
+      "id": 7,
+      "text": "Does your accountancy firm use encryption methods to protect client data during collection and transmission?",
+      "options": ["Yes, we use encryption technologies when collecting and transmissing client data", "No, we do not use encryption technologies when collecting or transmitting client data"],
+      "deduction": [0, -8],
+      "type": "Information Security",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/encryption/"
+    },
+    {
+      "id": 8,
+      "text": "Does your accountancy firm ensure that client data collected is specific, explicit and legitimate for what its needed for?",
+      "options": ["Yes", "No"],
+      "deduction": [0, -5],
+      "type": "Legal Basis",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/the-right-to-be-informed/what-privacy-information-should-we-provide/"
+    },
+    {
+      "id": 9,
+      "text": "Under your company procedure, how quick does your accountancy firm notify the ICO if in the event of a data breach?",
+      "options": ["Within 36 Hours", "Within 72 Hours", "72+ Hours", "We do not contact the ICO in the event of a data breach"],
+      "deduction": [0, 0, -5, -5],
+      "type": "GDPR Principles",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/report-a-breach/personal-data-breach/personal-data-breaches-a-guide/"
+    },
+    {
+      "id": 10,
+      "text": "Under your company procedure, how often is client data backed up?",
+      "options": ["Once a day", "Once a week", "Once a month", "Once a year", "We do not backup our data"],
+      "deduction": [0, 0, -2, -5, -8],
+      "type": "Information Security",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/accountability-framework/records-management-and-security/"
+    },
+    {
+      "id": 11,
+      "text": "Does your accountancy firm store client passwords/bank details using encryption?",
+      "options": ["Yes", "No"],
+      "deduction": [0, -5],
+      "type": "Information Security",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/encryption/"
+    },
+    {
+      "id": 12,
+      "text": "Does your accountancy firm have an appointed Data Protection Officer (DPO)?",
+      "options": ["Yes", "No"],
+      "deduction": [0, -3],
+      "type": "Information Security",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/law-enforcement/guide-to-le-processing/accountability-and-governance/data-protection-officers/"
+    },
+    {
+      "id": 13,
+      "text": "Do your accountants that handle client data receive GDPR/Data protection training?\nIf so, how often do they receive said training?",
+      "options": ["Yes, once a year", "Yes, once every 2 years ", "Yes, every 3+ years", "No"],
+      "deduction": [0, -1, -2, -4],
+      "type": "Information Security",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/accountability-framework/training-and-awareness/"
+    },
+    {
+      "id": 14,
+      "text": "If your accountancy firm receives or tranfers data outside the UK or EEA,\ndo you ensure that the destination country has an adequate amount of data security?",
+      "options": ["Yes", "No", "We do not transfer data outside of the UK/EEA"],
+      "deduction": [0, -4, 0],
+      "type": "Information Security",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/data-protection-and-the-eu/data-protection-and-the-eu-in-detail/the-uk-gdpr/international-data-transfers/"
+    },
+    {
+      "id": 15,
+      "text": "When clients make a right to erasure request, how long does it take for your accountancy firm to delete client data?",
+      "options": ["Within a month", "Longer than a month", "We do not monitor right to erasure requests"],
+      "deduction": [0, -5, -7],
+      "type": "GDPR Principles",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/individual-rights/right-to-erasure/"
+    },
+    {
+      "id": 16,
+      "text": "Does your accountancy firm ensure that third-party data processors comply with GDPR when processing client data?",
+      "options": ["Yes, have checks in place to ensure compliance", "No, we do not check for compliance", "We do not have third-party processors"],
+      "deduction": [0, -2, 0],
+      "type": "Information Security",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guidance-for-the-use-of-personal-data-in-political-campaigning-1/controllers-joint-controllers-and-processors/"
+    },
+    {
+      "id": 17,
+      "text": "Before collecting client data, do you inform the client of all of their detailed rights under the UK GDPR?\nsuch as the right to erasure, right to object, right to be informed, etc.",
+      "options": ["Yes, we inform clients of all of their rights before data collection", "Yes, we inform clients of all of their rights prior to data collection, but not detailed", "We inform clients of some of their rights prior to data collection", "No, we do not inform clients of their rights prior to data collection"],
+      "deduction": [0, -1, -3, -5],
+      "type": "GDPR Principles",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-sharing/data-sharing-a-code-of-practice/the-rights-of-individuals/"
+    },
+    {
+      "id": 18,
+      "text": "In the event of a data breach, does your accountancy firm have a written procedure for system recovery and mitigation?",
+      "options": ["Yes", "No"],
+      "deduction": [0, -4],
+      "type": "Information Security",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/security-outcomes/#minimise"
+    },
+    {
+      "id": 19,
+      "text": "Does your accountancy firm carry out regular audits to ensure compliance with the UK GDPR?",
+      "options": ["Yes", "No"],
+      "deduction": [0, -4],
+      "type": "Information Security",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/advice-and-services/audits/"
+    },
+    {
+      "id": 20,
+      "text": "Does your accountancy firm have a procedure in place for notifying clients in an event of a data breach?",
+      "options": ["Yes, we notify client immediately", "Yes, we notify clients within a given timeframe", "No"],
+      "deduction": [0, -2, -5],
+      "type": "Information Security",
+      "law": "UK GDPR",
+      "link": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guide-to-pecr/communications-networks-and-services/security-breaches/#notifycustomers"
+    },
+    {
+      "id": 21,
+      "text": "Are employees in your accountancy firm trained not to view or access other staff's hardware without permission?",
+      "options": ["Yes, we train employees not to view other staff hardware", "No, we do not train employees to view other staff hardware", "I am self-employed and have no other staff"],
+      "deduction": [0, -4, 0],
+      "type": "Unauthorised Access",
+      "law": "Computer Misuse Act",
+      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920178"
+    },
+    {
+      "id": 22,
+      "text": "Does your accountancy firm have procedures and access control technologies in place\nto prevent employees from accessing company systems/client data without proper authorisation?",
+      "options": ["Yes, we have procedures in place to ensure authorisation", "No, we do not have authorisation procedures in place", "I am self-employed and have no other staff"],
+      "deduction": [0, -5, 0],
+      "type": "Unauthorised Access",
+      "law": "Computer Misuse Act",
+      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920178"
+    },
+    {
+      "id": 23,
+      "text": "Does your accountancy firm have a procedure in place to immediately disable system access to employees who leave the company?",
+      "options": ["Yes, we have procedures in place to immediately disable system access to former staff", "We have a procedure in place to disable system access to former staff, but not immediate", "No, we do not have procedures in place to disable system access", "I am self-employed and have no other staff"],
+      "deduction": [0, -2, -4, 0],
+      "type": "Unauthorised Access",
+      "law": "Computer Misuse Act",
+      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920178"
+    },
+    {
+      "id": 24,
+      "text": "Does your accountants that handle personal data, only alter client data if given permission, or asked to, by the client?",
+      "options": ["Yes, we only alter client data once asked by the client?", "No, we alter data without prior permission"],
+      "deduction": [0, -7],
+      "type": "Unauthorised Access",
+      "law": "Computer Misuse Act",
+      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920178"
+    }
+  ]
+}
