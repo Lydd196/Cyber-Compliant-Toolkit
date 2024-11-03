@@ -103,7 +103,7 @@
       "id": 12,
       "text": "Does your accountancy firm have an appointed Data Protection Officer (DPO)?",
       "options": ["Yes", "No"],
-      "deduction": [0, -3],
+      "deduction": [0, -2],
       "type": "Information Security",
       "law": "UK GDPR",
       "link": "https://ico.org.uk/for-organisations/law-enforcement/guide-to-le-processing/accountability-and-governance/data-protection-officers/"
@@ -209,12 +209,30 @@
     },
     {
       "id": 24,
-      "text": "Does your accountants that handle personal data, only alter client data if given permission, or asked to, by the client?",
+      "text": "Does your accountants that handle personal data, only alter client data if given permission, or asked to by the client?",
       "options": ["Yes, we only alter client data once asked by the client?", "No, we alter data without prior permission"],
       "deduction": [0, -7],
       "type": "Unauthorised Access",
       "law": "Computer Misuse Act",
       "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920178"
+    },
+    {
+      "id": 25,
+      "text": "Are your accountants trained/educated on how to identify and respond to fraudulent details?",
+      "options": ["Yes, we train our accountants on how to identify fraudulent details", "No, we do not train our accountants on how to identify fraudulent details", "I am self-employed and understand on how to identify fraudulent details", "I am self employed and do not know how to identify fraudulent details"],
+      "deduction": [0, -6, 0, -6],
+      "type": "Fraud By False Representation",
+      "law": "The Fraud Act",
+      "link": "https://www.legislation.gov.uk/ukpga/2006/35/section/2"
+    },
+    {
+      "id": 26,
+      "text": "Are accounts with access to sensitive bank details monitored for unusual activites;\nsuch as access during closed hours, or data modification?",
+      "options": ["Yes, accounts with access to bank details are monitored for unusual activity", "No, accounts with access to bank details are not monitored for unusual activity"],
+      "deduction": [0, -6],
+      "type": "Fraud By Abuse of Position",
+      "law": "The Fraud Act",
+      "link": "https://www.legislation.gov.uk/ukpga/2006/35/section/4"
     }
   ]
 }
