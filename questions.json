@@ -182,8 +182,8 @@
     },
     {
       "id": 21,
-      "text": "Are employees in your accountancy firm trained not to view or access other staff's hardware without permission?",
-      "options": ["Yes, we train employees not to view other staff hardware", "No, we do not train employees to view other staff hardware", "I am self-employed and have no other staff"],
+      "text": "Are employees in your accountancy firm trained not to access other staff's hardware without permission?",
+      "options": ["Yes, we train employees not to access other staff hardware", "No, we do not train employees to access other staff hardware", "I am self-employed and have no other staff"],
       "deduction": [0, -4, 0],
       "type": "Unauthorised Access",
       "law": "Computer Misuse Act",
@@ -211,23 +211,23 @@
       "id": 24,
       "text": "Does your accountants that handle personal data, only alter client data if given permission, or asked to by the client?",
       "options": ["Yes, we only alter client data once asked by the client?", "No, we alter data without prior permission"],
-      "deduction": [0, -7],
-      "type": "Unauthorised Access",
+      "deduction": [0, -8],
+      "type": "Unauthorised Modification",
       "law": "Computer Misuse Act",
-      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920178"
+      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920182"
     },
     {
       "id": 25,
       "text": "Are your accountants trained/educated on how to identify and respond to fraudulent details?",
       "options": ["Yes, we train our accountants on how to identify fraudulent details", "No, we do not train our accountants on how to identify fraudulent details", "I am self-employed and understand on how to identify fraudulent details", "I am self employed and do not know how to identify fraudulent details"],
-      "deduction": [0, -6, 0, -6],
+      "deduction": [0, -3, 0, -3],
       "type": "Fraud By False Representation",
       "law": "The Fraud Act",
       "link": "https://www.legislation.gov.uk/ukpga/2006/35/section/2"
     },
     {
       "id": 26,
-      "text": "Are accounts with access to sensitive bank details monitored for unusual activites;\nsuch as access during closed hours, or data modification?",
+      "text": "Are accounts with access to sensitive bank details monitored for unusual activities;\nsuch as access during closed hours, or data modification?",
       "options": ["Yes, accounts with access to bank details are monitored for unusual activity", "No, accounts with access to bank details are not monitored for unusual activity"],
       "deduction": [0, -6],
       "type": "Fraud By Abuse of Position",

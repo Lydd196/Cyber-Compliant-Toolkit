@@ -5,6 +5,9 @@ import webbrowser
 
 #Initialise noSelect so it can be accessed by functions
 noSelect = None
+gdprAverage = 0
+misuseAverage = 0
+fraudAverage = 0
 
 #Function to open url from json file in browser
 def openUrl(link):
@@ -27,6 +30,25 @@ def updateCompliance(compliance, selectedOption, deduction):
     if compliance < 0:
         compliance = 0
     return compliance
+
+def averageLossUpdate(newCompliance, oldCompliance, type):
+    global gdprAverage, misuseAverage, fraudAverage
+    if type == "UK GDPR":
+        gdprAverage = gdprAverage + ((newCompliance - oldCompliance)/20)
+    elif type == "Computer Misuse Act":
+        misuseAverage = misuseAverage + ((newCompliance - oldCompliance)/4)
+    elif type == "The Fraud Act":
+        fraudAverage = fraudAverage + ((newCompliance - oldCompliance)/2)
+
+def returnHighestAverageLoss():
+    if gdprAverage < misuseAverage and gdprAverage < fraudAverage:
+        return gdprAverage
+    elif misuseAverage < gdprAverage and misuseAverage < fraudAverage:
+        return misuseAverage
+    elif fraudAverage < gdprAverage and fraudAverage < misuseAverage:
+        return fraudAverage
+    else:
+        return gdprAverage
 
 #Function to show a question dynamically based on the loaded json file data
 def showQuestion(window, questionData, compliance, questionNumber, questionAmount):
@@ -70,6 +92,7 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
             noSelect = True
         elif optionSelected != 0:
             newCompliance = updateCompliance(compliance, optionSelected, questionData['deduction'])
+            averageLossUpdate (newCompliance, compliance, questionData['law'])
             window.quit() 
 
     #Create submit button

@@ -40,6 +40,9 @@ def showResults():
     else:
         resultDescriptionLabel.configure(text= "We believe that you may be in serious breach of the GDPR.\nYou may face fines up to £17.5 million or 4% of global annual turnover (whichever is higher)")
         resultDescriptionLabel.pack(pady=15)
+    
+    highestAverageLabel = ctk.CTkLabel(window, text=str(questionhandler.returnHighestAverageLoss()), font=normalFont)
+    highestAverageLabel.pack(pady=10)
         
     endButton = ctk.CTkButton(window, text="End", command=close, font=normalFont)
     endButton.pack(pady=15)
