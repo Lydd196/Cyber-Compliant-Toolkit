@@ -30,19 +30,37 @@ def showResults():
 
     resultDescriptionLabel = ctk.CTkLabel(window, text= "sample text", font=normalFont)
 
-    #Different result descriptions based on the compliance value
-    if complianceLevel > 80:
-        resultDescriptionLabel.configure(text= "We believe that your business is very compliant with cyber laws. Great Job!")
-        resultDescriptionLabel.pack(pady=15)
-    elif complianceLevel > 50:
-        resultDescriptionLabel.configure(text= "We believe that you may be in minor breach of the GDPR.\nYou may face fines up to £8.7 million or 2% of global annual turnover (whichever is higher)")
-        resultDescriptionLabel.pack(pady=15)
-    else:
-        resultDescriptionLabel.configure(text= "We believe that you may be in serious breach of the GDPR.\nYou may face fines up to £17.5 million or 4% of global annual turnover (whichever is higher)")
-        resultDescriptionLabel.pack(pady=15)
-    
-    highestAverageLabel = ctk.CTkLabel(window, text=str(questionhandler.returnHighestAverageLoss()), font=normalFont)
-    highestAverageLabel.pack(pady=10)
+    #Different result descriptions based on the compliance value and worst law average
+    if questionhandler.returnHighestAverageLoss() == "UK GDPR":
+        if complianceLevel > 80:
+            resultDescriptionLabel.configure(text= "We believe that your business is very compliant with cyber laws. Great Job!")
+            resultDescriptionLabel.pack(pady=15)
+        elif complianceLevel > 50:
+            resultDescriptionLabel.configure(text= "We believe that you may be in minor breach of the GDPR.\nYou may face fines up to £8.7 million or 2% of global annual turnover (whichever is higher)")
+            resultDescriptionLabel.pack(pady=15)
+        else:
+            resultDescriptionLabel.configure(text= "We believe that you may be in serious breach of the GDPR.\nYou may face fines up to £17.5 million or 4% of global annual turnover (whichever is higher)")
+            resultDescriptionLabel.pack(pady=15)
+    elif questionhandler.returnHighestAverageLoss() == "Computer Misuse Act":
+        if complianceLevel > 80:
+            resultDescriptionLabel.configure(text= "We believe that your business is very compliant with cyber laws. Great Job!")
+            resultDescriptionLabel.pack(pady=15)
+        elif complianceLevel > 50:
+            resultDescriptionLabel.configure(text= "We believe that some of your employees may be in minor breach of the Computer Misuse Act.\nThey may face small fines if escalated")
+            resultDescriptionLabel.pack(pady=15)
+        else:
+            resultDescriptionLabel.configure(text= "We believe that some of your employees may be in serious breach of the Computer Misuse Act.\nThey may face up to 2 years imprisonment")
+            resultDescriptionLabel.pack(pady=15)
+    elif questionhandler.returnHighestAverageLoss() == "The Fraud Act":
+        if complianceLevel > 80:
+            resultDescriptionLabel.configure(text= "We believe that your business is very compliant with cyber laws. Great Job!")
+            resultDescriptionLabel.pack(pady=15)
+        elif complianceLevel > 50:
+            resultDescriptionLabel.configure(text= "We believe that some of your employees may be in minor breach of The Fraud Act\nThey may face small fines or a short imprisonment period if escalated")
+            resultDescriptionLabel.pack(pady=15)
+        else:
+            resultDescriptionLabel.configure(text= "We believe that some of your employees may be in serious breach of The Fraud Act\nThey may face up to 10 years imprisonment if escalated")
+            resultDescriptionLabel.pack(pady=15)
         
     endButton = ctk.CTkButton(window, text="End", command=close, font=normalFont)
     endButton.pack(pady=15)

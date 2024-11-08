@@ -42,13 +42,13 @@ def averageLossUpdate(newCompliance, oldCompliance, type):
 
 def returnHighestAverageLoss():
     if gdprAverage < misuseAverage and gdprAverage < fraudAverage:
-        return gdprAverage
+        return "UK GDPR"
     elif misuseAverage < gdprAverage and misuseAverage < fraudAverage:
-        return misuseAverage
+        return "Computer Misuse Act"
     elif fraudAverage < gdprAverage and fraudAverage < misuseAverage:
-        return fraudAverage
+        return "The Fraud Act"
     else:
-        return gdprAverage
+        return "UK GDPR"
 
 #Function to show a question dynamically based on the loaded json file data
 def showQuestion(window, questionData, compliance, questionNumber, questionAmount):
@@ -92,7 +92,7 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
             noSelect = True
         elif optionSelected != 0:
             newCompliance = updateCompliance(compliance, optionSelected, questionData['deduction'])
-            averageLossUpdate (newCompliance, compliance, questionData['law'])
+            averageLossUpdate(newCompliance, compliance, questionData['law'])
             window.quit() 
 
     #Create submit button
