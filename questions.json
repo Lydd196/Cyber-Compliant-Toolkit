@@ -182,7 +182,7 @@
     },
     {
       "id": 21,
-      "text": "Are employees in your accountancy firm trained not to access other staff's hardware without permission?",
+      "text": "Are employees in your accountancy firm trained not to access other staff's devices without permission?",
       "options": ["Yes, we train employees not to access other staff hardware", "No, we do not train employees to not access other staff hardware", "I am self-employed and have no other staff"],
       "deduction": [0, -4, 0],
       "type": "Unauthorised Access",
@@ -191,8 +191,8 @@
     },
     {
       "id": 22,
-      "text": "Does your accountancy firm have procedures and access control technologies in place\nto prevent employees from accessing company systems/client data without proper authorisation?",
-      "options": ["Yes, we have procedures in place to ensure authorisation", "No, we do not have authorisation procedures in place", "I am self-employed and have no other staff"],
+      "text": "Does your accountancy firm have different levels of file access\nto prevent employees from accessing company systems/client data without proper authorisation?",
+      "options": ["Yes, we have different levels of file access in place to ensure authorisation", "No, we do not have different levels of file access", "I am self-employed and have no other staff"],
       "deduction": [0, -4, 0],
       "type": "Unauthorised Access",
       "law": "Computer Misuse Act",
@@ -209,6 +209,24 @@
     },
     {
       "id": 24,
+      "text": "If devices in the office are likely to be used by multiple people,\ndo these devices have unique login credentials for each user?",
+      "options": ["Yes, shared devices have unique credentials for each user", "No, shared devices do not have unique login credentials for each user", "Our accountants work from home/use their own devices for work", "I am self-employed and have no other staff"],
+      "deduction": [0, -3, -0, 0],
+      "type": "Unauthorised Access",
+      "law": "Computer Misuse Act",
+      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920178"
+    },
+    {
+      "id": 25,
+      "text": "Is there a policy in place to prohibit employees from taking work-related\ninformation outside of the firm without authorisation?",
+      "options": ["Yes, we have a policy to prohibit staff from taking work-related information", "No, we do not have such policy in place", "I am self-employed and have no other staff"],
+      "deduction": [0, -4, -0],
+      "type": "Unauthorised Access",
+      "law": "Computer Misuse Act",
+      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920178"
+    },
+    {
+      "id": 26,
       "text": "Does your accountants that handle personal data, only alter client data if given permission, or asked to by the client?",
       "options": ["Yes, we only alter client data once asked by the client", "No, we alter data without prior permission"],
       "deduction": [0, -5],
@@ -217,8 +235,8 @@
       "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920182"
     },
     {
-      "id": 25,
-      "text": "Are background checks carried out on accountants that handle personal data\n to verify integrity, qualifications and criminal history?",
+      "id": 27,
+      "text": "Are background checks carried out on accountants that handle personal data\nto verify integrity, qualifications and criminal history?",
       "options": ["Yes, we carry out background checks on our accountants", "No, we do not carry out background checks on our accountants", "I am self employed and have no other staff"],
       "deduction": [0, -4, 0],
       "type": "Fraud By False Representation",
@@ -226,7 +244,7 @@
       "link": "https://www.legislation.gov.uk/ukpga/2006/35/section/2"
     },
     {
-      "id": 26,
+      "id": 28,
       "text": "Are accounts with access to sensitive bank details monitored for unusual activities;\nsuch as access during closed hours, or data modification?",
       "options": ["Yes, accounts with access to bank details are monitored for unusual activity", "No, accounts with access to bank details are not monitored for unusual activity"],
       "deduction": [0, -6],

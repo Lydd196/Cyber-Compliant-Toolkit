@@ -31,24 +31,20 @@ def updateCompliance(compliance, selectedOption, deduction):
         compliance = 0
     return compliance
 
-def averageLossUpdate(newCompliance, oldCompliance, type):
+#Function to create/update a rolling average of the compliance loss for each of the laws
+def averageLossUpdate(newCompliance, oldCompliance, questionType):
     global gdprAverage, misuseAverage, fraudAverage
-    if type == "UK GDPR":
-        gdprAverage = gdprAverage + ((newCompliance - oldCompliance)/20)
-    elif type == "Computer Misuse Act":
-        misuseAverage = misuseAverage + ((newCompliance - oldCompliance)/4)
-    elif type == "The Fraud Act":
-        fraudAverage = fraudAverage + ((newCompliance - oldCompliance)/2)
+    complianceDifference = oldCompliance - newCompliance
+    if questionType == "UK GDPR":
+        gdprAverage = gdprAverage + (complianceDifference/20)
+    elif questionType == "Computer Misuse Act":
+        misuseAverage = misuseAverage + ((complianceDifference)/6)
+    elif questionType == "The Fraud Act":
+        fraudAverage = fraudAverage + ((complianceDifference)/2)
 
-def returnHighestAverageLoss():
-    if gdprAverage < misuseAverage and gdprAverage < fraudAverage:
-        return "UK GDPR"
-    elif misuseAverage < gdprAverage and misuseAverage < fraudAverage:
-        return "Computer Misuse Act"
-    elif fraudAverage < gdprAverage and fraudAverage < misuseAverage:
-        return "The Fraud Act"
-    else:
-        return "UK GDPR"
+#Function to return a list of all of the three final average loss values, used in main.py
+def returnAverageLoss():
+    return [gdprAverage, misuseAverage, fraudAverage]
 
 #Function to show a question dynamically based on the loaded json file data
 def showQuestion(window, questionData, compliance, questionNumber, questionAmount):
