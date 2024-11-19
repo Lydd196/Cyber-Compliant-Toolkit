@@ -1,13 +1,15 @@
 import customtkinter as ctk
-import tkinter as tk
 import random
 import questionhandler 
 import webbrowser
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 #Create the main window
 window = ctk.CTk()
 window.title("Cyber Law Compliance Toolkit")
-window.geometry("1500x750")
+window.geometry("1920x1080")
+window._state_before_windows_set_titlebar_color = "zoomed"
 
 #Initial compliance level as a percentage
 complianceLevel = 100
@@ -23,7 +25,14 @@ def clearElements(window):
 
 #Function to show the results
 def showResults():
-    #Remove all the elements to prepare the results and change window title
+    #Gets the background colour info for the pie chart
+    backgroundColour = window.cget("bg")  
+    if backgroundColour in ["#ffffff", "white"]: 
+        backgroundColour = "#ffffff" 
+    else:
+        backgroundColour = "#2c2c2c" 
+    
+    #Clears the current elements such that the window is ready to display the results
     clearElements(window)
     window.title("Your Results")
 
@@ -32,6 +41,19 @@ def showResults():
     complianceTitleLabel.pack(pady=15)
     complianceLevelLabel = ctk.CTkLabel(window, text=str(complianceLevel) + "%", font=normalFont)
     complianceLevelLabel.pack(pady=15)
+
+    #Additionally displays the compliance value as a pie chart using the pyplot and canvas libraries
+    pieValues = [complianceLevel, 100 - complianceLevel]
+    labels = ['Compliant', 'Non-Compliant']
+    colors = ["#0ac700", "#bf0000"]
+    fig, ax = plt.subplots(figsize=(4, 4))
+    fig.patch.set_facecolor(backgroundColour) 
+    ax.set_facecolor(backgroundColour)   
+    ax.pie(pieValues, labels=labels, autopct="%1.0f%%", colors=colors, startangle=90)
+    ax.axis('equal')  
+    canvas = FigureCanvasTkAgg(fig, master=window)
+    canvas.draw()
+    canvas.get_tk_widget().pack(fill="both", expand=True)
 
     resultDescriptionLabel = ctk.CTkLabel(window, text= "sample text", font=normalFont)
 
@@ -50,7 +72,7 @@ def showResults():
         resultDescriptionLabel.configure(text= "We believe that overall, your accountancy firm is not compliant at all with cyber laws")
         resultDescriptionLabel.pack(pady=15)  
 
-    #Average loss thresholds are calculated by ((x/y)* 100-z/x) where x is the amount of that question type, y is the total number of questions and z is dependant on the condition (50 for serious breach and 80 for minor breach (MAY CHANGE))
+    #Average loss thresholds are calculated by (x/y* (100-z))/x where x is the amount of that question type, y is the total number of questions and z is dependant on the condition (50 for serious breach and 80 for minor breach (MAY CHANGE))
     #THIS AVERAGE SYSTEM MUST BE CHANGED IF NEW QUESTIONS ARE ADDED
     if averageLoss[0] > 0.71 or averageLoss[1] > 0.71 or averageLoss[2] > 0.71:
         breachesTitleLabel = ctk.CTkLabel(window, text= "Potential Breaches", font=subheadingFont)
@@ -126,7 +148,10 @@ def start():
 
 #Cancel function to not run the test and to close the program
 def close():
+    window.quit() 
     window.destroy()
+
+window.protocol("WM_DELETE_WINDOW", close)
 
 #Set fonts
 titleFont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
