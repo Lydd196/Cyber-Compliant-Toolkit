@@ -8,6 +8,7 @@ noSelect = None
 gdprAverage = 0
 misuseAverage = 0
 fraudAverage = 0
+wrongList = []
 
 #Function to open url from json file in browser
 def openUrl(link):
@@ -22,7 +23,7 @@ def clearElements(window):
 def loadQuestions(questionFile):
     with open(questionFile, 'r') as file:
         questionData = json.load(file)
-    return questionData['questions']
+    return questionData["questions"]
 
 #Function to update compliance level based on user input for each question
 def updateCompliance(compliance, selectedOption, deduction):
@@ -42,9 +43,9 @@ def averageLossUpdate(newCompliance, oldCompliance, questionType):
     elif questionType == "The Fraud Act":
         fraudAverage = fraudAverage + ((complianceDifference)/2)
 
-#Function to return a list of all of the three final average loss values, used in main.py
-def returnAverageLoss():
-    return [gdprAverage, misuseAverage, fraudAverage]
+#Function to return external info used in main.py. including a list of all of the three final average loss values and the list of questions the user got wrong
+def returnExternalInfo():
+    return [gdprAverage, misuseAverage, fraudAverage, wrongList]
 
 #Function to show a question dynamically based on the loaded json file data
 def showQuestion(window, questionData, compliance, questionNumber, questionAmount):
@@ -65,7 +66,7 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
     questionNumberLabel.place(relx=0.95, rely=0.02, anchor=tk.E)
 
     #Set question text from json file
-    questionLabel = ctk.CTkLabel(window, text=questionData['text'], font=questionFont)
+    questionLabel = ctk.CTkLabel(window, text=questionData["text"], font=questionFont)
     questionLabel.pack(pady=30)
 
     #The selected option is stored as an int, first radiobutton is value 1, second radiobutton is value 2, etc.
@@ -73,8 +74,8 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
 
     #Dynamically add answers as radio buttons
     optionNumber = 1
-    while optionNumber <= len(questionData['options']):
-        answerRadioButton = ctk.CTkRadioButton(window, text=questionData['options'][optionNumber-1], font=normalFont, variable=selectedOption, value=optionNumber)
+    while optionNumber <= len(questionData["options"]):
+        answerRadioButton = ctk.CTkRadioButton(window, text=questionData["options"][optionNumber-1], font=normalFont, variable=selectedOption, value=optionNumber)
         answerRadioButton.pack(pady=10)
         optionNumber = optionNumber + 1
 
@@ -88,7 +89,9 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
             noSelect = True
         elif optionSelected != 0:
             newCompliance = updateCompliance(compliance, optionSelected, questionData['deduction'])
-            averageLossUpdate(newCompliance, compliance, questionData['law'])
+            averageLossUpdate(newCompliance, compliance, questionData["law"])
+            if newCompliance != compliance:
+                wrongList.append(questionData["id"])
             window.quit() 
 
     #Create submit button
@@ -98,7 +101,7 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
     #Include external hyperlink for further reading based on question data from json file
     linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on this topic!", font=linkFont)
     linkLabel.pack()
-    linkLabel.bind("<Button-1>", lambda event:openUrl(questionData['link']))
+    linkLabel.bind("<Button-1>", lambda event:openUrl(questionData["link"]))
     
     #Run the main loop
     window.mainloop()
