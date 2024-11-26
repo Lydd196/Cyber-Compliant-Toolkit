@@ -25,6 +25,12 @@ def loadQuestions(questionFile):
         questionData = json.load(file)
     return questionData["questions"]
 
+def loadWrongQuestions(questionFile, wrongList):
+    with open(questionFile, 'r') as file:
+        oldQuestionData = json.load(file)
+    newQuestionData = [question for question in oldQuestionData["questions"] if question["id"] in wrongList]
+    return newQuestionData
+
 #Function to update compliance level based on user input for each question
 def updateCompliance(compliance, selectedOption, deduction):
     compliance = compliance + deduction[selectedOption - 1]
@@ -108,3 +114,28 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
 
     #Updated compliance value is returned
     return newCompliance
+
+#Function to actually show the question the user got wrong ---WORK IN PROGRESS---
+def showWrongQuestion(window, questionData, questionNumber, questionAmount):
+    #Remove all the elements to prepare the next question and change window title
+    clearElements(window)
+    window.title("Question " + str(questionNumber))
+
+    #Set fonts
+    questionFont = ctk.CTkFont(family="Helvetic", size=23, weight="bold")
+    normalFont = ctk.CTkFont(family="Times New Roman", size=18)
+    linkFont = ctk.CTkFont(family="Helvetic", slant="italic", underline=True, size=18)
+
+    #Set question number
+    questionNumberLabel = ctk.CTkLabel(window, text="Question " + str(questionNumber) + "/" + str(questionAmount), font=normalFont)
+    questionNumberLabel.place(relx=0.95, rely=0.02, anchor=tk.E)
+
+    #Set question text from json file
+    questionLabel = ctk.CTkLabel(window, text=questionData["text"], font=questionFont)
+    questionLabel.pack(pady=30)
+    
+    def submit():
+        window.quit()
+
+    submitButton = ctk.CTkButton(window, text="Submit", command=submit, font=normalFont)
+    submitButton.pack(pady=15)
