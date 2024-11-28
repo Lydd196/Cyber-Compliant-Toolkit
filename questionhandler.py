@@ -45,9 +45,9 @@ def averageLossUpdate(newCompliance, oldCompliance, questionType):
     if questionType == "UK GDPR":
         gdprAverage = gdprAverage + (complianceDifference/20)
     elif questionType == "Computer Misuse Act":
-        misuseAverage = misuseAverage + ((complianceDifference)/6)
+        misuseAverage = misuseAverage + (complianceDifference/6)
     elif questionType == "The Fraud Act":
-        fraudAverage = fraudAverage + ((complianceDifference)/2)
+        fraudAverage = fraudAverage + (complianceDifference/2)
 
 #Function to return external info used in main.py. including a list of all of the three final average loss values and the list of questions the user got wrong
 def returnExternalInfo():
@@ -139,3 +139,5 @@ def showWrongQuestion(window, questionData, questionNumber, questionAmount):
 
     submitButton = ctk.CTkButton(window, text="Submit", command=submit, font=normalFont)
     submitButton.pack(pady=15)
+
+    window.mainloop()
