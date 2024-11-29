@@ -26,7 +26,6 @@ def clearElements(window):
 
 #Function to show the results
 def showResults():
-
     #Clears the current elements such that the window is ready to display the results
     clearElements(window)
     window.title("Your Results")
@@ -41,7 +40,7 @@ def showResults():
     pieValues = [complianceLevel, 100 - complianceLevel]
     labels = ['Compliant', 'Non-Compliant']
     colors = ["#0ac700", "#bf0000"]
-    fig, ax = plt.subplots(figsize=(4, 4))
+    fig, ax = plt.subplots(figsize=(3, 3))
     fig.patch.set_facecolor("#2c2c2c") 
     ax.set_facecolor("#2c2c2c")   
     ax.pie(pieValues, labels=labels, autopct="%1.0f%%", colors=colors, startangle=90, textprops={'color': 'white', 'fontsize': 18})
@@ -118,9 +117,9 @@ def showResults():
     
     #Buttons for reviewing incorrect questions (USAGE FOR LATER) as well as a button to close the program
     reviewQuestionsButton = ctk.CTkButton(window, text="Review Incorrect Answers", command=lambda: reviewWrongQuestions(wrongList) ,font=normalFont)
-    reviewQuestionsButton.pack(side="left", padx=10, pady=5)
+    reviewQuestionsButton.pack(padx=10, pady=5, anchor="center")
     endButton = ctk.CTkButton(window, text="End", command=close, font=normalFont)
-    endButton.pack(side="left", padx=10, pady=5)
+    endButton.pack(padx=10, pady=5, anchor="center")
 
 #Start function for running the questions (starting the test)
 def start():
@@ -147,6 +146,7 @@ def start():
 
 #Function to review the questions the user lost compliance score on ---WORK IN PROGRESS---
 def reviewWrongQuestions(wrongList):
+    #Clears all current elements and loads the wrong questions using json and result data 
     clearElements(window) 
     questionNumber = 1
     questionList = questionhandler.loadWrongQuestions("questions.json", wrongList)
@@ -156,8 +156,9 @@ def reviewWrongQuestions(wrongList):
         if questionNumber < 1:
             questionNumber = 1
         question = questionList[questionNumber - 1]
+
+        #Showing the question returns a condition to check if the user wanted to go back or not, if so, deducts the question number by 1 and shows the previous result
         goBackCondition = questionhandler.showWrongQuestion(window, question, questionNumber, questionAmount)
-        print(goBackCondition)
         if goBackCondition == False:
             questionNumber = questionNumber + 1
         else:
@@ -169,6 +170,7 @@ def close():
     window.quit() 
     window.destroy()
 
+#Set it so when the window is deleted, it makes sure the window is destroyed and closed properly
 window.protocol("WM_DELETE_WINDOW", close)
 
 #Set fonts

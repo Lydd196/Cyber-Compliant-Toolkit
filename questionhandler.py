@@ -138,9 +138,11 @@ def showWrongQuestion(window, questionData, questionNumber, questionAmount):
     questionLabel = ctk.CTkLabel(window, text=questionData["text"], font=questionFont)
     questionLabel.pack(pady=30)
 
+    #Set explanation text from json file
     explanationLabel = ctk.CTkLabel(window, text=questionData["explanation"], font=normalFont)
     explanationLabel.pack(pady=10)
 
+    #Include external hyperlink for further reading based on question data from json file
     linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on this topic!", font=linkFont)
     linkLabel.pack()
     linkLabel.bind("<Button-1>", lambda event:openUrl(questionData["link"]))
@@ -153,10 +155,11 @@ def showWrongQuestion(window, questionData, questionNumber, questionAmount):
     def next():
         window.quit()
 
+    #Only shows the go back button if question number is larger than 1, and only shows the go next button if question number is less than the question amount (current 28)
     if questionNumber > 1:
         goBackButton = ctk.CTkButton(window, text="Go to the previous question", command=previous, font=normalFont)
         goBackButton.pack(pady=15)
-    if questionNumber >= 28:
+    if questionNumber < 28:
         goNextButton = ctk.CTkButton(window, text="Go to the next question", command=next, font=normalFont)
         goNextButton.pack(pady=15)
 
