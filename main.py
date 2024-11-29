@@ -118,9 +118,9 @@ def showResults():
     
     #Buttons for reviewing incorrect questions (USAGE FOR LATER) as well as a button to close the program
     reviewQuestionsButton = ctk.CTkButton(window, text="Review Incorrect Answers", command=lambda: reviewWrongQuestions(wrongList) ,font=normalFont)
-    reviewQuestionsButton.pack(pady=5)
+    reviewQuestionsButton.pack(side="left", padx=10, pady=5)
     endButton = ctk.CTkButton(window, text="End", command=close, font=normalFont)
-    endButton.pack(pady=5)
+    endButton.pack(side="left", padx=10, pady=5)
 
 #Start function for running the questions (starting the test)
 def start():
@@ -153,11 +153,17 @@ def reviewWrongQuestions(wrongList):
     questionAmount = len(questionList)
 
     while questionNumber <= len(questionList):
+        if questionNumber < 1:
+            questionNumber = 1
         question = questionList[questionNumber - 1]
-        questionhandler.showWrongQuestion(window, question, questionNumber, questionAmount)
-        questionNumber = questionNumber + 1
-
-
+        goBackCondition = questionhandler.showWrongQuestion(window, question, questionNumber, questionAmount)
+        print(goBackCondition)
+        if goBackCondition == False:
+            questionNumber = questionNumber + 1
+        else:
+            questionNumber = questionNumber - 1
+            goBackCondition = False
+        
 #Cancel function to not run the test and to close the program
 def close():
     window.quit() 

@@ -5,6 +5,7 @@ import webbrowser
 
 #Initialise noSelect so it can be accessed by functions
 noSelect = None
+goBackCondition = None
 gdprAverage = 0
 misuseAverage = 0
 fraudAverage = 0
@@ -109,7 +110,8 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
     linkLabel.pack()
     linkLabel.bind("<Button-1>", lambda event:openUrl(questionData["link"]))
     
-    #Run the main loop
+    #Run the main loop and binds enter to submit
+    window.bind("<Return>", lambda event: submit())
     window.mainloop()
 
     #Updated compliance value is returned
@@ -119,8 +121,10 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
 def showWrongQuestion(window, questionData, questionNumber, questionAmount):
     #Remove all the elements to prepare the next question and change window title
     clearElements(window)
+    global goBackCondition
+    goBackCondition = False
     window.title("Question " + str(questionNumber))
-
+    
     #Set fonts
     questionFont = ctk.CTkFont(family="Helvetic", size=23, weight="bold")
     normalFont = ctk.CTkFont(family="Times New Roman", size=18)
@@ -133,11 +137,29 @@ def showWrongQuestion(window, questionData, questionNumber, questionAmount):
     #Set question text from json file
     questionLabel = ctk.CTkLabel(window, text=questionData["text"], font=questionFont)
     questionLabel.pack(pady=30)
+
+    explanationLabel = ctk.CTkLabel(window, text=questionData["explanation"], font=normalFont)
+    explanationLabel.pack(pady=10)
+
+    linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on this topic!", font=linkFont)
+    linkLabel.pack()
+    linkLabel.bind("<Button-1>", lambda event:openUrl(questionData["link"]))
     
-    def submit():
+    def previous():
+        global goBackCondition
+        goBackCondition = True
         window.quit()
 
-    submitButton = ctk.CTkButton(window, text="Submit", command=submit, font=normalFont)
-    submitButton.pack(pady=15)
+    def next():
+        window.quit()
+
+    if questionNumber > 1:
+        goBackButton = ctk.CTkButton(window, text="Go to the previous question", command=previous, font=normalFont)
+        goBackButton.pack(pady=15)
+    if questionNumber >= 28:
+        goNextButton = ctk.CTkButton(window, text="Go to the next question", command=next, font=normalFont)
+        goNextButton.pack(pady=15)
 
     window.mainloop()
+
+    return goBackCondition

@@ -7,7 +7,8 @@
       "deduction": [0, 0, -3],
       "type": "GDPR Principles",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/the-principles/accuracy/"
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/the-principles/accuracy/",
+      "explanation": "The UK GDPR states that it is a legal obligation for organisations\n to ensure that personal data is accurate and up to date"
     },
     {
       "id": 2,
@@ -16,7 +17,8 @@
       "deduction": [-3, 0],
       "type": "GDPR Principles",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/advice-for-small-organisations/frequently-asked-questions/data-storage-sharing-and-security/#howlong"
+      "link": "https://ico.org.uk/for-organisations/advice-for-small-organisations/frequently-asked-questions/data-storage-sharing-and-security/#howlong",
+      "explanation": "The UK GDPR states that it is a legal obligation for organisations\n to dispose of user data if it no longer needed or relevant"
     },
     {
       "id": 3,
