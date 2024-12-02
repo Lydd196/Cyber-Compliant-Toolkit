@@ -8,7 +8,7 @@
       "type": "GDPR Principles",
       "law": "UK GDPR",
       "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/the-principles/accuracy/",
-      "explanation": "The UK GDPR states that it is a legal obligation for organisations\n to ensure that personal data is accurate and up to date"
+      "explanation": "The UK GDPR states that it is a legal obligation for your firm to ensure that client information is accurate and up to date, enforced by the Data Protection Act 2018"
     },
     {
       "id": 2,
@@ -18,7 +18,7 @@
       "type": "GDPR Principles",
       "law": "UK GDPR",
       "link": "https://ico.org.uk/for-organisations/advice-for-small-organisations/frequently-asked-questions/data-storage-sharing-and-security/#howlong",
-      "explanation": "The UK GDPR states that it is a legal obligation for organisations\n to dispose of user data if it no longer needed or relevant"
+      "explanation": "The UK GDPR states that it is a legal obligation for your firm to dispose of user data if it is no longer needed or relevant, enforced by the Data Protection Act 2018"
     },
     {
       "id": 3,
@@ -27,7 +27,8 @@
       "deduction": [0, -3],
       "type": "GDPR Principles",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/subject-access-requests/"
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/subject-access-requests/",
+      "explanation": "The UK GDPR states that it is a legal right for your clients to have a copy of the personal data your firm holds on them\nif they do wish to have one, enforced by the Data Protection Act 2018"
     },
     {
       "id": 4,
@@ -36,7 +37,8 @@
       "deduction": [0, 0, -1, -2, -4, 0],
       "type": "GDPR Principles",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/guide-to-accountability-and-governance/accountability-and-governance/data-protection-impact-assessments/"
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/guide-to-accountability-and-governance/accountability-and-governance/data-protection-impact-assessments/",
+      "explanation": "The UK GDPR states that it is a legal obligation for your firm to carry out DPIA's at least every 3 years or less\nif sensitive data is stored about data subjects, enforced by the Data Protection Act 2018"
     },
     {
       "id": 5,
@@ -45,7 +47,8 @@
       "deduction": [0, -1, -3],
       "type": "GDPR Principles",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/lawful-basis/consent/what-is-valid-consent/"
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/lawful-basis/consent/what-is-valid-consent/",
+      "explanation": "The UK GDPR states that it is a legal obligation for your firm to receive detailed consent by the data subject,\nprior to collecting data on them, enforced by the Data Protection Act 2018"
     },
     {
       "id": 6,
@@ -54,7 +57,8 @@
       "deduction": [0, -4],
       "type": "GDPR Principles",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/the-principles/accuracy/"
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-principles/a-guide-to-the-data-protection-principles/the-principles/accuracy/",
+      "explanation": "The UK GDPR states that it is a legal obligation for your firm to dispose of client information if it no longer needed or relevant, enforced by the Data Protection Act 2018"
     },
     {
       "id": 7,
@@ -63,7 +67,8 @@
       "deduction": [0, -5],
       "type": "Information Security",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/encryption/"
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/encryption/",
+      "explanation": "The UK GDPR states that it is a legal obligation for your firm to have appropriate technical and organisational\nmeasures in place to ensure data security, enforced by the Data Protection Act 2018"
     },
     {
       "id": 8,
@@ -72,7 +77,8 @@
       "deduction": [0, -5],
       "type": "Legal Basis",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/the-right-to-be-informed/what-privacy-information-should-we-provide/"
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/the-right-to-be-informed/what-privacy-information-should-we-provide/",
+      "explanation": "The UK GDPR states that it is a legal obligation for your firm to have legitimate and legal\npurposes for collecting data from clients, enforced by the Data Protection Act 2018"
     },
     {
       "id": 9,
@@ -81,7 +87,8 @@
       "deduction": [0, 0, -3, -3],
       "type": "GDPR Principles",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/report-a-breach/personal-data-breach/personal-data-breaches-a-guide/"
+      "link": "https://ico.org.uk/for-organisations/report-a-breach/personal-data-breach/personal-data-breaches-a-guide/",
+      "explanation": "The UK GDPR states that it is a legal obligation for your firm to notify the Information Commissioner's Office,\nin the event of a data breach within 72 hours, enforced by the Data Protection Act 2018"
     },
     {
       "id": 10,
@@ -90,7 +97,8 @@
       "deduction": [0, 0, -1, -3, -5],
       "type": "Information Security",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/accountability-framework/records-management-and-security/"
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/accountability-framework/records-management-and-security/",
+      "explanation": "The UK GDPR states that it is a legal obligation for your firm to have appropriate technical and organisational measures in place\nto ensure data security, which includes frequent backups of data, enforced by the Data Protection Act 2018"
     },
     {
       "id": 11,
@@ -99,7 +107,8 @@
       "deduction": [0, -3],
       "type": "Information Security",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/encryption/"
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/encryption/",
+      "explanation": "The UK GDPR states that it is a legal obligation for your firm to have appropriate technical and organisational measures in place\nto ensure data security, which includes encryption usage such as hashing, enforced by the Data Protection Act 2018"
     },
     {
       "id": 12,
@@ -108,7 +117,8 @@
       "deduction": [0, -2],
       "type": "Information Security",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/law-enforcement/guide-to-le-processing/accountability-and-governance/data-protection-officers/"
+      "link": "https://ico.org.uk/for-organisations/law-enforcement/guide-to-le-processing/accountability-and-governance/data-protection-officers/",
+      "explanation": "The UK GDPR states that it recommended for your firm to have an appointed DPO, especially when your firm stores bank account information and addresses"
     },
     {
       "id": 13,
@@ -117,7 +127,8 @@
       "deduction": [0, -1, -2, -4],
       "type": "Information Security",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/accountability-framework/training-and-awareness/"
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/accountability-framework/training-and-awareness/",
+      "explanation": "The UK GDPR states that it is recommended for your firm to ensure training is carried out on accountants regularly in regards to GDPR and data protection principles,\nespecially with access to bank account information and addresses"
     },
     {
       "id": 14,
@@ -126,7 +137,8 @@
       "deduction": [0, -3, 0],
       "type": "Information Security",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/data-protection-and-the-eu/data-protection-and-the-eu-in-detail/the-uk-gdpr/international-data-transfers/"
+      "link": "https://ico.org.uk/for-organisations/data-protection-and-the-eu/data-protection-and-the-eu-in-detail/the-uk-gdpr/international-data-transfers/",
+      "explanation": "The UK GDPR states that it is a legal obligation for your firm to ensure that data being sent or received from a country\noutside the UK or EEA has an adequate amount of data security, enforced by the Data Protection Act 2018"
     },
     {
       "id": 15,
@@ -135,7 +147,8 @@
       "deduction": [0, -3, -5],
       "type": "GDPR Principles",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/individual-rights/right-to-erasure/"
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/individual-rights/right-to-erasure/",
+      "explanation": "The UK GDPR states that it is a legal obligation for your firm to respond to a right to erasure request\nwithin a month of the request being made, enforced by the Data Protection Act 2018"
     },
     {
       "id": 16,
@@ -144,7 +157,8 @@
       "deduction": [0, -3, 0],
       "type": "Information Security",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guidance-for-the-use-of-personal-data-in-political-campaigning-1/controllers-joint-controllers-and-processors/"
+      "link": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guidance-for-the-use-of-personal-data-in-political-campaigning-1/controllers-joint-controllers-and-processors/",
+      "explanation": "The UK GDPR states that it is a legal obligation for your firm to ensure that any third-party data processors that\nprocess or store client data comply with the GDPR, enforced by the Data Protection Act 2018"
     },
     {
       "id": 17,
@@ -153,7 +167,8 @@
       "deduction": [0, -1, -2, -4],
       "type": "GDPR Principles",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-sharing/data-sharing-a-code-of-practice/the-rights-of-individuals/"
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-sharing/data-sharing-a-code-of-practice/the-rights-of-individuals/",
+      "explanation": "The UK GDPR states that it is a legal obligation for your firm inform your data subjects of all of their\nrelevant data privacy rights under the UK GDPR, enforced by the Data Protection Act 2018"
     },
     {
       "id": 18,
@@ -162,7 +177,8 @@
       "deduction": [0, -3],
       "type": "Information Security",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/security-outcomes/#minimise"
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/security-outcomes/#minimise",
+      "explanation": "The UK GDPR states that it is a legal obligation for your firm to have appropriate technical and organisational measures in place\nto ensure data security, which includes system recovery procedures, enforced by the Data Protection Act 2018"
     },
     {
       "id": 19,
@@ -171,7 +187,8 @@
       "deduction": [0, -3],
       "type": "Information Security",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/advice-and-services/audits/"
+      "link": "https://ico.org.uk/for-organisations/advice-and-services/audits/",
+      "explanation": "The ICO recommends taking yearly audits to ensure compliance with the UK GDPR"
     },
     {
       "id": 20,
@@ -180,7 +197,8 @@
       "deduction": [0, -2, -4],
       "type": "Information Security",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guide-to-pecr/communications-networks-and-services/security-breaches/#notifycustomers"
+      "link": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guide-to-pecr/communications-networks-and-services/security-breaches/#notifycustomers",
+      "explanation": "The UK GDPR states that it is a legal obligation for your firm to notify clients in the event of a data breach as soon as possible, enforced by the Data Protection Act 2018"
     },
     {
       "id": 21,
@@ -189,7 +207,8 @@
       "deduction": [0, -4, 0],
       "type": "Unauthorised Access",
       "law": "Computer Misuse Act",
-      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920178"
+      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920178",
+      "explanation": "Accessing somebody else's hardware without permission is illegal under the Unauthorised Access section of the Computer Misuse Act 1990"
     },
     {
       "id": 22,
@@ -198,7 +217,8 @@
       "deduction": [0, -4, 0],
       "type": "Unauthorised Access",
       "law": "Computer Misuse Act",
-      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920178"
+      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920178",
+      "explanation": "Different levels of file access mitigates the risk of employees accessing data without being authorised to do so,\nviolating the Unauthorised Access section of the Computer Misuse Act 1990"
     },
     {
       "id": 23,
@@ -207,7 +227,8 @@
       "deduction": [0, -1, -4, 0],
       "type": "Unauthorised Access",
       "law": "Computer Misuse Act",
-      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920178"
+      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920178",
+      "explanation": "Disabling system access to former employees mitigates the risk of them accessing data without being authorised to do so,\nviolating the Unauthorised Access section of the Computer Misuse Act 1990"
     },
     {
       "id": 24,
@@ -216,7 +237,8 @@
       "deduction": [0, -3, -0, 0],
       "type": "Unauthorised Access",
       "law": "Computer Misuse Act",
-      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920178"
+      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920178",
+      "explanation": "Unique login credentials for each employee mitigates the risk of employees accessing data without being authorised to do so,\nviolating the Unauthorised Access section of the Computer Misuse Act 1990"
     },
     {
       "id": 25,
@@ -225,7 +247,8 @@
       "deduction": [0, -4, -0],
       "type": "Unauthorised Access",
       "law": "Computer Misuse Act",
-      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920178"
+      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920178",
+      "explanation": "Taking work-related information without authorisation violates the Unauthorised Access section of the Computer Misuse Act 1990"
     },
     {
       "id": 26,
@@ -234,16 +257,18 @@
       "deduction": [0, -5],
       "type": "Unauthorised Modification",
       "law": "Computer Misuse Act",
-      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920182"
+      "link": "https://www.cps.gov.uk/legal-guidance/computer-misuse-act#_Toc532920182",
+      "explanation": "Modifying or deleting client data without permission violates the Unauthorised Modification section of the Computer Misuse Act 1990"
     },
     {
       "id": 27,
-      "text": "Are background checks carried out on accountants that handle personal data\nto verify integrity, qualifications and criminal history?",
+      "text": "Are background checks carried out on accountants that handle client data\nto verify integrity, qualifications and criminal history?",
       "options": ["Yes, we carry out background checks on our accountants", "No, we do not carry out background checks on our accountants", "I am self employed and have no other staff"],
       "deduction": [0, -4, 0],
       "type": "Fraud By False Representation",
       "law": "The Fraud Act",
-      "link": "https://www.legislation.gov.uk/ukpga/2006/35/section/2"
+      "link": "https://www.legislation.gov.uk/ukpga/2006/35/section/2",
+      "explanation": "Employees who are not qualified to handle client data but do so will be violation of the Fraud by False Representation section of the Fraud Act 2006"
     },
     {
       "id": 28,
@@ -252,7 +277,8 @@
       "deduction": [0, -6],
       "type": "Fraud By Abuse of Position",
       "law": "The Fraud Act",
-      "link": "https://www.legislation.gov.uk/ukpga/2006/35/section/4"
+      "link": "https://www.legislation.gov.uk/ukpga/2006/35/section/4",
+      "explanation": "Monitoring accounts with access to sensitive bank details will help mitigate the risk of employees accessing or using bank account information maliciously,\nwhich violates the Fraud by Abuse of Position section of the Fraud Act 2006"
     }
   ]
 }

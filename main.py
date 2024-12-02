@@ -116,8 +116,9 @@ def showResults():
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.cps.gov.uk/legal-guidance/fraud-act-2006"))
     
     #Buttons for reviewing incorrect questions (USAGE FOR LATER) as well as a button to close the program
-    reviewQuestionsButton = ctk.CTkButton(window, text="Review Incorrect Answers", command=lambda: reviewWrongQuestions(wrongList) ,font=normalFont)
-    reviewQuestionsButton.pack(padx=10, pady=5, anchor="center")
+    if complianceLevel != 100:
+        reviewQuestionsButton = ctk.CTkButton(window, text="Review Incorrect Answers", command=lambda: reviewWrongQuestions(wrongList) ,font=normalFont)
+        reviewQuestionsButton.pack(padx=10, pady=5, anchor="center")
     endButton = ctk.CTkButton(window, text="End", command=close, font=normalFont)
     endButton.pack(padx=10, pady=5, anchor="center")
 

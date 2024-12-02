@@ -156,12 +156,12 @@ def showWrongQuestion(window, questionData, questionNumber, questionAmount):
         window.quit()
 
     #Only shows the go back button if question number is larger than 1, and only shows the go next button if question number is less than the question amount (current 28)
-    if questionNumber > 1:
-        goBackButton = ctk.CTkButton(window, text="Go to the previous question", command=previous, font=normalFont)
-        goBackButton.pack(pady=15)
     if questionNumber < 28:
         goNextButton = ctk.CTkButton(window, text="Go to the next question", command=next, font=normalFont)
-        goNextButton.pack(pady=15)
+        goNextButton.pack(pady=10)
+    if questionNumber > 1:
+        goBackButton = ctk.CTkButton(window, text="Go to the previous question", command=previous, font=normalFont)
+        goBackButton.pack(pady=10)
 
     window.mainloop()
 
