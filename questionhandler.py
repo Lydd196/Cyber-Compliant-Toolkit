@@ -118,7 +118,7 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
     return newCompliance
 
 #Function to actually show the question the user got wrong ---WORK IN PROGRESS---
-def showWrongQuestion(window, questionData, questionNumber, questionAmount):
+def showWrongQuestion(window, questionData, questionNumber, questionAmount, showResultsCallback):
     #Remove all the elements to prepare the next question and change window title
     clearElements(window)
     global goBackCondition
@@ -156,12 +156,14 @@ def showWrongQuestion(window, questionData, questionNumber, questionAmount):
         window.quit()
 
     #Only shows the go back button if question number is larger than 1, and only shows the go next button if question number is less than the question amount (current 28)
-    if questionNumber < 28:
+    if questionNumber < questionAmount:
         goNextButton = ctk.CTkButton(window, text="Go to the next question", command=next, font=normalFont)
         goNextButton.pack(pady=10)
     if questionNumber > 1:
         goBackButton = ctk.CTkButton(window, text="Go to the previous question", command=previous, font=normalFont)
         goBackButton.pack(pady=10)
+    resultsButton = ctk.CTkButton(window, text="Go back to the results screen", command=showResultsCallback, font=normalFont)
+    resultsButton.pack(pady=10)
 
     window.mainloop()
 

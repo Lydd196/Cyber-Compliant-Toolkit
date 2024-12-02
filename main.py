@@ -159,7 +159,7 @@ def reviewWrongQuestions(wrongList):
         question = questionList[questionNumber - 1]
 
         #Showing the question returns a condition to check if the user wanted to go back or not, if so, deducts the question number by 1 and shows the previous result
-        goBackCondition = questionhandler.showWrongQuestion(window, question, questionNumber, questionAmount)
+        goBackCondition = questionhandler.showWrongQuestion(window, question, questionNumber, questionAmount, showResults)
         if goBackCondition == False:
             questionNumber = questionNumber + 1
         else:
