@@ -109,9 +109,13 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
     linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on this topic!", font=linkFont)
     linkLabel.pack()
     linkLabel.bind("<Button-1>", lambda event:openUrl(questionData["link"]))
+
+    def enterSkip():
+        if submitButton.winfo_exists() == True:
+            submit()
     
     #Run the main loop and binds enter to submit
-    window.bind("<Return>", lambda event: submit())
+    window.bind("<Return>", lambda event: enterSkip())
     window.mainloop()
 
     #Updated compliance value is returned

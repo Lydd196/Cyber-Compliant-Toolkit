@@ -2,7 +2,7 @@
   "questions": [
     {
       "id": 1,
-      "text": "Do you ensure that data you hold of your clients like name and bank account information are accurate and up to date?",
+      "text": "Do you ensure that data you hold of your clients like name and bank account information are accurate and up to date?\n",
       "options": ["Yes, we allow clients to contact us if their details have changed", "Yes, we frequently contact our clients to ensure their details are up to date", "No, we do not check if our clients details are up to date"],
       "deduction": [0, 0, -3],
       "type": "GDPR Principles",
@@ -12,7 +12,7 @@
     },
     {
       "id": 2,
-      "text": "Does your accountancy firm keep data longer than is necessary?",
+      "text": "Does your accountancy firm keep data longer than is necessary?\n",
       "options": ["Yes, we keep hold of it in case we need it", "No, we delete it when it is not needed anymore"],
       "deduction": [-3, 0],
       "type": "GDPR Principles",
@@ -22,7 +22,7 @@
     },
     {
       "id": 3,
-      "text": "Does your accountancy firm allow clients rights to access a copy of the personal data you hold on them?",
+      "text": "Does your accountancy firm allow clients rights to access a copy of the personal data you hold on them?\n",
       "options": ["Yes, we have a simple process for clients to obtain a copy of their personal data", "No, we do not allow clients to obtain a copy of their personal data"],
       "deduction": [0, -3],
       "type": "GDPR Principles",
@@ -42,7 +42,7 @@
     },
     {
       "id": 5,
-      "text": "Do you ensure that clients give detailed consent prior to data collection/processing",
+      "text": "Do you ensure that clients give detailed consent prior to data collection/processing\n",
       "options": ["Yes, we ensure clients give detailed consent prior to data collection", "We ensure clients give consent prior to data collection but consent is not detailed", "No, we do not ask for consent prior to data collection"],
       "deduction": [0, -1, -3],
       "type": "GDPR Principles",
@@ -52,7 +52,7 @@
     },
     {
       "id": 6,
-      "text": "Does your accountancy firm delete client data, such as name and bank account information, that is innacurate and outdated?",
+      "text": "Does your accountancy firm delete client data, such as name and bank account information, that is innacurate and outdated?\n",
       "options": ["Yes, but only after they notify us that it is outdated", "No, we keep it for our records"],
       "deduction": [0, -4],
       "type": "GDPR Principles",
@@ -62,17 +62,17 @@
     },
     {
       "id": 7,
-      "text": "Does your accountancy firm use encryption methods to protect client data during collection and transmission?",
+      "text": "Does your accountancy firm use encryption methods to protect client data during collection and transmission?\n",
       "options": ["Yes, we use encryption technologies when collecting and transmissing client data", "No, we do not use encryption technologies when collecting or transmitting client data"],
       "deduction": [0, -5],
       "type": "Information Security",
       "law": "UK GDPR",
-      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/encryption/",
+      "link": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/encryption/\n",
       "explanation": "The UK GDPR states that it is a legal obligation for your firm to have appropriate technical and organisational\nmeasures in place to ensure data security, enforced by the Data Protection Act 2018"
     },
     {
       "id": 8,
-      "text": "Does your accountancy firm ensure that client data collected is specific, explicit and legitimate for what its needed for?",
+      "text": "Does your accountancy firm ensure that client data collected is specific, explicit and legitimate for what its needed for?\n",
       "options": ["Yes", "No"],
       "deduction": [0, -5],
       "type": "Legal Basis",
@@ -82,7 +82,7 @@
     },
     {
       "id": 9,
-      "text": "Under your company procedure, how quick does your accountancy firm notify the ICO if in the event of a data breach?",
+      "text": "Under your company procedure, how quick does your accountancy firm notify the ICO if in the event of a data breach?\n",
       "options": ["Within 36 Hours", "Within 72 Hours", "72+ Hours", "We do not contact the ICO in the event of a data breach"],
       "deduction": [0, 0, -3, -3],
       "type": "GDPR Principles",
@@ -92,7 +92,7 @@
     },
     {
       "id": 10,
-      "text": "Under your company procedure, how often is client data backed up?",
+      "text": "Under your company procedure, how often is client data backed up?\n",
       "options": ["Once a day", "Once a week", "Once a month", "Once a year", "We do not backup our data"],
       "deduction": [0, 0, -1, -3, -5],
       "type": "Information Security",
@@ -102,7 +102,7 @@
     },
     {
       "id": 11,
-      "text": "Does your accountancy firm store client passwords/bank details using encryption?",
+      "text": "Does your accountancy firm store client passwords/bank details using encryption?\n",
       "options": ["Yes", "No"],
       "deduction": [0, -3],
       "type": "Information Security",
@@ -112,7 +112,7 @@
     },
     {
       "id": 12,
-      "text": "Does your accountancy firm have an appointed Data Protection Officer (DPO)?",
+      "text": "Does your accountancy firm have an appointed Data Protection Officer (DPO)?\n",
       "options": ["Yes", "No"],
       "deduction": [0, -2],
       "type": "Information Security",
@@ -142,7 +142,7 @@
     },
     {
       "id": 15,
-      "text": "When clients make a right to erasure request, how long does it take for your accountancy firm to delete client data?",
+      "text": "When clients make a right to erasure request, how long does it take for your accountancy firm to delete client data?\n",
       "options": ["Within a month", "Longer than a month", "We do not monitor right to erasure requests"],
       "deduction": [0, -3, -5],
       "type": "GDPR Principles",
@@ -152,7 +152,7 @@
     },
     {
       "id": 16,
-      "text": "Does your accountancy firm ensure that third-party data processors comply with GDPR when processing client data?",
+      "text": "Does your accountancy firm ensure that third-party data processors comply with GDPR when processing client data?\n",
       "options": ["Yes, have checks in place to ensure compliance", "No, we do not check for compliance", "We do not have third-party processors"],
       "deduction": [0, -3, 0],
       "type": "Information Security",
@@ -172,7 +172,7 @@
     },
     {
       "id": 18,
-      "text": "In the event of a data breach, does your accountancy firm have a written procedure for system recovery and mitigation?",
+      "text": "In the event of a data breach, does your accountancy firm have a written procedure for system recovery and mitigation?\n",
       "options": ["Yes", "No"],
       "deduction": [0, -3],
       "type": "Information Security",
@@ -182,7 +182,7 @@
     },
     {
       "id": 19,
-      "text": "Does your accountancy firm carry out regular audits to ensure compliance with the UK GDPR?",
+      "text": "Does your accountancy firm carry out regular audits to ensure compliance with the UK GDPR?\n",
       "options": ["Yes", "No"],
       "deduction": [0, -3],
       "type": "Information Security",
@@ -192,7 +192,7 @@
     },
     {
       "id": 20,
-      "text": "Does your accountancy firm have a procedure in place for notifying clients in an event of a data breach?",
+      "text": "Does your accountancy firm have a procedure in place for notifying clients in an event of a data breach?\n",
       "options": ["Yes, we notify clients immediately", "Yes, we notify clients within a given timeframe", "No"],
       "deduction": [0, -2, -4],
       "type": "Information Security",
@@ -202,7 +202,7 @@
     },
     {
       "id": 21,
-      "text": "Are employees in your accountancy firm trained not to access other staff's devices without permission?",
+      "text": "Are employees in your accountancy firm trained not to access other staff's devices without permission?\n",
       "options": ["Yes, we train employees not to access other staff hardware", "No, we do not train employees to not access other staff hardware", "I am self-employed and have no other staff"],
       "deduction": [0, -4, 0],
       "type": "Unauthorised Access",
@@ -222,7 +222,7 @@
     },
     {
       "id": 23,
-      "text": "Does your accountancy firm have a procedure in place to immediately disable system access to employees who leave the company?",
+      "text": "Does your accountancy firm have a procedure in place to immediately disable system access to employees who leave the company?\n",
       "options": ["Yes, we have procedures in place to immediately disable system access to former staff", "We have a procedure in place to disable system access to former staff, but not immediate", "No, we do not have procedures in place to disable system access", "I am self-employed and have no other staff"],
       "deduction": [0, -1, -4, 0],
       "type": "Unauthorised Access",
@@ -252,7 +252,7 @@
     },
     {
       "id": 26,
-      "text": "Does your accountants that handle personal data, only alter client data if given permission, or asked to by the client?",
+      "text": "Does your accountants that handle personal data, only alter client data if given permission, or asked to by the client?\n",
       "options": ["Yes, we only alter client data once asked by the client", "No, we alter data without prior permission"],
       "deduction": [0, -5],
       "type": "Unauthorised Modification",

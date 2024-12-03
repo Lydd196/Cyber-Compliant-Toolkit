@@ -2,6 +2,7 @@ import customtkinter as ctk
 import random
 import questionhandler 
 import webbrowser
+import sys
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
@@ -152,6 +153,7 @@ def reviewWrongQuestions(wrongList):
     questionNumber = 1
     questionList = questionhandler.loadWrongQuestions("questions.json", wrongList)
     questionAmount = len(questionList)
+    #A flag to go back to the results page
     global goToResults 
     goToResults = False
 
@@ -160,14 +162,16 @@ def reviewWrongQuestions(wrongList):
             questionNumber = 1
         question = questionList[questionNumber - 1]
 
+        #Callback to go to results
         def goToResultsCallback() :
             global goToResults
             goToResults = True
             showResults()
 
-        #Showing the question returns a condition to check if the user wanted to go back or not, if so, deducts the question number by 1 and shows the previous result
+        #Returned value is a condition
         goBackCondition = questionhandler.showWrongQuestion(window, question, questionNumber, questionAmount, goToResultsCallback)
 
+        #Showing the question returns a condition to check if the user wanted to go back or not, if so, deducts the question number by 1 and shows the previous result, or if the user wanted to go to results, activates the flag
         if goToResults == True:
             break
         if goBackCondition == False:
@@ -176,10 +180,9 @@ def reviewWrongQuestions(wrongList):
             questionNumber = questionNumber - 1
             goBackCondition = False
         
-#Cancel function to not run the test and to close the program
+#Cancel function to not run the test and to close the program, by usage of terminating main.py
 def close():
-    window.quit() 
-    window.destroy()
+    sys.exit(0)
 
 #Set it so when the window is deleted, it makes sure the window is destroyed and closed properly
 window.protocol("WM_DELETE_WINDOW", close)
@@ -200,9 +203,9 @@ descriptionLabel.pack(pady=15)
 
 #Create start and close buttons
 startButton = ctk.CTkButton(window, text="Start", command=start, font=normalFont)
-startButton.pack(pady=15)
+startButton.pack(pady=10)
 closeButton = ctk.CTkButton(window, text="Close", command=close, font=normalFont)
-closeButton.pack(pady=15)
+closeButton.pack(pady=10)
 
 #Run the main loop
 window.mainloop()
