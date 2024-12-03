@@ -152,14 +152,24 @@ def reviewWrongQuestions(wrongList):
     questionNumber = 1
     questionList = questionhandler.loadWrongQuestions("questions.json", wrongList)
     questionAmount = len(questionList)
+    global goToResults 
+    goToResults = False
 
     while questionNumber <= len(questionList):
         if questionNumber < 1:
             questionNumber = 1
         question = questionList[questionNumber - 1]
 
+        def goToResultsCallback() :
+            global goToResults
+            goToResults = True
+            showResults()
+
         #Showing the question returns a condition to check if the user wanted to go back or not, if so, deducts the question number by 1 and shows the previous result
-        goBackCondition = questionhandler.showWrongQuestion(window, question, questionNumber, questionAmount, showResults)
+        goBackCondition = questionhandler.showWrongQuestion(window, question, questionNumber, questionAmount, goToResultsCallback)
+
+        if goToResults == True:
+            break
         if goBackCondition == False:
             questionNumber = questionNumber + 1
         else:
