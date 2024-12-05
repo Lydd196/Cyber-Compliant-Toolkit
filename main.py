@@ -75,13 +75,13 @@ def showResults():
         breachesTitleLabel.pack(pady=10)
     
     #If the average loss per question for the UK GDPR is higher than 1.78, it will have a message for serious breach, if it is higher than 0.71, it will have a message for minor breach, else no message
-    if externalInfo[0] > 1.78:
+    if externalInfo[0] > 1.66:
         gdprDetailsLabel = ctk.CTkLabel(window, text= "We believe that your firm may be in serious breach of the GDPR.\nYou may face fines up to £17.5 million or 4% of global annual turnover (whichever is higher).\nThis is enforced under the Data Protection Act 2018.", font=normalFont)
         gdprDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the UK GDPR/Data Protection Act!", font=linkFont)
         linkLabel.pack(pady=(0, 20))
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.gov.uk/data-protection"))
-    elif externalInfo[0] > 0.71:
+    elif externalInfo[0] > 0.66:
         gdprDetailsLabel = ctk.CTkLabel(window, text= "We believe that your firm may be in minor breach of the GDPR.\nYou may face fines up to £8.7 million or 2% of global annual turnover (whichever is higher).\nThis is enforced under the Data Protection Act 2018.", font=normalFont)
         gdprDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the UK GDPR/Data Protection Act!", font=linkFont)
@@ -89,13 +89,13 @@ def showResults():
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.gov.uk/data-protection"))
 
     #If the average loss per question for the Computer Misuse Act is higher than 1.78, it will have a message for serious breach, if it is higher than 0.71, it will have a message for minor breach, else no message
-    if externalInfo[1] > 1.78:
+    if externalInfo[1] > 1.66:
         cmaDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in serious breach of the Computer Misuse Act 1990.\nThey may face up to 2 years imprisonment", font=normalFont)
         cmaDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the Computer Misuse Act!", font=linkFont)
         linkLabel.pack(pady=(0, 20))
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.cps.gov.uk/legal-guidance/computer-misuse-act"))
-    elif externalInfo[1] > 0.71:
+    elif externalInfo[1] > 0.66:
         cmaDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in minor breach of the Computer Misuse Act 1990.\nThey may face small fines if escalated", font=normalFont)
         cmaDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the Computer Misuse Act!", font=linkFont)
@@ -103,13 +103,13 @@ def showResults():
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.cps.gov.uk/legal-guidance/computer-misuse-act"))
 
     #If the average loss per question for the Fraud Act is higher than 1.78, it will have a message for serious breach, if it is higher than 0.71, it will have a message for minor breach, else no message
-    if externalInfo[2] > 1.78:
+    if externalInfo[2] > 1.66:
         fraudDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in serious breach of the Fraud Act 2006.\nThey may face up to 10 years imprisonment if escalated", font=normalFont)
         fraudDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the Fraud Act!", font=linkFont)
         linkLabel.pack(pady=(0, 20))
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.cps.gov.uk/legal-guidance/fraud-act-2006"))
-    elif externalInfo[2] > 0.71:
+    elif externalInfo[2] > 0.66:
         fraudDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in minor breach of The Fraud Act 2006.\nThey may face small fines or a short imprisonment period if escalated", font=normalFont)
         fraudDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the Fraud Act!", font=linkFont)

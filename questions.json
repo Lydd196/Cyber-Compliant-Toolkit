@@ -264,7 +264,7 @@
       "id": 27,
       "text": "Are background checks carried out on accountants that handle client data\nto verify integrity, qualifications and criminal history?",
       "options": ["Yes, we carry out background checks on our accountants", "No, we do not carry out background checks on our accountants", "I am self employed and have no other staff"],
-      "deduction": [0, -4, 0],
+      "deduction": [0, -3, 0],
       "type": "Fraud By False Representation",
       "law": "The Fraud Act",
       "link": "https://www.legislation.gov.uk/ukpga/2006/35/section/2",
@@ -272,13 +272,33 @@
     },
     {
       "id": 28,
+      "text": "Do employees use only company-approved, software for sending or receiving sensitive client data\nto prevent falsification risks, such as Sage?",
+      "options": ["Yes, we ensure that employees use only company-approved software", "No, we do ensure that employees use only company-approved software", "I am self employed and have no other staff"],
+      "deduction": [0, -2, 0],
+      "type": "Fraud By False Representation",
+      "law": "The Fraud Act",
+      "link": "https://www.legislation.gov.uk/ukpga/2006/35/section/2",
+      "explanation": "Employees who do not use company-approved software but is in contact of financial details may be at risk of invalidating the integrity of said data,\nwhich may violate the Fraud by False Representation section of the Fraud Act 2006"
+    },
+    {
+      "id": 29,
       "text": "Are accounts with access to sensitive bank details monitored for unusual activities;\nsuch as access during closed hours, or data modification?",
       "options": ["Yes, accounts with access to bank details are monitored for unusual activity", "No, accounts with access to bank details are not monitored for unusual activity"],
-      "deduction": [0, -6],
+      "deduction": [0, -5],
       "type": "Fraud By Abuse of Position",
       "law": "The Fraud Act",
       "link": "https://www.legislation.gov.uk/ukpga/2006/35/section/4",
       "explanation": "Monitoring accounts with access to sensitive bank details will help mitigate the risk of employees accessing or using bank account information maliciously,\nwhich violates the Fraud by Abuse of Position section of the Fraud Act 2006"
+    },
+    {
+      "id": 30,
+      "text": "Does your firm have policies that client instructions, such as large or unusual online transactions;\nare verified for authentication prior to being carried out?",
+      "options": ["Yes, we ensure that client instructions are verified for authentication", "No, we do not ensure that client instructions are verified for authentication", "I am self employed and have no other staff" ],
+      "deduction": [0, -3, 0],
+      "type": "Fraud By Abuse of Position",
+      "law": "The Fraud Act",
+      "link": "https://www.legislation.gov.uk/ukpga/2006/35/section/4",
+      "explanation": "Ensuring that client instructions are verified for authentication helps mitigate the risk of employees using client bank account information maliciously,\nwhich violates the Fraud by Abuse of Position section of the Fraud Act 2006"
     }
   ]
 }
