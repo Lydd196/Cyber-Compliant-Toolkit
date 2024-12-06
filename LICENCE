@@ -22,10 +22,10 @@ SOFTWARE.
 
 This project uses the following third-party libraries:
 
-1. **Matplotlib** (BSD-style License)
+1. Matplotlib (BSD-style License)
    Copyright (c) 2012-2024 Matplotlib Development Team
    License text available at: https://matplotlib.org/stable/users/license.html
 
-2. **CustomTkinter** (MIT License)
+2. CustomTkinter (MIT License)
    Copyright (c) 2023 [Tom Schimansky, CustomTkinter]
    License text available at: https://github.com/TomSchimansky/CustomTkinter/blob/master/LICENSE
