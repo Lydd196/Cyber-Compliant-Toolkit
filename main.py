@@ -127,7 +127,7 @@ def showResults():
 
 def download():
     file = open("testdata.txt", "w")
-    file.write("Test")
+    file.write(str(complianceLevel))
     file.close()
 
 #Start function for running the questions (starting the test)
