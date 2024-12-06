@@ -27,5 +27,5 @@ This project uses the following third-party libraries:
    License text available at: https://matplotlib.org/stable/users/license.html
 
 2. **CustomTkinter** (MIT License)
-   Copyright (c) [Tom Schimansky, CustomTkinter]
+   Copyright (c) 2023 [Tom Schimansky, CustomTkinter]
    License text available at: https://github.com/TomSchimansky/CustomTkinter/blob/master/LICENSE
