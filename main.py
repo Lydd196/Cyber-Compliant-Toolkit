@@ -90,13 +90,13 @@ def showResults():
 
     #If the average loss per question for the Computer Misuse Act is higher than 1.66, it will have a message for serious breach, if it is higher than 0.66, it will have a message for minor breach, else no message
     if externalInfo[1] > 1.66:
-        cmaDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in serious breach of the Computer Misuse Act 1990.\nThey may face up to 2 years imprisonment", font=normalFont)
+        cmaDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in serious breach of the Computer Misuse Act 1990.\nThey may face up to 2 years imprisonment.", font=normalFont)
         cmaDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the Computer Misuse Act!", font=linkFont)
         linkLabel.pack(pady=(0, 20))
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.cps.gov.uk/legal-guidance/computer-misuse-act"))
     elif externalInfo[1] > 0.66:
-        cmaDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in minor breach of the Computer Misuse Act 1990.\nThey may face small fines if escalated", font=normalFont)
+        cmaDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in minor breach of the Computer Misuse Act 1990.\nThey may face small fines if escalated.", font=normalFont)
         cmaDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the Computer Misuse Act!", font=linkFont)
         linkLabel.pack(pady=(0, 20))
@@ -104,13 +104,13 @@ def showResults():
 
     #If the average loss per question for the Fraud Act is higher than 1.66, it will have a message for serious breach, if it is higher than 0.66, it will have a message for minor breach, else no message
     if externalInfo[2] > 1.66:
-        fraudDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in serious breach of the Fraud Act 2006.\nThey may face up to 10 years imprisonment if escalated", font=normalFont)
+        fraudDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in serious breach of the Fraud Act 2006.\nThey may face up to 10 years imprisonment if escalated.", font=normalFont)
         fraudDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the Fraud Act!", font=linkFont)
         linkLabel.pack(pady=(0, 20))
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.cps.gov.uk/legal-guidance/fraud-act-2006"))
     elif externalInfo[2] > 0.66:
-        fraudDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in minor breach of The Fraud Act 2006.\nThey may face small fines or a short imprisonment period if escalated", font=normalFont)
+        fraudDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in minor breach of The Fraud Act 2006.\nThey may face small fines or a short imprisonment period if escalated.", font=normalFont)
         fraudDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the Fraud Act!", font=linkFont)
         linkLabel.pack(pady=(0, 20))
@@ -120,8 +120,15 @@ def showResults():
     if complianceLevel != 100:
         reviewQuestionsButton = ctk.CTkButton(window, text="Review Incorrect Answers", command=lambda: reviewWrongQuestions(wrongList) ,font=normalFont)
         reviewQuestionsButton.pack(padx=10, pady=5, anchor="center")
+    downloadButton = ctk.CTkButton(window, text="Download Result Data", command=download, font=normalFont)
+    downloadButton.pack(padx=10, pady=5, anchor="center")
     endButton = ctk.CTkButton(window, text="End", command=close, font=normalFont)
     endButton.pack(padx=10, pady=5, anchor="center")
+
+def download():
+    file = open("testdata.txt", "w")
+    file.write("Test")
+    file.close()
 
 #Start function for running the questions (starting the test)
 def start():

@@ -48,7 +48,7 @@ def averageLossUpdate(newCompliance, oldCompliance, questionType):
     elif questionType == "Computer Misuse Act":
         misuseAverage = misuseAverage + (complianceDifference/6)
     elif questionType == "The Fraud Act":
-        fraudAverage = fraudAverage + (complianceDifference/2)
+        fraudAverage = fraudAverage + (complianceDifference/4)
 
 #Function to return external info used in main.py. including a list of all of the three final average loss values and the list of questions the user got wrong
 def returnExternalInfo():
