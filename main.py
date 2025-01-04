@@ -1,8 +1,10 @@
 import customtkinter as ctk
 import random
 import questionhandler 
+import datetime
 import webbrowser
 import sys
+import json
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
@@ -116,7 +118,7 @@ def showResults():
         linkLabel.pack(pady=(0, 20))
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.cps.gov.uk/legal-guidance/fraud-act-2006"))
     
-    #Buttons for reviewing incorrect questions (USAGE FOR LATER) as well as a button to close the program
+    #Buttons for reviewing incorrect questions as well as a button to close the program
     if complianceLevel != 100:
         reviewQuestionsButton = ctk.CTkButton(window, text="Review Incorrect Answers", command=lambda: reviewWrongQuestions(wrongList) ,font=normalFont)
         reviewQuestionsButton.pack(padx=10, pady=5, anchor="center")
@@ -126,9 +128,12 @@ def showResults():
     endButton.pack(padx=10, pady=5, anchor="center")
 
 def download():
-    file = open("testdata.txt", "w")
-    file.write(str(complianceLevel))
-    file.close()
+    time = datetime.datetime.now()
+    timeString = time.strftime("%d-%m-%Y-%H-%M-%S")
+    timeStringJson = timeString + ".json"
+    with open(timeStringJson, 'w') as f:
+        json.dump(str(complianceLevel), f)
+
 
 #Start function for running the questions (starting the test)
 def start():
@@ -153,7 +158,7 @@ def start():
     #After each of the questions have been answered, show the results
     showResults()
 
-#Function to review the questions the user lost compliance score on ---WORK IN PROGRESS---
+#Function to review the questions the user lost compliance score on 
 def reviewWrongQuestions(wrongList):
     #Clears all current elements and loads the wrong questions using json and result data 
     clearElements(window) 

@@ -272,7 +272,7 @@
     },
     {
       "id": 28,
-      "text": "Do employees use only company-approved, software for sending or receiving sensitive client data\nto prevent falsification risks, such as Sage?",
+      "text": "Do employees use only company-approved software for sending or receiving sensitive client data\nto prevent falsification risks, such as Sage?",
       "options": ["Yes, we ensure that employees use only company-approved software", "No, we do ensure that employees use only company-approved software", "I am self employed and have no other staff"],
       "deduction": [0, -2, 0],
       "type": "Fraud By False Representation",
@@ -293,8 +293,8 @@
     {
       "id": 30,
       "text": "Does your firm have policies that client instructions, such as large or unusual online transactions;\nare verified for authentication prior to being carried out?",
-      "options": ["Yes, we ensure that client instructions are verified for authentication", "No, we do not ensure that client instructions are verified for authentication", "I am self employed and have no other staff" ],
-      "deduction": [0, -3, 0],
+      "options": ["Yes, we ensure that client instructions are verified for authentication", "No, we do not ensure that client instructions are verified for authentication"],
+      "deduction": [0, -3],
       "type": "Fraud By Abuse of Position",
       "law": "The Fraud Act",
       "link": "https://www.legislation.gov.uk/ukpga/2006/35/section/4",
