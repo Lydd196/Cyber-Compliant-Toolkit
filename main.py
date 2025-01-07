@@ -5,6 +5,7 @@ import datetime
 import webbrowser
 import sys
 import json
+import os 
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
@@ -17,10 +18,52 @@ ctk.set_appearance_mode("Dark")
 
 #Initial compliance level as a percentage
 complianceLevel = 100
+firstAccess = True
 
 #Function to open url in new tab
 def openUrl(link):
    webbrowser.open_new_tab(link)
+
+def getClosestJsonFile(directory):
+    #Get the current date and time
+    now = datetime.datetime.now()
+
+    #List all files in the directory
+    files = [f for f in os.listdir(directory) if f.endswith('.json')]
+
+    #Parse dates from filenames and store them with their corresponding file
+    fileDates = []
+    for file in files:
+        try:
+            #Extract and parse the datetime from the filename
+            dateString = file.replace(".json", "")  # Remove '.json'
+            fileDate = datetime.datetime.strptime(dateString, "%d-%m-%Y-%H-%M-%S")
+            fileDates.append((fileDate, file))
+        except ValueError:
+            pass  #Skip files that don't match the expected format
+
+    if len(fileDates) == 0:
+        return None  #No valid JSON files found
+    
+    closestFile = None
+    smallestDifference = 9999999999999999.999999
+
+    #Find the file with the closest date to now
+    for fileDate, filename in fileDates:
+        timeDifference = abs((now - fileDate).total_seconds())
+        if timeDifference < smallestDifference:
+            smallestDifference = timeDifference
+            closestFile = filename
+
+    return closestFile  
+
+#Function for exporting the question data as a json format, with the name as the current datetime ---WORK IN PROGRESS---
+def download():
+    time = datetime.datetime.now()
+    datetimeString = time.strftime("%d-%m-%Y-%H-%M-%S")
+    datetimeStringJson = datetimeString + ".json"
+    with open(datetimeStringJson, 'w') as f:
+        json.dump({"compliance": complianceLevel}, f)
 
 #Function to clear previous question elements
 def clearElements(window):
@@ -29,6 +72,17 @@ def clearElements(window):
 
 #Function to show the results
 def showResults():
+    global firstAccess
+    if firstAccess == True:
+        directory = '.'  # Directory where JSON files are stored
+        closest_file = getClosestJsonFile(directory)
+        if closest_file:
+            print(f"The closest JSON file to today is: {closest_file}")
+        else:
+            print("No valid JSON files found.")
+        download()
+        firstAccess = False
+    
     #Clears the current elements such that the window is ready to display the results
     clearElements(window)
     window.title("Your Results")
@@ -122,18 +176,8 @@ def showResults():
     if complianceLevel != 100:
         reviewQuestionsButton = ctk.CTkButton(window, text="Review Incorrect Answers", command=lambda: reviewWrongQuestions(wrongList) ,font=normalFont)
         reviewQuestionsButton.pack(padx=10, pady=5, anchor="center")
-    downloadButton = ctk.CTkButton(window, text="Download Result Data", command=download, font=normalFont)
-    downloadButton.pack(padx=10, pady=5, anchor="center")
     endButton = ctk.CTkButton(window, text="End", command=close, font=normalFont)
     endButton.pack(padx=10, pady=5, anchor="center")
-
-def download():
-    time = datetime.datetime.now()
-    timeString = time.strftime("%d-%m-%Y-%H-%M-%S")
-    timeStringJson = timeString + ".json"
-    with open(timeStringJson, 'w') as f:
-        json.dump(str(complianceLevel), f)
-
 
 #Start function for running the questions (starting the test)
 def start():
