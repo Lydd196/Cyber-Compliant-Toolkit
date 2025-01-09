@@ -24,6 +24,11 @@ firstAccess = True
 def openUrl(link):
    webbrowser.open_new_tab(link)
 
+def loadOldCompliance(oldFile):
+    with open(oldFile, 'r') as file:
+        oldFile = json.load(file)
+    return oldFile
+
 def getClosestJsonFile(directory):
     #Get the current date and time
     now = datetime.datetime.now()
@@ -34,16 +39,14 @@ def getClosestJsonFile(directory):
     #Parse dates from filenames and store them with their corresponding file
     fileDates = []
     for file in files:
-        try:
-            #Extract and parse the datetime from the filename
-            dateString = file.replace(".json", "")  # Remove '.json'
+        #If file ends in .json and isnt questions.json, remove the .json and format the name as current date and time
+        if ".json" in file and file != "questions.json":
+            dateString = file.replace(".json", "") 
             fileDate = datetime.datetime.strptime(dateString, "%d-%m-%Y-%H-%M-%S")
             fileDates.append((fileDate, file))
-        except ValueError:
-            pass  #Skip files that don't match the expected format
-
+    #If no .json files are found, then it returns nothing
     if len(fileDates) == 0:
-        return None  #No valid JSON files found
+        return None  
     
     closestFile = None
     smallestDifference = 9999999999999999.999999
@@ -54,32 +57,28 @@ def getClosestJsonFile(directory):
         if timeDifference < smallestDifference:
             smallestDifference = timeDifference
             closestFile = filename
-
     return closestFile  
 
-#Function for exporting the question data as a json format, with the name as the current datetime ---WORK IN PROGRESS---
+#Function for exporting the question data as a json format, with the name as the current datetime, currently just storing the compliance value
 def download():
     time = datetime.datetime.now()
     datetimeString = time.strftime("%d-%m-%Y-%H-%M-%S")
     datetimeStringJson = datetimeString + ".json"
     with open(datetimeStringJson, 'w') as f:
-        json.dump({"compliance": complianceLevel}, f)
+        json.dump(complianceLevel, f)
 
 #Function to clear previous question elements
 def clearElements(window):
     for elements in window.winfo_children():
         elements.destroy() 
 
-#Function to show the results
+#Function to show the results and automatically downloads a JSON file (currently just storing the compliance value)
 def showResults():
     global firstAccess
+    global closestFile
     if firstAccess == True:
         directory = '.'  # Directory where JSON files are stored
-        closest_file = getClosestJsonFile(directory)
-        if closest_file:
-            print(f"The closest JSON file to today is: {closest_file}")
-        else:
-            print("No valid JSON files found.")
+        closestFile = getClosestJsonFile(directory)
         download()
         firstAccess = False
     
@@ -108,12 +107,11 @@ def showResults():
 
     resultDescriptionLabel = ctk.CTkLabel(window, text= "sample text", font=normalFont)
 
-    #Different result descriptions based on the compliance value and worst law average
+    #Different result descriptions based on the compliance value 
     externalInfo = questionhandler.returnExternalInfo()
     for index in range(0, len(externalInfo) - 1):
         externalInfo[index] = round(externalInfo[index], 2)
     wrongList = externalInfo[3]
-
     if complianceLevel > 80:
         resultDescriptionLabel.configure(text= "We believe that overall, your accountancy firm is very compliant with cyber laws. Great Job!")
         resultDescriptionLabel.pack(pady=15)
@@ -172,6 +170,22 @@ def showResults():
         linkLabel.pack(pady=(0, 20))
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.cps.gov.uk/legal-guidance/fraud-act-2006"))
     
+    #If there is a closest file, loads it and shows a message depending on whether the firm has improved their compliance or not
+    if closestFile != None:
+        lastCompliance = loadOldCompliance(closestFile)
+        #Remove .json and show the date as d/m/y
+        dateString = closestFile.replace(".json", "")  
+        fileDate = datetime.datetime.strptime(dateString, "%d-%m-%Y-%H-%M-%S")
+        formattedDate = fileDate.strftime("%d/%m/%Y")
+        if lastCompliance > complianceLevel:
+            difference = lastCompliance - complianceLevel
+            differenceLabel = ctk.CTkLabel(window, text= "Your compliance score decreased by " + str(difference) + "% from last time on " + formattedDate, font=normalFont)
+            differenceLabel.pack()
+        elif complianceLevel > lastCompliance:
+            difference = complianceLevel - lastCompliance
+            differenceLabel = ctk.CTkLabel(window, text= "Your compliance score increased by " + str(difference) + "% from last time on " + formattedDate, font=normalFont)
+            differenceLabel.pack()
+
     #Buttons for reviewing incorrect questions as well as a button to close the program
     if complianceLevel != 100:
         reviewQuestionsButton = ctk.CTkButton(window, text="Review Incorrect Answers", command=lambda: reviewWrongQuestions(wrongList) ,font=normalFont)
