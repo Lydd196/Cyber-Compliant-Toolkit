@@ -7,6 +7,7 @@ import sys
 import json
 import os 
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 #Create the main window
@@ -24,26 +25,31 @@ firstAccess = True
 def openUrl(link):
    webbrowser.open_new_tab(link)
 
+#Function to load the last quiz's compliance value -----SUBJECT TO CHANGE------
 def loadOldCompliance(oldFile):
     with open(oldFile, 'r') as file:
         oldFile = json.load(file)
     return oldFile
 
+#Function for getting the closest json file to the current date
 def getClosestJsonFile(directory):
-    #Get the current date and time
+    #Get current datetime and storing all json files in current diretory in the files list
     now = datetime.datetime.now()
-
-    #List all files in the directory
-    files = [f for f in os.listdir(directory) if f.endswith('.json')]
+    files = []
+    for file in os.listdir(directory):
+        if file.endswith(".json"):
+            files.append(file)
 
     #Parse dates from filenames and store them with their corresponding file
     fileDates = []
     for file in files:
-        #If file ends in .json and isnt questions.json, remove the .json and format the name as current date and time
-        if ".json" in file and file != "questions.json":
-            dateString = file.replace(".json", "") 
-            fileDate = datetime.datetime.strptime(dateString, "%d-%m-%Y-%H-%M-%S")
+        try:
+            dateString = file.replace(".json", "")  # Remove '.json'
+            fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
             fileDates.append((fileDate, file))
+        except ValueError:
+            pass  #Skip files that dont match my datetime format
+
     #If no .json files are found, then it returns nothing
     if len(fileDates) == 0:
         return None  
@@ -62,7 +68,7 @@ def getClosestJsonFile(directory):
 #Function for exporting the question data as a json format, with the name as the current datetime, currently just storing the compliance value
 def download():
     time = datetime.datetime.now()
-    datetimeString = time.strftime("%d-%m-%Y-%H-%M-%S")
+    datetimeString = time.strftime("%Y-%m-%d-%H-%M-%S")
     datetimeStringJson = datetimeString + ".json"
     with open(datetimeStringJson, 'w') as f:
         json.dump(complianceLevel, f)
@@ -175,7 +181,7 @@ def showResults():
         lastCompliance = loadOldCompliance(closestFile)
         #Remove .json and show the date as d/m/y
         dateString = closestFile.replace(".json", "")  
-        fileDate = datetime.datetime.strptime(dateString, "%d-%m-%Y-%H-%M-%S")
+        fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
         formattedDate = fileDate.strftime("%d/%m/%Y")
         if lastCompliance > complianceLevel:
             difference = lastCompliance - complianceLevel
@@ -249,7 +255,59 @@ def reviewWrongQuestions(wrongList):
         else:
             questionNumber = questionNumber - 1
             goBackCondition = False
-        
+
+def graph():
+    #Get current datetime and storing all json files in current diretory in the files list
+    files = []
+    for file in os.listdir("."):
+        if file.endswith(".json"):
+            files.append(file)
+
+    #Parse dates from filenames and store them with their corresponding file
+    fileData = []
+    for file in files:
+        try:
+            dateString = file.replace(".json", "")  # Remove '.json'
+            fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
+            complianceValue = loadOldCompliance(file)
+            fileData.append((fileDate, complianceValue))
+        except ValueError:
+            pass  #Skip files that dont match my datetime format
+
+    #If no .json files are found, then it returns nothing
+    if len(fileData) == 0:
+        return None  
+
+    #Sort the data by date
+    fileData.sort()
+
+    #Extract dates and compliance levels for plotting
+    dates = []
+    complianceLevels = []
+
+    #Iterate through fileData and append elements to respective lists
+    for data in fileData:
+        dates.append(data[0])
+        complianceLevels.append(data[1])
+
+    #Plot the compliance value for each json file using matplotlib and pyplot libraries, showing progression over time
+    fig, ax = plt.subplots(figsize=(10, 6))
+    fig.patch.set_facecolor("#2c2c2c") 
+    ax.set_facecolor("#2c2c2c")   
+    ax.plot(dates, complianceLevels, marker='o', linestyle='-', color='cyan', label='Compliance Level')
+    ax.set_xlabel("Date", fontsize=12, color="white")
+    ax.set_ylabel("Compliance Level (%)", fontsize=12, color="white")
+    ax.set_title("Compliance Levels Over Time", fontsize=16, color="white")
+    #Format the date on the x axis as y-m-d
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))  
+    ax.tick_params(axis='x', rotation=45, colors='white')  
+    ax.tick_params(axis='y', colors='white')
+    ax.legend(loc="upper right", fontsize=10, facecolor="#2c2c2c", edgecolor="white")
+    ax.grid(color="gray", linestyle="--", linewidth=0.5)
+    canvas = FigureCanvasTkAgg(fig, master=window)
+    canvas.draw()
+    canvas.get_tk_widget().pack(fill="both", expand=True)
+    
 #Cancel function to not run the test and to close the program, by usage of terminating main.py
 def close():
     sys.exit(0)
@@ -274,6 +332,8 @@ descriptionLabel.pack(pady=15)
 #Create start and close buttons
 startButton = ctk.CTkButton(window, text="Start", command=start, font=normalFont)
 startButton.pack(pady=10)
+graphButton = ctk.CTkButton(window, text="View Graph", command=graph, font=normalFont)
+graphButton.pack(pady=10)
 closeButton = ctk.CTkButton(window, text="Close", command=close, font=normalFont)
 closeButton.pack(pady=10)
 
