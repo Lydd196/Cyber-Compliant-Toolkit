@@ -102,12 +102,12 @@ def showResults():
     pieValues = [complianceLevel, 100 - complianceLevel]
     labels = ['Compliant', 'Non-Compliant']
     colors = ["#0ac700", "#bf0000"]
-    fig, ax = plt.subplots(figsize=(3, 3))
-    fig.patch.set_facecolor("#2c2c2c") 
-    ax.set_facecolor("#2c2c2c")   
-    ax.pie(pieValues, labels=labels, autopct="%1.0f%%", colors=colors, startangle=90, textprops={'color': 'white', 'fontsize': 18})
-    ax.axis('equal')  
-    canvas = FigureCanvasTkAgg(fig, master=window)
+    figure, axes = plt.subplots(figsize=(3, 3))
+    figure.patch.set_facecolor("#2c2c2c") 
+    axes.set_facecolor("#2c2c2c")   
+    axes.pie(pieValues, labels=labels, autopct="%1.0f%%", colors=colors, startangle=90, textprops={'color': 'white', 'fontsize': 18})
+    axes.axis('equal')  
+    canvas = FigureCanvasTkAgg(figure, master=window)
     canvas.draw()
     canvas.get_tk_widget().pack(fill="both", expand=True)
 
@@ -267,7 +267,7 @@ def graph():
     fileData = []
     for file in files:
         try:
-            dateString = file.replace(".json", "")  # Remove '.json'
+            dateString = file.replace(".json", "") 
             fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
             complianceValue = loadOldCompliance(file)
             fileData.append((fileDate, complianceValue))
@@ -291,20 +291,20 @@ def graph():
         complianceLevels.append(data[1])
 
     #Plot the compliance value for each json file using matplotlib and pyplot libraries, showing progression over time
-    fig, ax = plt.subplots(figsize=(10, 6))
-    fig.patch.set_facecolor("#2c2c2c") 
-    ax.set_facecolor("#2c2c2c")   
-    ax.plot(dates, complianceLevels, marker='o', linestyle='-', color='cyan', label='Compliance Level')
-    ax.set_xlabel("Date", fontsize=12, color="white")
-    ax.set_ylabel("Compliance Level (%)", fontsize=12, color="white")
-    ax.set_title("Compliance Levels Over Time", fontsize=16, color="white")
-    #Format the date on the x axis as y-m-d
-    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))  
-    ax.tick_params(axis='x', rotation=45, colors='white')  
-    ax.tick_params(axis='y', colors='white')
-    ax.legend(loc="upper right", fontsize=10, facecolor="#2c2c2c", edgecolor="white")
-    ax.grid(color="gray", linestyle="--", linewidth=0.5)
-    canvas = FigureCanvasTkAgg(fig, master=window)
+    figure, axes = plt.subplots(figsize=(10, 6))
+    figure.patch.set_facecolor("#2c2c2c") 
+    axes.set_facecolor("#2c2c2c")   
+    axes.plot(dates, complianceLevels, marker='o', linestyle='-', color='red', label='Compliance Level')
+    axes.set_xlabel("Date", fontsize=12, color="white")
+    axes.set_ylabel("Compliance Level (%)", fontsize=12, color="white")
+    axes.set_title("Compliance Levels Over Time", fontsize=16, color="white")
+    #Format the date on the x axis as d/m/y
+    axes.xaxis.set_major_formatter(mdates.DateFormatter('%d/%m/%Y'))  
+    axes.tick_params(axis='x', rotation=25, colors='white')  
+    axes.tick_params(axis='y', colors='white')
+    axes.legend(loc="upper left", fontsize=10, facecolor="#2c2c2c", edgecolor="white", labelcolor='w')
+    axes.grid(color="gray", linestyle="--", linewidth=0.7)
+    canvas = FigureCanvasTkAgg(figure, master=window)
     canvas.draw()
     canvas.get_tk_widget().pack(fill="both", expand=True)
     
