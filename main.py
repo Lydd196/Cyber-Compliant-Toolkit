@@ -20,6 +20,7 @@ ctk.set_appearance_mode("Dark")
 #Initial compliance level as a percentage
 complianceLevel = 100
 firstAccess = True
+graphViewed = False
 
 #Function to open url in new tab
 def openUrl(link):
@@ -105,7 +106,7 @@ def showResults():
     figure, axes = plt.subplots(figsize=(3, 3))
     figure.patch.set_facecolor("#2c2c2c") 
     axes.set_facecolor("#2c2c2c")   
-    axes.pie(pieValues, labels=labels, autopct="%1.0f%%", colors=colors, startangle=90, textprops={'color': 'white', 'fontsize': 18})
+    axes.pie(pieValues, labels=labels, autopct="%1.0f%%", colors=colors, startangle=90, textprops={"color": "white", 'fontsize': 18})
     axes.axis('equal')  
     canvas = FigureCanvasTkAgg(figure, master=window)
     canvas.draw()
@@ -257,56 +258,66 @@ def reviewWrongQuestions(wrongList):
             goBackCondition = False
 
 def graph():
-    #Get current datetime and storing all json files in current diretory in the files list
-    files = []
-    for file in os.listdir("."):
-        if file.endswith(".json"):
-            files.append(file)
+    global graphViewed
+    global canvas
+    if graphViewed == False:
+        #Get current datetime and storing all json files in current diretory in the files list
+        files = []
+        for file in os.listdir("."):
+            if file.endswith(".json"):
+                files.append(file)
 
-    #Parse dates from filenames and store them with their corresponding file
-    fileData = []
-    for file in files:
-        try:
-            dateString = file.replace(".json", "") 
-            fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
-            complianceValue = loadOldCompliance(file)
-            fileData.append((fileDate, complianceValue))
-        except ValueError:
-            pass  #Skip files that dont match my datetime format
+        #Parse dates from filenames and store them with their corresponding file
+        fileData = []
+        for file in files:
+            try:
+                dateString = file.replace(".json", "") 
+                fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
+                complianceValue = loadOldCompliance(file)
+                fileData.append((fileDate, complianceValue))
+            except ValueError:
+                pass  #Skip files that dont match my datetime format
 
-    #If no .json files are found, then it returns nothing
-    if len(fileData) == 0:
-        return None  
+        #If no .json files are found, then it returns nothing
+        if len(fileData) == 0:
+            return None  
 
-    #Sort the data by date
-    fileData.sort()
+        #Sort the data by date
+        fileData.sort()
 
-    #Extract dates and compliance levels for plotting
-    dates = []
-    complianceLevels = []
+        #Extract dates and compliance levels for plotting
+        dates = []
+        complianceLevels = []
 
-    #Iterate through fileData and append elements to respective lists
-    for data in fileData:
-        dates.append(data[0])
-        complianceLevels.append(data[1])
+        #Iterate through fileData and append elements to respective lists
+        for data in fileData:
+            dates.append(data[0])
+            complianceLevels.append(data[1])
 
-    #Plot the compliance value for each json file using matplotlib and pyplot libraries, showing progression over time
-    figure, axes = plt.subplots(figsize=(10, 6))
-    figure.patch.set_facecolor("#2c2c2c") 
-    axes.set_facecolor("#2c2c2c")   
-    axes.plot(dates, complianceLevels, marker='o', linestyle='-', color='red', label='Compliance Level')
-    axes.set_xlabel("Date", fontsize=12, color="white")
-    axes.set_ylabel("Compliance Level (%)", fontsize=12, color="white")
-    axes.set_title("Compliance Levels Over Time", fontsize=16, color="white")
-    #Format the date on the x axis as d/m/y
-    axes.xaxis.set_major_formatter(mdates.DateFormatter('%d/%m/%Y'))  
-    axes.tick_params(axis='x', rotation=25, colors='white')  
-    axes.tick_params(axis='y', colors='white')
-    axes.legend(loc="upper left", fontsize=10, facecolor="#2c2c2c", edgecolor="white", labelcolor='w')
-    axes.grid(color="gray", linestyle="--", linewidth=0.7)
-    canvas = FigureCanvasTkAgg(figure, master=window)
-    canvas.draw()
-    canvas.get_tk_widget().pack(fill="both", expand=True)
+        #Plot the compliance value for each json file using matplotlib and pyplot libraries, showing progression over time
+        figure, axes = plt.subplots(figsize=(15, 8))
+        figure.patch.set_facecolor("#2c2c2c") 
+        axes.set_facecolor("#2c2c2c")   
+        axes.plot(dates, complianceLevels, marker='o', linestyle='-', color='red', label='Compliance Level')
+        axes.set_xlabel("Date", fontsize=18, fontname="Times New Roman", color="white")
+        axes.set_ylabel("Compliance Level (%)", fontsize=18, fontname="Times New Roman", color="white")
+        axes.set_title("Compliance Levels Over Time", fontsize=18, fontname="Times New Roman", color="white")
+        #Format the date on the x axis as d/m/y
+        axes.xaxis.set_major_formatter(mdates.DateFormatter('%d/%m/%Y'))  
+        axes.tick_params(axis='x', rotation=25, colors="white")  
+        axes.tick_params(axis='y', colors="white")
+        axes.legend(loc="upper left", fontsize=10, facecolor="#2c2c2c", edgecolor="white", labelcolor="w")
+        axes.grid(color="gray", linestyle="--", linewidth=0.7)
+        plt.tight_layout()
+        canvas = FigureCanvasTkAgg(figure, master=window)
+        canvas.draw()
+        canvas.get_tk_widget().pack(side="top", pady=5)  
+        graphButton.configure(text="Hide Graph")
+        graphViewed = True
+    else:
+        canvas.get_tk_widget().destroy()
+        graphButton.configure(text="Show Graph")
+        graphViewed = False
     
 #Cancel function to not run the test and to close the program, by usage of terminating main.py
 def close():
@@ -331,11 +342,11 @@ descriptionLabel.pack(pady=15)
 
 #Create start and close buttons
 startButton = ctk.CTkButton(window, text="Start", command=start, font=normalFont)
-startButton.pack(pady=10)
-graphButton = ctk.CTkButton(window, text="View Graph", command=graph, font=normalFont)
-graphButton.pack(pady=10)
+startButton.pack(pady=8)
+graphButton = ctk.CTkButton(window, text="Show Graph", command=graph, font=normalFont)
+graphButton.pack(pady=8)
 closeButton = ctk.CTkButton(window, text="Close", command=close, font=normalFont)
-closeButton.pack(pady=10)
+closeButton.pack(pady=8)
 
 #Run the main loop
 window.mainloop()
