@@ -44,12 +44,14 @@ def getClosestJsonFile(directory):
     #Parse dates from filenames and store them with their corresponding file
     fileDates = []
     for file in files:
+        #If .json file name doesnt meet expected datetime format or is later than the current datatime, it is ignored
         try:
-            dateString = file.replace(".json", "")  # Remove '.json'
+            dateString = file.replace(".json", "")  
             fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
-            fileDates.append((fileDate, file))
+            if fileDate <= now:  
+                fileDates.append((fileDate, file))
         except ValueError:
-            pass  #Skip files that dont match my datetime format
+            pass  
 
     #If no .json files are found, then it returns nothing
     if len(fileDates) == 0:
@@ -58,7 +60,7 @@ def getClosestJsonFile(directory):
     closestFile = None
     smallestDifference = 9999999999999999.999999
 
-    #Find the file with the closest date to now
+    #Find the file with the closest date to now, excluding later dates
     for fileDate, filename in fileDates:
         timeDifference = abs((now - fileDate).total_seconds())
         if timeDifference < smallestDifference:
@@ -103,14 +105,14 @@ def showResults():
     pieValues = [complianceLevel, 100 - complianceLevel]
     labels = ['Compliant', 'Non-Compliant']
     colors = ["#0ac700", "#bf0000"]
-    figure, axes = plt.subplots(figsize=(3, 3))
+    figure, axes = plt.subplots(figsize=(8, 3))
     figure.patch.set_facecolor("#2c2c2c") 
     axes.set_facecolor("#2c2c2c")   
-    axes.pie(pieValues, labels=labels, autopct="%1.0f%%", colors=colors, startangle=90, textprops={"color": "white", 'fontsize': 18})
-    axes.axis('equal')  
+    axes.pie(pieValues, labels=labels, autopct="%1.0f%%", colors=colors, startangle=90, textprops={"color": "white", "fontsize": 18, "fontfamily": "Times New Roman"})
+    axes.axis('equal') 
     canvas = FigureCanvasTkAgg(figure, master=window)
     canvas.draw()
-    canvas.get_tk_widget().pack(fill="both", expand=True)
+    canvas.get_tk_widget().pack(anchor="center")
 
     resultDescriptionLabel = ctk.CTkLabel(window, text= "sample text", font=normalFont)
 
@@ -230,6 +232,7 @@ def reviewWrongQuestions(wrongList):
     questionNumber = 1
     questionList = questionhandler.loadWrongQuestions("questions.json", wrongList)
     questionAmount = len(questionList)
+
     #A flag to go back to the results page
     global goToResults 
     goToResults = False
@@ -257,6 +260,7 @@ def reviewWrongQuestions(wrongList):
             questionNumber = questionNumber - 1
             goBackCondition = False
 
+#Function to create a graph on the main page, the button toggles the graph on and off
 def graph():
     global graphViewed
     global canvas
@@ -267,7 +271,7 @@ def graph():
             if file.endswith(".json"):
                 files.append(file)
 
-        #Parse dates from filenames and store them with their corresponding file
+        #Parse dates from filenames and store them with their corresponding file, if it doesnt meet the required format, it is ignored
         fileData = []
         for file in files:
             try:
@@ -276,7 +280,7 @@ def graph():
                 complianceValue = loadOldCompliance(file)
                 fileData.append((fileDate, complianceValue))
             except ValueError:
-                pass  #Skip files that dont match my datetime format
+                pass  
 
         #If no .json files are found, then it returns nothing
         if len(fileData) == 0:
@@ -284,12 +288,10 @@ def graph():
 
         #Sort the data by date
         fileData.sort()
-
-        #Extract dates and compliance levels for plotting
         dates = []
         complianceLevels = []
 
-        #Iterate through fileData and append elements to respective lists
+        #Iterate through fileData and append elements to date and compliance lists
         for data in fileData:
             dates.append(data[0])
             complianceLevels.append(data[1])
@@ -302,19 +304,23 @@ def graph():
         axes.set_xlabel("Date", fontsize=18, fontname="Times New Roman", color="white")
         axes.set_ylabel("Compliance Level (%)", fontsize=18, fontname="Times New Roman", color="white")
         axes.set_title("Compliance Levels Over Time", fontsize=18, fontname="Times New Roman", color="white")
+
         #Format the date on the x axis as d/m/y
-        axes.xaxis.set_major_formatter(mdates.DateFormatter('%d/%m/%Y'))  
+        axes.xaxis.set_major_formatter(mdates.DateFormatter("%d/%m/%Y"))  
         axes.tick_params(axis='x', rotation=25, colors="white")  
         axes.tick_params(axis='y', colors="white")
         axes.legend(loc="upper left", fontsize=10, facecolor="#2c2c2c", edgecolor="white", labelcolor="w")
         axes.grid(color="gray", linestyle="--", linewidth=0.7)
         plt.tight_layout()
+        
+        #Draw graph and toggle global flag on
         canvas = FigureCanvasTkAgg(figure, master=window)
         canvas.draw()
         canvas.get_tk_widget().pack(side="top", pady=5)  
         graphButton.configure(text="Hide Graph")
         graphViewed = True
     else:
+        #Delete graph and toggle global flag off
         canvas.get_tk_widget().destroy()
         graphButton.configure(text="Show Graph")
         graphViewed = False
