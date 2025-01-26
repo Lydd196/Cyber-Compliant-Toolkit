@@ -74,7 +74,7 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
 
     #Set question text from json file
     questionLabel = ctk.CTkLabel(window, text=questionData["text"], font=questionFont)
-    questionLabel.pack(pady=30)
+    questionLabel.pack(pady=20)
 
     #The selected option is stored as an int, first radiobutton is value 1, second radiobutton is value 2, etc.
     selectedOption = tk.IntVar()
@@ -103,7 +103,7 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
 
     #Create submit button
     submitButton = ctk.CTkButton(window, text="Submit", command=submit, font=normalFont)
-    submitButton.pack(pady=15)
+    submitButton.pack(pady=10)
 
     #Include external hyperlink for further reading based on question data from json file
     linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on this topic!", font=linkFont)
@@ -140,7 +140,7 @@ def showWrongQuestion(window, questionData, questionNumber, questionAmount, show
 
     #Set question text from json file
     questionLabel = ctk.CTkLabel(window, text=questionData["text"], font=questionFont)
-    questionLabel.pack(pady=30)
+    questionLabel.pack(pady=20)
 
     #Set explanation text from json file
     explanationLabel = ctk.CTkLabel(window, text=questionData["explanation"], font=normalFont)

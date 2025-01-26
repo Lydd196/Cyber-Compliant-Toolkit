@@ -97,9 +97,9 @@ def showResults():
 
     #Display final compliance value as a percentage with text depending on the final value itself
     complianceTitleLabel = ctk.CTkLabel(window, text= "Final compliance level:", font=titleFont)        
-    complianceTitleLabel.pack(pady=15)
-    complianceLevelLabel = ctk.CTkLabel(window, text=str(complianceLevel) + "%", font=normalFont)
-    complianceLevelLabel.pack(pady=15)
+    complianceTitleLabel.pack(pady=10)
+    complianceLevelLabel = ctk.CTkLabel(window, text=str(complianceLevel) + "%", font=titleFont)
+    complianceLevelLabel.pack(pady=10)
 
     #Additionally displays the compliance value as a pie chart using the pyplot and canvas libraries
     pieValues = [complianceLevel, 100 - complianceLevel]
@@ -123,13 +123,13 @@ def showResults():
     wrongList = externalInfo[3]
     if complianceLevel > 80:
         resultDescriptionLabel.configure(text= "We believe that overall, your accountancy firm is very compliant with cyber laws. Great Job!")
-        resultDescriptionLabel.pack(pady=15)
+        resultDescriptionLabel.pack(pady=10)
     elif complianceLevel > 50:
         resultDescriptionLabel.configure(text= "We believe that overall, your accountancy firm is not very compliant with cyber laws")
-        resultDescriptionLabel.pack(pady=15)
+        resultDescriptionLabel.pack(pady=10)
     else:
         resultDescriptionLabel.configure(text= "We believe that overall, your accountancy firm is not compliant at all with cyber laws")
-        resultDescriptionLabel.pack(pady=15)  
+        resultDescriptionLabel.pack(pady=10)  
 
     #Average loss thresholds are calculated by (x/y* (100-z))/x where x is the amount of that question type, y is the total number of questions and z is dependant on the condition (50 for serious breach and 80 for minor breach (MAY CHANGE))
     #THIS AVERAGE SYSTEM MUST BE CHANGED IF NEW QUESTIONS ARE ADDED
@@ -142,13 +142,13 @@ def showResults():
         gdprDetailsLabel = ctk.CTkLabel(window, text= "We believe that your firm may be in serious breach of the GDPR.\nYou may face fines up to £17.5 million or 4% of global annual turnover (whichever is higher).\nThis is enforced under the Data Protection Act 2018.", font=normalFont)
         gdprDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the UK GDPR/Data Protection Act!", font=linkFont)
-        linkLabel.pack(pady=(0, 20))
+        linkLabel.pack(pady=(0, 15))
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.gov.uk/data-protection"))
     elif externalInfo[0] > 0.66:
         gdprDetailsLabel = ctk.CTkLabel(window, text= "We believe that your firm may be in minor breach of the GDPR.\nYou may face fines up to £8.7 million or 2% of global annual turnover (whichever is higher).\nThis is enforced under the Data Protection Act 2018.", font=normalFont)
         gdprDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the UK GDPR/Data Protection Act!", font=linkFont)
-        linkLabel.pack(pady=(0, 20))
+        linkLabel.pack(pady=(0, 15))
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.gov.uk/data-protection"))
 
     #If the average loss per question for the Computer Misuse Act is higher than 1.66, it will have a message for serious breach, if it is higher than 0.66, it will have a message for minor breach, else no message
@@ -156,13 +156,13 @@ def showResults():
         cmaDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in serious breach of the Computer Misuse Act 1990.\nThey may face up to 2 years imprisonment.", font=normalFont)
         cmaDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the Computer Misuse Act!", font=linkFont)
-        linkLabel.pack(pady=(0, 20))
+        linkLabel.pack(pady=(0, 15))
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.cps.gov.uk/legal-guidance/computer-misuse-act"))
     elif externalInfo[1] > 0.66:
         cmaDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in minor breach of the Computer Misuse Act 1990.\nThey may face small fines if escalated.", font=normalFont)
         cmaDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the Computer Misuse Act!", font=linkFont)
-        linkLabel.pack(pady=(0, 20))
+        linkLabel.pack(pady=(0, 15))
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.cps.gov.uk/legal-guidance/computer-misuse-act"))
 
     #If the average loss per question for the Fraud Act is higher than 1.66, it will have a message for serious breach, if it is higher than 0.66, it will have a message for minor breach, else no message
@@ -170,13 +170,13 @@ def showResults():
         fraudDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in serious breach of the Fraud Act 2006.\nThey may face up to 10 years imprisonment if escalated.", font=normalFont)
         fraudDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the Fraud Act!", font=linkFont)
-        linkLabel.pack(pady=(0, 20))
+        linkLabel.pack(pady=(0, 15))
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.cps.gov.uk/legal-guidance/fraud-act-2006"))
     elif externalInfo[2] > 0.66:
         fraudDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in minor breach of The Fraud Act 2006.\nThey may face small fines or a short imprisonment period if escalated.", font=normalFont)
         fraudDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the Fraud Act!", font=linkFont)
-        linkLabel.pack(pady=(0, 20))
+        linkLabel.pack(pady=(0, 15))
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.cps.gov.uk/legal-guidance/fraud-act-2006"))
     
     #If there is a closest file, loads it and shows a message depending on whether the firm has improved their compliance or not
@@ -198,9 +198,9 @@ def showResults():
     #Buttons for reviewing incorrect questions as well as a button to close the program
     if complianceLevel != 100:
         reviewQuestionsButton = ctk.CTkButton(window, text="Review Incorrect Answers", command=lambda: reviewWrongQuestions(wrongList) ,font=normalFont)
-        reviewQuestionsButton.pack(padx=10, pady=5, anchor="center")
+        reviewQuestionsButton.pack(pady=5, anchor="center")
     endButton = ctk.CTkButton(window, text="End", command=close, font=normalFont)
-    endButton.pack(padx=10, pady=5, anchor="center")
+    endButton.pack(pady=5, anchor="center")
 
 #Start function for running the questions (starting the test)
 def start():
@@ -271,14 +271,15 @@ def graph():
             if file.endswith(".json"):
                 files.append(file)
 
-        #Parse dates from filenames and store them with their corresponding file, if it doesnt meet the required format, it is ignored
+        #Parse dates from filenames and store them with their corresponding file, if it doesnt meet the required format or is higher than current date, it is ignored
         fileData = []
         for file in files:
             try:
                 dateString = file.replace(".json", "") 
                 fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
                 complianceValue = loadOldCompliance(file)
-                fileData.append((fileDate, complianceValue))
+                if fileDate <= datetime.datetime.now():  
+                    fileData.append((fileDate, complianceValue))
             except ValueError:
                 pass  
 
@@ -297,7 +298,7 @@ def graph():
             complianceLevels.append(data[1])
 
         #Plot the compliance value for each json file using matplotlib and pyplot libraries, showing progression over time
-        figure, axes = plt.subplots(figsize=(15, 8))
+        figure, axes = plt.subplots(figsize=(15, 7))
         figure.patch.set_facecolor("#2c2c2c") 
         axes.set_facecolor("#2c2c2c")   
         axes.plot(dates, complianceLevels, marker='o', linestyle='-', color='red', label='Compliance Level')
