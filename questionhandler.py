@@ -101,6 +101,18 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
                 wrongList.append(questionData["id"])
             window.quit() 
 
+    #Buttons on the right to skip straight to dpa/cma/fraud questions --------TBD FUNCTION IS A WORK IN PROGRESS----------
+    DPAButton = ctk.CTkButton(window, text="Go to GDPR Questions", command=lambda: TBD("UK GDPR"), font=normalFont)
+    DPAButton.place(relx=0.98, rely=0.10, anchor=tk.E)
+    CMAButton = ctk.CTkButton(window, text="Go to Computer Misuse Act Questions", command=lambda: TBD("Computer Misuse Act"), font=normalFont)
+    CMAButton.place(relx=0.98, rely=0.14, anchor=tk.E)
+    fraudButton = ctk.CTkButton(window, text="Go to Fraud Act Questions", command=lambda: TBD("The Fraud Act"), font=normalFont)
+    fraudButton.place(relx=0.98, rely=0.18, anchor=tk.E)
+
+    #Function for going to certain question type
+    def TBD ():
+        return 0
+
     #Create submit button
     submitButton = ctk.CTkButton(window, text="Submit", command=submit, font=normalFont)
     submitButton.pack(pady=10)
@@ -160,14 +172,16 @@ def showWrongQuestion(window, questionData, questionNumber, questionAmount, show
         window.quit()
 
     #Only shows the go back button if question number is larger than 1, and only shows the go next button if question number is less than the question amount (current 30)
-    if questionNumber < questionAmount:
-        goNextButton = ctk.CTkButton(window, text="Go to the next question", command=next, font=normalFont)
-        goNextButton.pack(pady=10)
+    navigateFrame = ctk.CTkFrame(window)
+    navigateFrame.pack(pady=5)
     if questionNumber > 1:
-        goBackButton = ctk.CTkButton(window, text="Go to the previous question", command=previous, font=normalFont)
-        goBackButton.pack(pady=10)
-    resultsButton = ctk.CTkButton(window, text="Go back to the results screen", command=showResultsCallback, font=normalFont)
-    resultsButton.pack(pady=10)
+        goBackButton = ctk.CTkButton(navigateFrame, text="<", command=previous, font=normalFont)
+        goBackButton.pack(padx=5, side="left")
+    resultsButton = ctk.CTkButton(navigateFrame, text="Results", command=showResultsCallback, font=normalFont)
+    resultsButton.pack(padx=5, side="left")
+    if questionNumber < questionAmount:
+        goNextButton = ctk.CTkButton(navigateFrame, text=">", command=next, font=normalFont)
+        goNextButton.pack(padx=5, side="left")
 
     window.mainloop()
 

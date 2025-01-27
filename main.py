@@ -10,17 +10,23 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-#Create the main window
+#Create the main window with specific properties
 window = ctk.CTk()
 window.title("Cyber Law Compliance Toolkit")
 window.geometry("1920x1080")
 window._state_before_windows_set_titlebar_color = "zoomed"
+window.resizable(False, False)
 ctk.set_appearance_mode("Dark")
 
 #Initial compliance level as a percentage
 complianceLevel = 100
 firstAccess = True
 graphViewed = False
+
+#Define the folder for JSON files and if it doesnt exist, create it
+JSONFolder = "TestResults"
+if os.path.exists(JSONFolder) == False:
+    os.makedirs(JSONFolder)
 
 #Function to open url in new tab
 def openUrl(link):
@@ -29,8 +35,8 @@ def openUrl(link):
 #Function to load the last quiz's compliance value -----SUBJECT TO CHANGE------
 def loadOldCompliance(oldFile):
     with open(oldFile, 'r') as file:
-        oldFile = json.load(file)
-    return oldFile
+        value = json.load(file)
+    return value
 
 #Function for getting the closest json file to the current date
 def getClosestJsonFile(directory):
@@ -66,28 +72,122 @@ def getClosestJsonFile(directory):
         if timeDifference < smallestDifference:
             smallestDifference = timeDifference
             closestFile = filename
-    return closestFile  
+    return os.path.join(directory, closestFile)
 
 #Function for exporting the question data as a json format, with the name as the current datetime, currently just storing the compliance value
 def download():
     time = datetime.datetime.now()
     datetimeString = time.strftime("%Y-%m-%d-%H-%M-%S")
-    datetimeStringJson = datetimeString + ".json"
-    with open(datetimeStringJson, 'w') as f:
-        json.dump(complianceLevel, f)
+    jsonFilename = datetimeString + ".json"
+    jsonFilename = os.path.join(JSONFolder, jsonFilename)
+    with open(jsonFilename, 'w') as file:
+        json.dump(complianceLevel, file)
 
 #Function to clear previous question elements
 def clearElements(window):
     for elements in window.winfo_children():
         elements.destroy() 
 
+#Start function for running the questions (starting the test)
+def start():
+    #Clear all elements from the window to prepare the test
+    clearElements(window) 
+    global complianceLevel
+    questionNumber = 1
+    
+    #List of questions from json file gets shuffled to randomise the order
+    questionList = questionhandler.loadQuestions('questions.json')
+    random.shuffle(questionList)
+    questionAmount = len(questionList)
+
+    #Run each question dynamically
+    while questionNumber <= len(questionList):
+        question = questionList[questionNumber - 1]
+        complianceLevel = questionhandler.showQuestion(window, question, complianceLevel, questionNumber, questionAmount)
+        #Print compliance level in terminal (debugging purposes)
+        print("Compliance Level after question", questionNumber, ":", complianceLevel)
+        questionNumber = questionNumber + 1
+    
+    #After each of the questions have been answered, show the results
+    showResults()
+
+#Function to create a graph on the main page, the button toggles the graph on and off
+def graph():
+    global graphViewed
+    global canvas
+    if graphViewed == False:
+        #Get current datetime and storing all json files in current directory in the files list
+        files = []
+        for file in os.listdir(JSONFolder):
+            if file.endswith(".json"):
+                files.append(file)
+
+        #Parse dates from filenames and store them with their corresponding file, if it doesnt meet the required format or is higher than current date, it is ignored
+        fileData = []
+        for file in files:
+            try:
+                dateString = file.replace(".json", "") 
+                fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
+                complianceValue = loadOldCompliance(os.path.join(JSONFolder, file))
+                if fileDate <= datetime.datetime.now():  
+                    fileData.append((fileDate, complianceValue))
+            except ValueError:
+                pass
+
+        #If no .json files are found, then it returns nothing
+        if len(fileData) == 0:
+            return None  
+
+        #Sort the data by date
+        fileData.sort()
+        dates = []
+        complianceLevels = []
+
+        #Iterate through fileData and append elements to date and compliance lists
+        for data in fileData:
+            dates.append(data[0])
+            complianceLevels.append(data[1])
+
+        #Plot the compliance value for each json file using matplotlib and pyplot libraries, showing progression over time
+        figure, axes = plt.subplots(figsize=(15, 7))
+        figure.patch.set_facecolor("#2c2c2c") 
+        axes.set_facecolor("#2c2c2c")   
+        axes.plot(dates, complianceLevels, marker='o', linestyle='-', color='red', label='Compliance Level')
+        axes.set_xlabel("Date", fontsize=18, fontname="Times New Roman", color="white")
+        axes.set_ylabel("Compliance Level (%)", fontsize=18, fontname="Times New Roman", color="white")
+        axes.set_title("Compliance Levels Over Time", fontsize=18, fontname="Times New Roman", color="white")
+
+        #Format the date on the x axis as d/m/y
+        axes.xaxis.set_major_formatter(mdates.DateFormatter("%d/%m/%Y"))  
+        axes.tick_params(axis='x', rotation=25, colors="white")  
+        axes.tick_params(axis='y', colors="white")
+        axes.legend(loc="upper left", fontsize=10, facecolor="#2c2c2c", edgecolor="white", labelcolor="w")
+        axes.grid(color="gray", linestyle="--", linewidth=0.7)
+        plt.tight_layout()
+        
+        #Draw graph and toggle global flag on
+        canvas = FigureCanvasTkAgg(figure, master=window)
+        canvas.draw()
+        canvas.get_tk_widget().pack(side="top", pady=5)  
+        graphButton.configure(text="Hide Graph")
+        graphViewed = True
+    else:
+        #Delete graph and toggle global flag off
+        canvas.get_tk_widget().destroy()
+        graphButton.configure(text="Show Graph")
+        graphViewed = False
+    
+#Cancel function to not run the test and to close the program, by usage of terminating main.py
+def close():
+    sys.exit(0)
+window.protocol("WM_DELETE_WINDOW", close)
+
 #Function to show the results and automatically downloads a JSON file (currently just storing the compliance value)
 def showResults():
     global firstAccess
     global closestFile
     if firstAccess == True:
-        directory = '.'  # Directory where JSON files are stored
-        closestFile = getClosestJsonFile(directory)
+        closestFile = getClosestJsonFile(JSONFolder)
         download()
         firstAccess = False
     
@@ -106,8 +206,8 @@ def showResults():
     labels = ['Compliant', 'Non-Compliant']
     colors = ["#0ac700", "#bf0000"]
     figure, axes = plt.subplots(figsize=(8, 3))
-    figure.patch.set_facecolor("#2c2c2c") 
-    axes.set_facecolor("#2c2c2c")   
+    figure.patch.set_facecolor("#2c2c2c")
+    axes.set_facecolor("#2c2c2c")
     axes.pie(pieValues, labels=labels, autopct="%1.0f%%", colors=colors, startangle=90, textprops={"color": "white", "fontsize": 18, "fontfamily": "Times New Roman"})
     axes.axis('equal') 
     canvas = FigureCanvasTkAgg(figure, master=window)
@@ -182,8 +282,12 @@ def showResults():
     #If there is a closest file, loads it and shows a message depending on whether the firm has improved their compliance or not
     if closestFile != None:
         lastCompliance = loadOldCompliance(closestFile)
+        
+        #Remove the top-level part of the directory (removes "TestResults\")
+        closest = os.path.splitext(os.path.basename(closestFile))[0]
+
         #Remove .json and show the date as d/m/y
-        dateString = closestFile.replace(".json", "")  
+        dateString = closest.replace(".json", "")  
         fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
         formattedDate = fileDate.strftime("%d/%m/%Y")
         if lastCompliance > complianceLevel:
@@ -196,34 +300,13 @@ def showResults():
             differenceLabel.pack()
 
     #Buttons for reviewing incorrect questions as well as a button to close the program
+    resultButtonsFrame = ctk.CTkFrame(window)
+    resultButtonsFrame.pack(pady=5)
     if complianceLevel != 100:
-        reviewQuestionsButton = ctk.CTkButton(window, text="Review Incorrect Answers", command=lambda: reviewWrongQuestions(wrongList) ,font=normalFont)
-        reviewQuestionsButton.pack(pady=5, anchor="center")
-    endButton = ctk.CTkButton(window, text="End", command=close, font=normalFont)
-    endButton.pack(pady=5, anchor="center")
-
-#Start function for running the questions (starting the test)
-def start():
-    #Clear all elements from the window to prepare the test
-    clearElements(window) 
-    global complianceLevel
-    questionNumber = 1
-    
-    #List of questions from json file gets shuffled to randomise the order
-    questionList = questionhandler.loadQuestions('questions.json')
-    random.shuffle(questionList)
-    questionAmount = len(questionList)
-
-    #Run each question dynamically
-    while questionNumber <= len(questionList):
-        question = questionList[questionNumber - 1]
-        complianceLevel = questionhandler.showQuestion(window, question, complianceLevel, questionNumber, questionAmount)
-        #Print compliance level in terminal (debugging purposes)
-        print("Compliance Level after question", questionNumber, ":", complianceLevel)
-        questionNumber = questionNumber + 1
-    
-    #After each of the questions have been answered, show the results
-    showResults()
+        reviewQuestionsButton = ctk.CTkButton(resultButtonsFrame, text="Review Incorrect Answers", command=lambda: reviewWrongQuestions(wrongList) ,font=normalFont)
+        reviewQuestionsButton.pack(padx=5, side="left")
+    endButton = ctk.CTkButton(resultButtonsFrame, text="End", command=close, font=normalFont)
+    endButton.pack(padx=5, side="left")
 
 #Function to review the questions the user lost compliance score on 
 def reviewWrongQuestions(wrongList):
@@ -259,79 +342,6 @@ def reviewWrongQuestions(wrongList):
         else:
             questionNumber = questionNumber - 1
             goBackCondition = False
-
-#Function to create a graph on the main page, the button toggles the graph on and off
-def graph():
-    global graphViewed
-    global canvas
-    if graphViewed == False:
-        #Get current datetime and storing all json files in current diretory in the files list
-        files = []
-        for file in os.listdir("."):
-            if file.endswith(".json"):
-                files.append(file)
-
-        #Parse dates from filenames and store them with their corresponding file, if it doesnt meet the required format or is higher than current date, it is ignored
-        fileData = []
-        for file in files:
-            try:
-                dateString = file.replace(".json", "") 
-                fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
-                complianceValue = loadOldCompliance(file)
-                if fileDate <= datetime.datetime.now():  
-                    fileData.append((fileDate, complianceValue))
-            except ValueError:
-                pass  
-
-        #If no .json files are found, then it returns nothing
-        if len(fileData) == 0:
-            return None  
-
-        #Sort the data by date
-        fileData.sort()
-        dates = []
-        complianceLevels = []
-
-        #Iterate through fileData and append elements to date and compliance lists
-        for data in fileData:
-            dates.append(data[0])
-            complianceLevels.append(data[1])
-
-        #Plot the compliance value for each json file using matplotlib and pyplot libraries, showing progression over time
-        figure, axes = plt.subplots(figsize=(15, 7))
-        figure.patch.set_facecolor("#2c2c2c") 
-        axes.set_facecolor("#2c2c2c")   
-        axes.plot(dates, complianceLevels, marker='o', linestyle='-', color='red', label='Compliance Level')
-        axes.set_xlabel("Date", fontsize=18, fontname="Times New Roman", color="white")
-        axes.set_ylabel("Compliance Level (%)", fontsize=18, fontname="Times New Roman", color="white")
-        axes.set_title("Compliance Levels Over Time", fontsize=18, fontname="Times New Roman", color="white")
-
-        #Format the date on the x axis as d/m/y
-        axes.xaxis.set_major_formatter(mdates.DateFormatter("%d/%m/%Y"))  
-        axes.tick_params(axis='x', rotation=25, colors="white")  
-        axes.tick_params(axis='y', colors="white")
-        axes.legend(loc="upper left", fontsize=10, facecolor="#2c2c2c", edgecolor="white", labelcolor="w")
-        axes.grid(color="gray", linestyle="--", linewidth=0.7)
-        plt.tight_layout()
-        
-        #Draw graph and toggle global flag on
-        canvas = FigureCanvasTkAgg(figure, master=window)
-        canvas.draw()
-        canvas.get_tk_widget().pack(side="top", pady=5)  
-        graphButton.configure(text="Hide Graph")
-        graphViewed = True
-    else:
-        #Delete graph and toggle global flag off
-        canvas.get_tk_widget().destroy()
-        graphButton.configure(text="Show Graph")
-        graphViewed = False
-    
-#Cancel function to not run the test and to close the program, by usage of terminating main.py
-def close():
-    sys.exit(0)
-
-#Set it so when the window is deleted, it makes sure the window is destroyed and closed properly
-window.protocol("WM_DELETE_WINDOW", close)
 
 #Set fonts
 titleFont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
