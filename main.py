@@ -24,9 +24,9 @@ firstAccess = True
 graphViewed = False
 
 #Define the folder for JSON files and if it doesnt exist, create it
-JSONFolder = "TestResults"
-if os.path.exists(JSONFolder) == False:
-    os.makedirs(JSONFolder)
+jsonFolder = "TestResults"
+if os.path.exists(jsonFolder) == False:
+    os.makedirs(jsonFolder)
 
 #Function to open url in new tab
 def openUrl(link):
@@ -79,7 +79,7 @@ def download():
     time = datetime.datetime.now()
     datetimeString = time.strftime("%Y-%m-%d-%H-%M-%S")
     jsonFilename = datetimeString + ".json"
-    jsonFilename = os.path.join(JSONFolder, jsonFilename)
+    jsonFilename = os.path.join(jsonFolder, jsonFilename)
     with open(jsonFilename, 'w') as file:
         json.dump(complianceLevel, file)
 
@@ -95,9 +95,22 @@ def start():
     global complianceLevel
     questionNumber = 1
     
-    #List of questions from json file gets shuffled to randomise the order
-    questionList = questionhandler.loadQuestions('questions.json')
-    random.shuffle(questionList)
+    #List of questions from json file gets ordered from randomised gdpr first, randomised cma next, then randomised fraud last
+    allQuestionsList = questionhandler.loadQuestions('questions.json')
+    gdprQuestions = []
+    cmaQuestions = []
+    fraudQuestions = []
+    for question in allQuestionsList:
+        if question["law"] == "UK GDPR":
+            gdprQuestions.append(question)
+        elif question["law"] == "Computer Misuse Act":
+            cmaQuestions.append(question)
+        elif question["law"] == "The Fraud Act":
+            fraudQuestions.append(question)
+    random.shuffle(gdprQuestions)
+    random.shuffle(cmaQuestions)
+    random.shuffle(fraudQuestions)
+    questionList = gdprQuestions + cmaQuestions + fraudQuestions
     questionAmount = len(questionList)
 
     #Run each question dynamically
@@ -118,7 +131,7 @@ def graph():
     if graphViewed == False:
         #Get current datetime and storing all json files in current directory in the files list
         files = []
-        for file in os.listdir(JSONFolder):
+        for file in os.listdir(jsonFolder):
             if file.endswith(".json"):
                 files.append(file)
 
@@ -128,7 +141,7 @@ def graph():
             try:
                 dateString = file.replace(".json", "") 
                 fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
-                complianceValue = loadOldCompliance(os.path.join(JSONFolder, file))
+                complianceValue = loadOldCompliance(os.path.join(jsonFolder, file))
                 if fileDate <= datetime.datetime.now():  
                     fileData.append((fileDate, complianceValue))
             except ValueError:
@@ -187,7 +200,7 @@ def showResults():
     global firstAccess
     global closestFile
     if firstAccess == True:
-        closestFile = getClosestJsonFile(JSONFolder)
+        closestFile = getClosestJsonFile(jsonFolder)
         download()
         firstAccess = False
     

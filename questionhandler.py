@@ -29,7 +29,10 @@ def loadQuestions(questionFile):
 def loadWrongQuestions(questionFile, wrongList):
     with open(questionFile, 'r') as file:
         oldQuestionData = json.load(file)
-    newQuestionData = [question for question in oldQuestionData["questions"] if question["id"] in wrongList]
+    newQuestionData = []
+    for question in oldQuestionData["questions"]:
+        if question["id"] in wrongList:
+            newQuestionData.append(question)
     return newQuestionData
 
 #Function to update compliance level based on user input for each question
@@ -70,7 +73,7 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
 
     #Set question number
     questionNumberLabel = ctk.CTkLabel(window, text="Question " + str(questionNumber) + "/" + str(questionAmount), font=normalFont)
-    questionNumberLabel.place(relx=0.95, rely=0.02, anchor=tk.E)
+    questionNumberLabel.place(relx=0.95, rely=0.01, anchor=tk.E)
 
     #Set question text from json file
     questionLabel = ctk.CTkLabel(window, text=questionData["text"], font=questionFont)
