@@ -22,71 +22,15 @@ ctk.set_appearance_mode("Dark")
 complianceLevel = 100
 firstAccess = True
 graphViewed = False
+wrongList = []
+gdprAverage = 0
+misuseAverage = 0
+fraudAverage = 0
 
 #Define the folder for JSON files and if it doesnt exist, create it
 jsonFolder = "TestResults"
 if os.path.exists(jsonFolder) == False:
     os.makedirs(jsonFolder)
-
-#Function to open url in new tab
-def openUrl(link):
-   webbrowser.open_new_tab(link)
-
-#Function to load the last quiz's compliance value -----SUBJECT TO CHANGE------
-def loadOldCompliance(oldFile):
-    with open(oldFile, 'r') as file:
-        value = json.load(file)
-    return value
-
-#Function for getting the closest json file to the current date
-def getClosestJsonFile(directory):
-    #Get current datetime and storing all json files in current diretory in the files list
-    now = datetime.datetime.now()
-    files = []
-    for file in os.listdir(directory):
-        if file.endswith(".json"):
-            files.append(file)
-
-    #Parse dates from filenames and store them with their corresponding file
-    fileDates = []
-    for file in files:
-        #If .json file name doesnt meet expected datetime format or is later than the current datatime, it is ignored
-        try:
-            dateString = file.replace(".json", "")  
-            fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
-            if fileDate <= now:  
-                fileDates.append((fileDate, file))
-        except ValueError:
-            pass  
-
-    #If no .json files are found, then it returns nothing
-    if len(fileDates) == 0:
-        return None  
-    
-    closestFile = None
-    smallestDifference = 9999999999999999.999999
-
-    #Find the file with the closest date to now, excluding later dates
-    for fileDate, filename in fileDates:
-        timeDifference = abs((now - fileDate).total_seconds())
-        if timeDifference < smallestDifference:
-            smallestDifference = timeDifference
-            closestFile = filename
-    return os.path.join(directory, closestFile)
-
-#Function for exporting the question data as a json format, with the name as the current datetime, currently just storing the compliance value
-def download():
-    time = datetime.datetime.now()
-    datetimeString = time.strftime("%Y-%m-%d-%H-%M-%S")
-    jsonFilename = datetimeString + ".json"
-    jsonFilename = os.path.join(jsonFolder, jsonFilename)
-    with open(jsonFilename, 'w') as file:
-        json.dump(complianceLevel, file)
-
-#Function to clear previous question elements
-def clearElements(window):
-    for elements in window.winfo_children():
-        elements.destroy() 
 
 #Start function for running the questions (starting the test)
 def start():
@@ -96,11 +40,12 @@ def start():
     questionNumber = 1
     
     #List of questions from json file gets ordered from randomised gdpr first, randomised cma next, then randomised fraud last
-    allQuestionsList = questionhandler.loadQuestions('questions.json')
+    questions = questionhandler.loadQuestions('questions.json')
     gdprQuestions = []
     cmaQuestions = []
     fraudQuestions = []
-    for question in allQuestionsList:
+    previousCheck = False
+    for question in questions:
         if question["law"] == "UK GDPR":
             gdprQuestions.append(question)
         elif question["law"] == "Computer Misuse Act":
@@ -110,18 +55,35 @@ def start():
     random.shuffle(gdprQuestions)
     random.shuffle(cmaQuestions)
     random.shuffle(fraudQuestions)
-    questionList = gdprQuestions + cmaQuestions + fraudQuestions
-    questionAmount = len(questionList)
+    questionDataList = gdprQuestions + cmaQuestions + fraudQuestions
+    questionAmount = len(questionDataList)
+    selectedAnswers = []
 
-    #Run each question dynamically
-    while questionNumber <= len(questionList):
-        question = questionList[questionNumber - 1]
-        complianceLevel = questionhandler.showQuestion(window, question, complianceLevel, questionNumber, questionAmount)
-        #Print compliance level in terminal (debugging purposes)
-        print("Compliance Level after question", questionNumber, ":", complianceLevel)
+    #Run each question dynamically, adding the selection option to a list after each question
+    while questionNumber <= len(questionDataList):
+        question = questionDataList[questionNumber - 1]
+        selectedOption = questionhandler.showQuestion(window, question, questionNumber, questionAmount)
+        selectedAnswers.append(selectedOption)
         questionNumber = questionNumber + 1
     
-    #After each of the questions have been answered, show the results
+    #After each of the questions have been answered, calculate the compliance and the average losses for laws
+    questionIndex = 0
+    while questionIndex < len(selectedAnswers):
+        answer = selectedAnswers[questionIndex]
+        if answer != None:
+            currentQuestionData = questionDataList[questionIndex]
+            newComplianceLevel = complianceLevel + currentQuestionData["deduction"][answer - 1]
+            averageLossUpdate(newComplianceLevel, complianceLevel, currentQuestionData["law"])
+            if newComplianceLevel != complianceLevel:
+                wrongList.append(currentQuestionData["id"])
+            complianceLevel = newComplianceLevel
+            questionIndex = questionIndex + 1
+    
+    #If compliance is less than zero, it is set to zero
+    if complianceLevel < 0:
+        complianceLevel = 0
+
+    #After compliance and average losses for laws have been calculated, show the results 
     showResults()
 
 #Function to create a graph on the main page, the button toggles the graph on and off
@@ -230,7 +192,7 @@ def showResults():
     resultDescriptionLabel = ctk.CTkLabel(window, text= "sample text", font=normalFont)
 
     #Different result descriptions based on the compliance value 
-    externalInfo = questionhandler.returnExternalInfo()
+    externalInfo = returnExternalInfo()
     for index in range(0, len(externalInfo) - 1):
         externalInfo[index] = round(externalInfo[index], 2)
     wrongList = externalInfo[3]
@@ -245,7 +207,7 @@ def showResults():
         resultDescriptionLabel.pack(pady=10)  
 
     #Average loss thresholds are calculated by (x/y* (100-z))/x where x is the amount of that question type, y is the total number of questions and z is dependant on the condition (50 for serious breach and 80 for minor breach (MAY CHANGE))
-    #THIS AVERAGE SYSTEM MUST BE CHANGED IF NEW QUESTIONS ARE ADDED
+    #--------------------THIS AVERAGE SYSTEM MUST BE CHANGED IF NEW QUESTIONS ARE ADDED---------------------------
     if externalInfo[0] > 0.66 or externalInfo[1] > 0.66 or externalInfo[2] > 0.66:
         breachesTitleLabel = ctk.CTkLabel(window, text= "Potential Breaches", font=subheadingFont)
         breachesTitleLabel.pack(pady=10)
@@ -339,13 +301,13 @@ def reviewWrongQuestions(wrongList):
         question = questionList[questionNumber - 1]
 
         #Callback to go to results
-        def goToResultsCallback() :
+        def goToResults():
             global goToResults
             goToResults = True
             showResults()
 
         #Returned value is a condition
-        goBackCondition = questionhandler.showWrongQuestion(window, question, questionNumber, questionAmount, goToResultsCallback)
+        goBackCondition = questionhandler.showWrongQuestion(window, question, questionNumber, questionAmount, goToResults)
 
         #Showing the question returns a condition to check if the user wanted to go back or not, if so, deducts the question number by 1 and shows the previous result, or if the user wanted to go to results, activates the flag
         if goToResults == True:
@@ -355,6 +317,87 @@ def reviewWrongQuestions(wrongList):
         else:
             questionNumber = questionNumber - 1
             goBackCondition = False
+
+#Function to open url in new tab
+def openUrl(link):
+   webbrowser.open_new_tab(link)
+
+#Function to load the last quiz's compliance value -----SUBJECT TO CHANGE------
+def loadOldCompliance(oldFile):
+    with open(oldFile, 'r') as file:
+        value = json.load(file)
+    return value
+
+#Function for getting the closest json file to the current date
+def getClosestJsonFile(directory):
+    #Get current datetime and storing all json files in current diretory in the files list
+    now = datetime.datetime.now()
+    files = []
+    for file in os.listdir(directory):
+        if file.endswith(".json"):
+            files.append(file)
+
+    #Parse dates from filenames and store them with their corresponding file
+    fileDates = []
+    for file in files:
+        #If .json file name doesnt meet expected datetime format or is later than the current datatime, it is ignored
+        try:
+            dateString = file.replace(".json", "")  
+            fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
+            if fileDate <= now:  
+                fileDates.append((fileDate, file))
+        except ValueError:
+            pass  
+
+    #If no .json files are found, then it returns nothing
+    if len(fileDates) == 0:
+        return None  
+    
+    closestFile = None
+    smallestDifference = 9999999999999999.999999
+
+    #Find the file with the closest date to now, excluding later dates
+    for fileDate, filename in fileDates:
+        timeDifference = abs((now - fileDate).total_seconds())
+        if timeDifference < smallestDifference:
+            smallestDifference = timeDifference
+            closestFile = filename
+    return os.path.join(directory, closestFile)
+
+#Function to clear previous question elements
+def clearElements(window):
+    for elements in window.winfo_children():
+        elements.destroy() 
+
+#Function to erase all JSON files from the TestResults
+def deleteJsonFiles():
+    for file in os.listdir("TestResults"):
+        if file.endswith(".json"):
+            os.remove(os.path.join("TestResults", file))
+
+#Function for exporting the question data as a json format, with the name as the current datetime, currently just storing the compliance value
+def download():
+    time = datetime.datetime.now()
+    datetimeString = time.strftime("%Y-%m-%d-%H-%M-%S")
+    jsonFilename = datetimeString + ".json"
+    jsonFilename = os.path.join(jsonFolder, jsonFilename)
+    with open(jsonFilename, 'w') as file:
+        json.dump(complianceLevel, file)
+
+#Function to create/update a rolling average of the compliance loss for each of the laws
+def averageLossUpdate(newCompliance, oldCompliance, questionType):
+    global gdprAverage, misuseAverage, fraudAverage
+    complianceDifference = oldCompliance - newCompliance
+    if questionType == "UK GDPR":
+        gdprAverage = gdprAverage + (complianceDifference/20)
+    elif questionType == "Computer Misuse Act":
+        misuseAverage = misuseAverage + (complianceDifference/6)
+    elif questionType == "The Fraud Act":
+        fraudAverage = fraudAverage + (complianceDifference/4)
+
+#Function to return external info used in main.py. including a list of all of the three final average loss values and the list of questions the user got wrong
+def returnExternalInfo():
+    return [gdprAverage, misuseAverage, fraudAverage, wrongList]
 
 #Set fonts
 titleFont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
@@ -375,11 +418,10 @@ startButton = ctk.CTkButton(window, text="Start", command=start, font=normalFont
 startButton.pack(pady=8)
 graphButton = ctk.CTkButton(window, text="Show Graph", command=graph, font=normalFont)
 graphButton.pack(pady=8)
+deleteButton = ctk.CTkButton(window, text="Delete Previous Data", command=deleteJsonFiles, font=normalFont)
+deleteButton.pack(pady=8)
 closeButton = ctk.CTkButton(window, text="Close", command=close, font=normalFont)
 closeButton.pack(pady=8)
 
 #Run the main loop
 window.mainloop()
-
-#Print final compliance score in the terminal (debugging purposes)
-print("Final compliance level:", complianceLevel)

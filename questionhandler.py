@@ -6,59 +6,9 @@ import webbrowser
 #Initialise noSelect so it can be accessed by functions
 noSelect = None
 goBackCondition = None
-gdprAverage = 0
-misuseAverage = 0
-fraudAverage = 0
-wrongList = []
-
-#Function to open url from json file in browser
-def openUrl(link):
-   webbrowser.open_new_tab(link)
-
-#Function to clear previous question elements
-def clearElements(window):
-    for elements in window.winfo_children():
-        elements.destroy() 
-
-#Function to load questions from a json file
-def loadQuestions(questionFile):
-    with open(questionFile, 'r') as file:
-        questionData = json.load(file)
-    return questionData["questions"]
-
-def loadWrongQuestions(questionFile, wrongList):
-    with open(questionFile, 'r') as file:
-        oldQuestionData = json.load(file)
-    newQuestionData = []
-    for question in oldQuestionData["questions"]:
-        if question["id"] in wrongList:
-            newQuestionData.append(question)
-    return newQuestionData
-
-#Function to update compliance level based on user input for each question
-def updateCompliance(compliance, selectedOption, deduction):
-    compliance = compliance + deduction[selectedOption - 1]
-    if compliance < 0:
-        compliance = 0
-    return compliance
-
-#Function to create/update a rolling average of the compliance loss for each of the laws
-def averageLossUpdate(newCompliance, oldCompliance, questionType):
-    global gdprAverage, misuseAverage, fraudAverage
-    complianceDifference = oldCompliance - newCompliance
-    if questionType == "UK GDPR":
-        gdprAverage = gdprAverage + (complianceDifference/20)
-    elif questionType == "Computer Misuse Act":
-        misuseAverage = misuseAverage + (complianceDifference/6)
-    elif questionType == "The Fraud Act":
-        fraudAverage = fraudAverage + (complianceDifference/4)
-
-#Function to return external info used in main.py. including a list of all of the three final average loss values and the list of questions the user got wrong
-def returnExternalInfo():
-    return [gdprAverage, misuseAverage, fraudAverage, wrongList]
 
 #Function to show a question dynamically based on the loaded json file data
-def showQuestion(window, questionData, compliance, questionNumber, questionAmount):
+def showQuestion(window, questionData, questionNumber, questionAmount):
     global noSelect
     noSelect = False
 
@@ -89,19 +39,15 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
         answerRadioButton.pack(pady=10)
         optionNumber = optionNumber + 1
 
-    #Define submit button functionality, if no option is selected it notifies the user. If an option is selected the compliance is updated and moves onto next question
+    #Define submit button functionality, if no option is selected it notifies the user. If an option is selected the selected option is returned and moves onto the next question
     def submit():
-        global newCompliance, noSelect
+        global noSelect
         optionSelected = selectedOption.get()
         if optionSelected == 0 and noSelect == False:
             noSelectLabel = ctk.CTkLabel(window, text="Please select an option")
             noSelectLabel.pack(pady=7.5)
             noSelect = True
         elif optionSelected != 0:
-            newCompliance = updateCompliance(compliance, optionSelected, questionData['deduction'])
-            averageLossUpdate(newCompliance, compliance, questionData["law"])
-            if newCompliance != compliance:
-                wrongList.append(questionData["id"])
             window.quit() 
 
     #Buttons on the right to skip straight to dpa/cma/fraud questions --------TBD FUNCTION IS A WORK IN PROGRESS----------
@@ -120,6 +66,10 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
     submitButton = ctk.CTkButton(window, text="Submit", command=submit, font=normalFont)
     submitButton.pack(pady=10)
 
+    #Button for going to previous question ---------------------------TBD=CREATE A CALLBACK FOR GOING BACK IN MAIN--------------------
+    goBackButton = ctk.CTkButton(window, text="<", font=normalFont)
+    goBackButton.place(relx=0.02, rely=0.03, anchor = tk.W)
+
     #Include external hyperlink for further reading based on question data from json file
     linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on this topic!", font=linkFont)
     linkLabel.pack()
@@ -133,8 +83,8 @@ def showQuestion(window, questionData, compliance, questionNumber, questionAmoun
     window.bind("<Return>", lambda event: enterSkip())
     window.mainloop()
 
-    #Updated compliance value is returned
-    return newCompliance
+    #Selected option is returned
+    return selectedOption.get()
 
 #Function to actually show the question the user got wrong ---WORK IN PROGRESS---
 def showWrongQuestion(window, questionData, questionNumber, questionAmount, showResultsCallback):
@@ -185,7 +135,32 @@ def showWrongQuestion(window, questionData, questionNumber, questionAmount, show
     if questionNumber < questionAmount:
         goNextButton = ctk.CTkButton(navigateFrame, text=">", command=next, font=normalFont)
         goNextButton.pack(padx=5, side="left")
-
+    
     window.mainloop()
 
     return goBackCondition
+
+#Function to open url from json file in browser
+def openUrl(link):
+   webbrowser.open_new_tab(link)
+
+#Function to clear previous question elements
+def clearElements(window):
+    for elements in window.winfo_children():
+        elements.destroy() 
+
+#Function to load questions from a json file
+def loadQuestions(questionFile):
+    with open(questionFile, 'r') as file:
+        questionData = json.load(file)
+    return questionData["questions"]
+
+#Function to load only the questions answered incorrectly
+def loadWrongQuestions(questionFile, wrongList):
+    with open(questionFile, 'r') as file:
+        oldQuestionData = json.load(file)
+    newQuestionData = []
+    for question in oldQuestionData["questions"]:
+        if question["id"] in wrongList:
+            newQuestionData.append(question)
+    return newQuestionData
