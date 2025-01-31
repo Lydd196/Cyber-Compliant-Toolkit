@@ -18,7 +18,7 @@ window._state_before_windows_set_titlebar_color = "zoomed"
 window.resizable(False, False)
 ctk.set_appearance_mode("Dark")
 
-#Initial compliance level as a percentage
+#Initial values such as averages, compliance value, etc
 complianceLevel = 100
 firstAccess = True
 graphViewed = False
@@ -27,24 +27,22 @@ gdprAverage = 0
 misuseAverage = 0
 fraudAverage = 0
 
-#Define the folder for JSON files and if it doesnt exist, create it
+#Defining the folder for JSON files 
 jsonFolder = "TestResults"
-if os.path.exists(jsonFolder) == False:
-    os.makedirs(jsonFolder)
 
 #Start function for running the questions (starting the test)
 def start():
     #Clear all elements from the window to prepare the test
     clearElements(window) 
-    global complianceLevel
+    global complianceLevel 
+    global questionNumber
     questionNumber = 1
     
     #List of questions from json file gets ordered from randomised gdpr first, randomised cma next, then randomised fraud last
-    questions = questionhandler.loadQuestions('questions.json')
+    questions = questionhandler.loadQuestions("questions.json")
     gdprQuestions = []
     cmaQuestions = []
     fraudQuestions = []
-    previousCheck = False
     for question in questions:
         if question["law"] == "UK GDPR":
             gdprQuestions.append(question)
@@ -59,12 +57,20 @@ def start():
     questionAmount = len(questionDataList)
     selectedAnswers = []
 
+    #Callback function to go to previous question
+    def goPreviousQuestion():
+        global questionNumber   
+        questionNumber = questionNumber - 1
+        selectedAnswers.pop()  
+        window.quit()  
+
     #Run each question dynamically, adding the selection option to a list after each question
     while questionNumber <= len(questionDataList):
         question = questionDataList[questionNumber - 1]
-        selectedOption = questionhandler.showQuestion(window, question, questionNumber, questionAmount)
-        selectedAnswers.append(selectedOption)
-        questionNumber = questionNumber + 1
+        selectedOption = questionhandler.showQuestion(window, question, questionNumber, questionAmount, goPreviousQuestion)
+        if selectedOption != 0:
+            selectedAnswers.append(selectedOption)
+            questionNumber = questionNumber + 1
     
     #After each of the questions have been answered, calculate the compliance and the average losses for laws
     questionIndex = 0
@@ -162,6 +168,7 @@ def showResults():
     global firstAccess
     global closestFile
     if firstAccess == True:
+        jsonFolderCheck()
         closestFile = getClosestJsonFile(jsonFolder)
         download()
         firstAccess = False
@@ -368,6 +375,11 @@ def getClosestJsonFile(directory):
 def clearElements(window):
     for elements in window.winfo_children():
         elements.destroy() 
+
+#Function for checking if TestResults exists and if it doesnt, it creates it
+def jsonFolderCheck():
+    if os.path.exists(jsonFolder) == False:
+        os.makedirs(jsonFolder)
 
 #Function to erase all JSON files from the TestResults
 def deleteJsonFiles():

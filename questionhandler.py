@@ -8,7 +8,7 @@ noSelect = None
 goBackCondition = None
 
 #Function to show a question dynamically based on the loaded json file data
-def showQuestion(window, questionData, questionNumber, questionAmount):
+def showQuestion(window, questionData, questionNumber, questionAmount, goPreviousCallback):
     global noSelect
     noSelect = False
 
@@ -50,25 +50,14 @@ def showQuestion(window, questionData, questionNumber, questionAmount):
         elif optionSelected != 0:
             window.quit() 
 
-    #Buttons on the right to skip straight to dpa/cma/fraud questions --------TBD FUNCTION IS A WORK IN PROGRESS----------
-    DPAButton = ctk.CTkButton(window, text="Go to GDPR Questions", command=lambda: TBD("UK GDPR"), font=normalFont)
-    DPAButton.place(relx=0.98, rely=0.10, anchor=tk.E)
-    CMAButton = ctk.CTkButton(window, text="Go to Computer Misuse Act Questions", command=lambda: TBD("Computer Misuse Act"), font=normalFont)
-    CMAButton.place(relx=0.98, rely=0.14, anchor=tk.E)
-    fraudButton = ctk.CTkButton(window, text="Go to Fraud Act Questions", command=lambda: TBD("The Fraud Act"), font=normalFont)
-    fraudButton.place(relx=0.98, rely=0.18, anchor=tk.E)
-
-    #Function for going to certain question type
-    def TBD ():
-        return 0
-
     #Create submit button
     submitButton = ctk.CTkButton(window, text="Submit", command=submit, font=normalFont)
     submitButton.pack(pady=10)
 
-    #Button for going to previous question ---------------------------TBD=CREATE A CALLBACK FOR GOING BACK IN MAIN--------------------
-    goBackButton = ctk.CTkButton(window, text="<", font=normalFont)
-    goBackButton.place(relx=0.02, rely=0.03, anchor = tk.W)
+    #Button for going to previous question, only appears after question 1
+    if questionNumber > 1:
+        goBackButton = ctk.CTkButton(window, text="<", font=normalFont, command=goPreviousCallback)
+        goBackButton.place(relx=0.02, rely=0.03, anchor = tk.W)
 
     #Include external hyperlink for further reading based on question data from json file
     linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on this topic!", font=linkFont)
