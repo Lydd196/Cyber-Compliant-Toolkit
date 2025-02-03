@@ -199,10 +199,9 @@ def showResults():
     resultDescriptionLabel = ctk.CTkLabel(window, text= "sample text", font=normalFont)
 
     #Different result descriptions based on the compliance value 
-    externalInfo = returnExternalInfo()
+    externalInfo = returnLawAverages()
     for index in range(0, len(externalInfo) - 1):
         externalInfo[index] = round(externalInfo[index], 2)
-    wrongList = externalInfo[3]
     if complianceLevel > 80:
         resultDescriptionLabel.configure(text= "We believe that overall, your accountancy firm is very compliant with cyber laws. Great Job!")
         resultDescriptionLabel.pack(pady=10)
@@ -332,8 +331,8 @@ def openUrl(link):
 #Function to load the last quiz's compliance value -----SUBJECT TO CHANGE------
 def loadOldCompliance(oldFile):
     with open(oldFile, 'r') as file:
-        value = json.load(file)
-    return value
+        oldFileData = json.load(file)
+    return oldFileData["compliance"]
 
 #Function for getting the closest json file to the current date
 def getClosestJsonFile(directory):
@@ -389,12 +388,20 @@ def deleteJsonFiles():
 
 #Function for exporting the question data as a json format, with the name as the current datetime, currently just storing the compliance value
 def download():
+    global gdprAverage, misuseAverage, fraudAverage
     time = datetime.datetime.now()
     datetimeString = time.strftime("%Y-%m-%d-%H-%M-%S")
     jsonFilename = datetimeString + ".json"
     jsonFilename = os.path.join(jsonFolder, jsonFilename)
+    averagesData = returnLawAverages()
+    downloadData = {
+        "compliance": complianceLevel,
+        "gdprAverage": averagesData[0],
+        "cmaAverage": averagesData[1],
+        "fraudAverage": averagesData[2]
+    }
     with open(jsonFilename, 'w') as file:
-        json.dump(complianceLevel, file)
+        json.dump(downloadData, file)
 
 #Function to create/update a rolling average of the compliance loss for each of the laws
 def averageLossUpdate(newCompliance, oldCompliance, questionType):
@@ -408,8 +415,8 @@ def averageLossUpdate(newCompliance, oldCompliance, questionType):
         fraudAverage = fraudAverage + (complianceDifference/4)
 
 #Function to return external info used in main.py. including a list of all of the three final average loss values and the list of questions the user got wrong
-def returnExternalInfo():
-    return [gdprAverage, misuseAverage, fraudAverage, wrongList]
+def returnLawAverages():
+    return [gdprAverage, misuseAverage, fraudAverage]
 
 #Set fonts
 titleFont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
