@@ -21,11 +21,12 @@ ctk.set_appearance_mode("Dark")
 #Initial values such as averages, compliance value, etc
 complianceLevel = 100
 firstAccess = True
-graphViewed = False
 wrongList = []
 gdprAverage = 0
 misuseAverage = 0
 fraudAverage = 0
+swapGraphButton = None
+canvas = None  # Initialize canvas to None at the start
 
 #Defining the folder for JSON files 
 jsonFolder = "TestResults"
@@ -92,76 +93,160 @@ def start():
     #After compliance and average losses for laws have been calculated, show the results 
     showResults()
 
-#Function to create a graph on the main page, the button toggles the graph on and off
-def graph():
-    global graphViewed
-    global canvas
-    if graphViewed == False:
-        #Get current datetime and storing all json files in current directory in the files list
-        files = []
-        for file in os.listdir(jsonFolder):
-            if file.endswith(".json"):
-                files.append(file)
-
-        #Parse dates from filenames and store them with their corresponding file, if it doesnt meet the required format or is higher than current date, it is ignored
-        fileData = []
-        for file in files:
-            try:
-                dateString = file.replace(".json", "") 
-                fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
-                complianceValue = loadOldCompliance(os.path.join(jsonFolder, file))
-                if fileDate <= datetime.datetime.now():  
-                    fileData.append((fileDate, complianceValue))
-            except ValueError:
-                pass
-
-        #If no .json files are found, then it returns nothing
-        if len(fileData) == 0:
-            return None  
-
-        #Sort the data by date
-        fileData.sort()
-        dates = []
-        complianceLevels = []
-
-        #Iterate through fileData and append elements to date and compliance lists
-        for data in fileData:
-            dates.append(data[0])
-            complianceLevels.append(data[1])
-
-        #Plot the compliance value for each json file using matplotlib and pyplot libraries, showing progression over time
-        figure, axes = plt.subplots(figsize=(15, 7))
-        figure.patch.set_facecolor("#2c2c2c") 
-        axes.set_facecolor("#2c2c2c")   
-        axes.plot(dates, complianceLevels, marker='o', linestyle='-', color='red', label='Compliance Level')
-        axes.set_xlabel("Date", fontsize=18, fontname="Times New Roman", color="white")
-        axes.set_ylabel("Compliance Level (%)", fontsize=18, fontname="Times New Roman", color="white")
-        axes.set_title("Compliance Levels Over Time", fontsize=18, fontname="Times New Roman", color="white")
-
-        #Format the date on the x axis as d/m/y
-        axes.xaxis.set_major_formatter(mdates.DateFormatter("%d/%m/%Y"))  
-        axes.tick_params(axis='x', rotation=25, colors="white")  
-        axes.tick_params(axis='y', colors="white")
-        axes.legend(loc="upper left", fontsize=10, facecolor="#2c2c2c", edgecolor="white", labelcolor="w")
-        axes.grid(color="gray", linestyle="--", linewidth=0.7)
-        plt.tight_layout()
-        
-        #Draw graph and toggle global flag on
-        canvas = FigureCanvasTkAgg(figure, master=window)
-        canvas.draw()
-        canvas.get_tk_widget().pack(side="top", pady=5)  
-        graphButton.configure(text="Hide Graph")
-        graphViewed = True
-    else:
-        #Delete graph and toggle global flag off
-        canvas.get_tk_widget().destroy()
-        graphButton.configure(text="Show Graph")
-        graphViewed = False
-    
 #Cancel function to not run the test and to close the program, by usage of terminating main.py
 def close():
     sys.exit(0)
 window.protocol("WM_DELETE_WINDOW", close)
+
+#Function to create the compliance graph on the main page, with a button to go to the average loss graph
+def complianceGraph():
+    global canvas, swapGraphButton
+    if canvas != None:
+        canvas.get_tk_widget().destroy()
+    if swapGraphButton != None:
+        swapGraphButton.destroy()
+  
+    #Get current datetime and storing all json files in current directory in the files list
+    files = []
+    for file in os.listdir(jsonFolder):
+        if file.endswith(".json"):
+            files.append(file)
+
+    #Parse dates from filenames and store them with their corresponding file, if it doesnt meet the required format or is higher than current date, it is ignored
+    fileData = []
+    for file in files:
+        try:
+            dateString = file.replace(".json", "") 
+            fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
+            complianceValue = loadOldCompliance(os.path.join(jsonFolder, file))
+            if fileDate <= datetime.datetime.now():  
+                fileData.append((fileDate, complianceValue))
+        except ValueError:
+            pass
+
+    #If no .json files are found, then it returns nothing
+    if len(fileData) == 0:
+        return None  
+
+    #Sort the data by date
+    fileData.sort()
+    dates = []
+    complianceLevels = []
+
+    #Iterate through fileData and append elements to date and compliance lists
+    for data in fileData:
+        dates.append(data[0])
+        complianceLevels.append(data[1])
+
+    #Plot the compliance value for each json file using matplotlib and pyplot libraries, showing progression over time
+    figure, axes = plt.subplots(figsize=(15, 6))
+    figure.patch.set_facecolor("#2c2c2c") 
+    axes.set_facecolor("#2c2c2c")   
+    axes.plot(dates, complianceLevels, marker='o', linestyle='-', color='red', label="Compliance Level")
+    axes.set_xlabel("Date", fontsize=18, fontname="Times New Roman", color="white")
+    axes.set_ylabel("Compliance Level (%)", fontsize=18, fontname="Times New Roman", color="white")
+    axes.set_title("Compliance Levels Over Time", fontsize=18, fontname="Times New Roman", color="white")
+
+    #Format the date on the x axis as d/m/y
+    axes.xaxis.set_major_formatter(mdates.DateFormatter("%d/%m/%Y"))  
+    axes.tick_params(axis='x', rotation=25, colors="white")  
+    axes.tick_params(axis='y', colors="white")
+    axes.legend(loc="upper left", fontsize=10, facecolor="#2c2c2c", edgecolor="white", labelcolor="w")
+    axes.grid(color="gray", linestyle="--", linewidth=0.7)
+    plt.tight_layout()
+        
+    #Draw graph and create button to go to the average graph
+    canvas = FigureCanvasTkAgg(figure, master=window)
+    canvas.draw()
+    canvas.get_tk_widget().pack(side="top", pady=5)  
+    graphButton.configure(text="Hide Graph")
+    swapGraphButton = ctk.CTkButton(window, text=">", command=averagesGraph, font=normalFont)
+    swapGraphButton.pack(pady=5)
+    graphButton.configure(text="Hide Graph", command=deleteGraph)
+
+#Function to create the compliance graph on the main page, with a button to go to the compliance graph
+def averagesGraph():
+    global canvas, swapGraphButton
+    if canvas != None:
+        canvas.get_tk_widget().destroy()
+    if swapGraphButton != None:
+        swapGraphButton.destroy()
+    
+    #Get current datetime and storing all json files in current directory in the files list
+    files = []
+    for file in os.listdir(jsonFolder):
+        if file.endswith(".json"):
+           files.append(file)
+
+    #Parse dates from filenames and store them with their corresponding file, if it doesnt meet the required format or is higher than current date, it is ignored
+    fileData = []
+    for file in files:
+        try:
+            dateString = file.replace(".json", "") 
+            fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
+            gdpr, cma, fraud = loadOldAverages(os.path.join(jsonFolder, file))
+            if fileDate <= datetime.datetime.now():  
+                fileData.append((fileDate, gdpr, cma, fraud))
+        except ValueError:
+            pass
+
+    #If no .json files are found, then it returns nothing
+    if len(fileData) == 0:
+        return None  
+
+    #Sort the data by date
+    fileData.sort()
+    dates = []
+    gdprAverages = []
+    cmaAverages = []
+    fraudAverages = []
+
+    #Iterate through fileData and append elements to date and compliance lists
+    for data in fileData:
+        dates.append(data[0])
+        gdprAverages.append(data[1])
+        cmaAverages.append(data[2])
+        fraudAverages.append(data[3])
+
+    #Plot the compliance value for each json file using matplotlib and pyplot libraries, showing progression over time
+    figure, axes = plt.subplots(figsize=(15, 6))
+    figure.patch.set_facecolor("#2c2c2c") 
+    axes.set_facecolor("#2c2c2c")   
+    axes.plot(dates, gdprAverages, marker='o', linestyle='-', color='red', label="GDPR")
+    axes.plot(dates, cmaAverages, marker='o', linestyle='-', color='green', label="Computer Misuse Act")
+    axes.plot(dates, fraudAverages, marker='o', linestyle='-', color='yellow', label="Fraud Act")
+    axes.invert_yaxis()
+    axes.set_xlabel("Date", fontsize=18, fontname="Times New Roman", color="white")
+    axes.set_ylabel("Average Compliance Loss Per Law", fontsize=18, fontname="Times New Roman", color="white")
+    axes.set_title("Average Compliance Loss Per Law Over Time", fontsize=18, fontname="Times New Roman", color="white")
+
+    #Format the date on the x axis as d/m/y
+    axes.xaxis.set_major_formatter(mdates.DateFormatter("%d/%m/%Y"))  
+    axes.tick_params(axis='x', rotation=25, colors="white")  
+    axes.tick_params(axis='y', colors="white")
+    axes.legend(loc="upper left", fontsize=10, facecolor="#2c2c2c", edgecolor="white", labelcolor="w")
+    axes.grid(color="gray", linestyle="--", linewidth=0.7)
+    plt.tight_layout()
+        
+    #Draw graph and create button to go to the compliance graph
+    canvas = FigureCanvasTkAgg(figure, master=window)
+    canvas.draw()
+    canvas.get_tk_widget().pack(side="top", pady=5)  
+    graphButton.configure(text="Hide Graph")
+    swapGraphButton = ctk.CTkButton(window, text="<", command=complianceGraph, font=normalFont)
+    swapGraphButton.pack(pady=5)
+    graphButton.configure(text="Hide Graph", command=deleteGraph)
+
+#Function to delete the current graph and reset variables
+def deleteGraph():
+    global canvas, swapGraphButton, graphButton
+    if canvas != None:
+        canvas.get_tk_widget().destroy()
+        canvas = None
+    if swapGraphButton != None:
+        swapGraphButton.destroy()
+        swapGraphButton = None
+    graphButton.configure(text="Show Graph", command=complianceGraph)
 
 #Function to show the results and automatically downloads a JSON file (currently just storing the compliance value)
 def showResults():
@@ -328,11 +413,17 @@ def reviewWrongQuestions(wrongList):
 def openUrl(link):
    webbrowser.open_new_tab(link)
 
-#Function to load the last quiz's compliance value -----SUBJECT TO CHANGE------
+#Function to load the a quizzes' compliance value -----SUBJECT TO CHANGE------
 def loadOldCompliance(oldFile):
     with open(oldFile, 'r') as file:
         oldFileData = json.load(file)
     return oldFileData["compliance"]
+
+#Function to load a quizzes' loss averages
+def loadOldAverages(oldFile):
+    with open(oldFile, 'r') as file:
+        oldFileData = json.load(file)
+    return [oldFileData["averagegdpr"], oldFileData["averagecma"], oldFileData["averagefraud"]]
 
 #Function for getting the closest json file to the current date
 def getClosestJsonFile(directory):
@@ -396,9 +487,9 @@ def download():
     averagesData = returnLawAverages()
     downloadData = {
         "compliance": complianceLevel,
-        "gdprAverage": averagesData[0],
-        "cmaAverage": averagesData[1],
-        "fraudAverage": averagesData[2]
+        "averagegdpr": averagesData[0],
+        "averagecma": averagesData[1],
+        "averagefraud": averagesData[2]
     }
     with open(jsonFilename, 'w') as file:
         json.dump(downloadData, file)
@@ -416,7 +507,7 @@ def averageLossUpdate(newCompliance, oldCompliance, questionType):
 
 #Function to return external info used in main.py. including a list of all of the three final average loss values and the list of questions the user got wrong
 def returnLawAverages():
-    return [gdprAverage, misuseAverage, fraudAverage]
+    return [round(gdprAverage, 2), round(misuseAverage, 2), round(fraudAverage, 2)]
 
 #Set fonts
 titleFont = ctk.CTkFont(family="Helvetic", size=25, weight="bold") 
@@ -435,7 +526,7 @@ descriptionLabel.pack(pady=15)
 #Create start and close buttons
 startButton = ctk.CTkButton(window, text="Start", command=start, font=normalFont)
 startButton.pack(pady=8)
-graphButton = ctk.CTkButton(window, text="Show Graph", command=graph, font=normalFont)
+graphButton = ctk.CTkButton(window, text="Show Graph", command=complianceGraph, font=normalFont)
 graphButton.pack(pady=8)
 deleteButton = ctk.CTkButton(window, text="Delete Previous Data", command=deleteJsonFiles, font=normalFont)
 deleteButton.pack(pady=8)
