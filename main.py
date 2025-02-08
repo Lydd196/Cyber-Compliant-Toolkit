@@ -26,7 +26,7 @@ gdprAverage = 0
 misuseAverage = 0
 fraudAverage = 0
 swapGraphButton = None
-canvas = None  # Initialize canvas to None at the start
+canvas = None  
 
 #Defining the folder for JSON files 
 jsonFolder = "TestResults"
@@ -35,8 +35,7 @@ jsonFolder = "TestResults"
 def start():
     #Clear all elements from the window to prepare the test
     clearElements(window) 
-    global complianceLevel 
-    global questionNumber
+    global complianceLevel, questionNumber
     questionNumber = 1
     
     #List of questions from json file gets ordered from randomised gdpr first, randomised cma next, then randomised fraud last
@@ -142,15 +141,19 @@ def complianceGraph():
     figure, axes = plt.subplots(figsize=(15, 6))
     figure.patch.set_facecolor("#2c2c2c") 
     axes.set_facecolor("#2c2c2c")   
-    axes.plot(dates, complianceLevels, marker='o', linestyle='-', color='red', label="Compliance Level")
+    axes.plot(dates, complianceLevels, marker="o", linestyle="-", linewidth = 2.5, color="blue", label="Compliance Level")
     axes.set_xlabel("Date", fontsize=18, fontname="Times New Roman", color="white")
     axes.set_ylabel("Compliance Level (%)", fontsize=18, fontname="Times New Roman", color="white")
     axes.set_title("Compliance Levels Over Time", fontsize=18, fontname="Times New Roman", color="white")
 
+    #Horizontal lines showing what is good compliance or bad compliance
+    axes.hlines(y=80, xmin=dates[0], xmax=dates[len(dates) - 1], colors="green", linewidth=5, label="Good Compliance")
+    axes.hlines(y=50, xmin=dates[0], xmax=dates[len(dates) - 1], colors="red", linewidth=5, label="Bad Compliance")
+    
     #Format the date on the x axis as d/m/y
     axes.xaxis.set_major_formatter(mdates.DateFormatter("%d/%m/%Y"))  
-    axes.tick_params(axis='x', rotation=25, colors="white")  
-    axes.tick_params(axis='y', colors="white")
+    axes.tick_params(axis="x", rotation=25, colors="white", labelsize=14)  
+    axes.tick_params(axis="y", colors="white", labelsize=14)
     axes.legend(loc="upper left", fontsize=10, facecolor="#2c2c2c", edgecolor="white", labelcolor="w")
     axes.grid(color="gray", linestyle="--", linewidth=0.7)
     plt.tight_layout()
@@ -201,7 +204,7 @@ def averagesGraph():
     cmaAverages = []
     fraudAverages = []
 
-    #Iterate through fileData and append elements to date and compliance lists
+    #Iterate through fileData and append elements to date and averages lists
     for data in fileData:
         dates.append(data[0])
         gdprAverages.append(data[1])
@@ -212,19 +215,23 @@ def averagesGraph():
     figure, axes = plt.subplots(figsize=(15, 6))
     figure.patch.set_facecolor("#2c2c2c") 
     axes.set_facecolor("#2c2c2c")   
-    axes.plot(dates, gdprAverages, marker='o', linestyle='-', color='red', label="GDPR")
-    axes.plot(dates, cmaAverages, marker='o', linestyle='-', color='green', label="Computer Misuse Act")
-    axes.plot(dates, fraudAverages, marker='o', linestyle='-', color='yellow', label="Fraud Act")
+    axes.plot(dates, gdprAverages, marker="o", linestyle="-", linewidth = 2.5, color="blue", label="GDPR")
+    axes.plot(dates, cmaAverages, marker="o", linestyle="-", linewidth = 2.5, color="orange", label="Computer Misuse Act")
+    axes.plot(dates, fraudAverages, marker="o", linestyle="-", linewidth = 2.5, color="purple", label="Fraud Act")
     axes.invert_yaxis()
     axes.set_xlabel("Date", fontsize=18, fontname="Times New Roman", color="white")
-    axes.set_ylabel("Average Compliance Loss Per Law", fontsize=18, fontname="Times New Roman", color="white")
-    axes.set_title("Average Compliance Loss Per Law Over Time", fontsize=18, fontname="Times New Roman", color="white")
+    axes.set_ylabel("Average Compliance Loss Per Question", fontsize=18, fontname="Times New Roman", color="white")
+    axes.set_title("Average Compliance Loss Per Law Per Question Over Time", fontsize=18, fontname="Times New Roman", color="white")
+
+    #Horizontal lines showing what is good compliance or bad compliance
+    axes.hlines(y=0.66, xmin=dates[0], xmax=dates[len(dates) - 1], colors="green", linewidth=5, label="Good Compliance")
+    axes.hlines(y=1.66, xmin=dates[0], xmax=dates[len(dates) - 1], colors="red", linewidth=5, label="Bad Compliance")
 
     #Format the date on the x axis as d/m/y
     axes.xaxis.set_major_formatter(mdates.DateFormatter("%d/%m/%Y"))  
-    axes.tick_params(axis='x', rotation=25, colors="white")  
-    axes.tick_params(axis='y', colors="white")
-    axes.legend(loc="upper left", fontsize=10, facecolor="#2c2c2c", edgecolor="white", labelcolor="w")
+    axes.tick_params(axis="x", rotation=25, colors="white", labelsize=14)  
+    axes.tick_params(axis="y", colors="white", labelsize=14)
+    axes.legend(loc="upper left", fontsize=10, facecolor="#2c2c2c", edgecolor="black", labelcolor="w")
     axes.grid(color="gray", linestyle="--", linewidth=0.7)
     plt.tight_layout()
         
@@ -248,10 +255,9 @@ def deleteGraph():
         swapGraphButton = None
     graphButton.configure(text="Show Graph", command=complianceGraph)
 
-#Function to show the results and automatically downloads a JSON file (currently just storing the compliance value)
+#Function to show the results and automatically downloads a JSON file
 def showResults():
-    global firstAccess
-    global closestFile
+    global firstAccess, closestFile
     if firstAccess == True:
         jsonFolderCheck()
         closestFile = getClosestJsonFile(jsonFolder)
@@ -270,13 +276,13 @@ def showResults():
 
     #Additionally displays the compliance value as a pie chart using the pyplot and canvas libraries
     pieValues = [complianceLevel, 100 - complianceLevel]
-    labels = ['Compliant', 'Non-Compliant']
+    labels = ["Compliant", "Non-Compliant"]
     colors = ["#0ac700", "#bf0000"]
     figure, axes = plt.subplots(figsize=(8, 3))
     figure.patch.set_facecolor("#2c2c2c")
     axes.set_facecolor("#2c2c2c")
     axes.pie(pieValues, labels=labels, autopct="%1.0f%%", colors=colors, startangle=90, textprops={"color": "white", "fontsize": 18, "fontfamily": "Times New Roman"})
-    axes.axis('equal') 
+    axes.axis("equal") 
     canvas = FigureCanvasTkAgg(figure, master=window)
     canvas.draw()
     canvas.get_tk_widget().pack(anchor="center")
@@ -284,9 +290,9 @@ def showResults():
     resultDescriptionLabel = ctk.CTkLabel(window, text= "sample text", font=normalFont)
 
     #Different result descriptions based on the compliance value 
-    externalInfo = returnLawAverages()
-    for index in range(0, len(externalInfo) - 1):
-        externalInfo[index] = round(externalInfo[index], 2)
+    lawAverages = returnLawAverages()
+    for index in range(0, len(lawAverages) - 1):
+        lawAverages[index] = round(lawAverages[index], 2)
     if complianceLevel > 80:
         resultDescriptionLabel.configure(text= "We believe that overall, your accountancy firm is very compliant with cyber laws. Great Job!")
         resultDescriptionLabel.pack(pady=10)
@@ -299,18 +305,18 @@ def showResults():
 
     #Average loss thresholds are calculated by (x/y* (100-z))/x where x is the amount of that question type, y is the total number of questions and z is dependant on the condition (50 for serious breach and 80 for minor breach (MAY CHANGE))
     #--------------------THIS AVERAGE SYSTEM MUST BE CHANGED IF NEW QUESTIONS ARE ADDED---------------------------
-    if externalInfo[0] > 0.66 or externalInfo[1] > 0.66 or externalInfo[2] > 0.66:
+    if lawAverages[0] > 0.66 or lawAverages[1] > 0.66 or lawAverages[2] > 0.66:
         breachesTitleLabel = ctk.CTkLabel(window, text= "Potential Breaches", font=subheadingFont)
         breachesTitleLabel.pack(pady=10)
     
     #If the average loss per question for the UK GDPR is higher than 1.66, it will have a message for serious breach, if it is higher than 0.66, it will have a message for minor breach, else no message
-    if externalInfo[0] > 1.66:
+    if lawAverages[0] > 1.66:
         gdprDetailsLabel = ctk.CTkLabel(window, text= "We believe that your firm may be in serious breach of the GDPR.\nYou may face fines up to £17.5 million or 4% of global annual turnover (whichever is higher).\nThis is enforced under the Data Protection Act 2018.", font=normalFont)
         gdprDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the UK GDPR/Data Protection Act!", font=linkFont)
         linkLabel.pack(pady=(0, 15))
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.gov.uk/data-protection"))
-    elif externalInfo[0] > 0.66:
+    elif lawAverages[0] > 0.66:
         gdprDetailsLabel = ctk.CTkLabel(window, text= "We believe that your firm may be in minor breach of the GDPR.\nYou may face fines up to £8.7 million or 2% of global annual turnover (whichever is higher).\nThis is enforced under the Data Protection Act 2018.", font=normalFont)
         gdprDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the UK GDPR/Data Protection Act!", font=linkFont)
@@ -318,13 +324,13 @@ def showResults():
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.gov.uk/data-protection"))
 
     #If the average loss per question for the Computer Misuse Act is higher than 1.66, it will have a message for serious breach, if it is higher than 0.66, it will have a message for minor breach, else no message
-    if externalInfo[1] > 1.66:
+    if lawAverages[1] > 1.66:
         cmaDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in serious breach of the Computer Misuse Act 1990.\nThey may face up to 2 years imprisonment.", font=normalFont)
         cmaDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the Computer Misuse Act!", font=linkFont)
         linkLabel.pack(pady=(0, 15))
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.cps.gov.uk/legal-guidance/computer-misuse-act"))
-    elif externalInfo[1] > 0.66:
+    elif lawAverages[1] > 0.66:
         cmaDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in minor breach of the Computer Misuse Act 1990.\nThey may face small fines if escalated.", font=normalFont)
         cmaDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the Computer Misuse Act!", font=linkFont)
@@ -332,13 +338,13 @@ def showResults():
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.cps.gov.uk/legal-guidance/computer-misuse-act"))
 
     #If the average loss per question for the Fraud Act is higher than 1.66, it will have a message for serious breach, if it is higher than 0.66, it will have a message for minor breach, else no message
-    if externalInfo[2] > 1.66:
+    if lawAverages[2] > 1.66:
         fraudDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in serious breach of the Fraud Act 2006.\nThey may face up to 10 years imprisonment if escalated.", font=normalFont)
         fraudDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the Fraud Act!", font=linkFont)
         linkLabel.pack(pady=(0, 15))
         linkLabel.bind("<Button-1>", lambda event:openUrl("https://www.cps.gov.uk/legal-guidance/fraud-act-2006"))
-    elif externalInfo[2] > 0.66:
+    elif lawAverages[2] > 0.66:
         fraudDetailsLabel = ctk.CTkLabel(window, text= "We believe that some of your employees may be in minor breach of The Fraud Act 2006.\nThey may face small fines or a short imprisonment period if escalated.", font=normalFont)
         fraudDetailsLabel.pack()
         linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on the Fraud Act!", font=linkFont)
@@ -415,13 +421,13 @@ def openUrl(link):
 
 #Function to load the a quizzes' compliance value -----SUBJECT TO CHANGE------
 def loadOldCompliance(oldFile):
-    with open(oldFile, 'r') as file:
+    with open(oldFile, "r") as file:
         oldFileData = json.load(file)
     return oldFileData["compliance"]
 
 #Function to load a quizzes' loss averages
 def loadOldAverages(oldFile):
-    with open(oldFile, 'r') as file:
+    with open(oldFile, "r") as file:
         oldFileData = json.load(file)
     return [oldFileData["averagegdpr"], oldFileData["averagecma"], oldFileData["averagefraud"]]
 
@@ -477,7 +483,7 @@ def deleteJsonFiles():
         if file.endswith(".json"):
             os.remove(os.path.join("TestResults", file))
 
-#Function for exporting the question data as a json format, with the name as the current datetime, currently just storing the compliance value
+#Function for exporting the question data as a json format, with the name as the current datetime
 def download():
     global gdprAverage, misuseAverage, fraudAverage
     time = datetime.datetime.now()
@@ -491,7 +497,7 @@ def download():
         "averagecma": averagesData[1],
         "averagefraud": averagesData[2]
     }
-    with open(jsonFilename, 'w') as file:
+    with open(jsonFilename, "w") as file:
         json.dump(downloadData, file)
 
 #Function to create/update a rolling average of the compliance loss for each of the laws
@@ -505,7 +511,7 @@ def averageLossUpdate(newCompliance, oldCompliance, questionType):
     elif questionType == "The Fraud Act":
         fraudAverage = fraudAverage + (complianceDifference/4)
 
-#Function to return external info used in main.py. including a list of all of the three final average loss values and the list of questions the user got wrong
+#Function to return law averages to 2 decimal points
 def returnLawAverages():
     return [round(gdprAverage, 2), round(misuseAverage, 2), round(fraudAverage, 2)]
 
