@@ -2,6 +2,8 @@ import customtkinter as ctk
 import tkinter as tk
 import json
 import webbrowser
+import sys
+import os
 
 #Initialise noSelect so it can be accessed by functions
 noSelect = None
@@ -138,14 +140,22 @@ def clearElements(window):
     for elements in window.winfo_children():
         elements.destroy() 
 
+#Function to get the path for the question.json file, needed for exe
+def getQuestionsPath(fileName):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, fileName)
+    return os.path.join(os.path.abspath("."), fileName)
+
 #Function to load questions from a json file
-def loadQuestions(questionFile):
+def loadQuestions():
+    questionFile = getQuestionsPath("questions.json")
     with open(questionFile, 'r') as file:
         questionData = json.load(file)
     return questionData["questions"]
 
 #Function to load only the questions answered incorrectly
 def loadWrongQuestions(questionFile, wrongList):
+    questionFile = getQuestionsPath("questions.json")
     with open(questionFile, 'r') as file:
         oldQuestionData = json.load(file)
     newQuestionData = []

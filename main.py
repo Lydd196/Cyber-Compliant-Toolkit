@@ -6,6 +6,7 @@ import webbrowser
 import sys
 import json
 import os 
+import stat
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -39,7 +40,7 @@ def start():
     questionNumber = 1
     
     #List of questions from json file gets ordered from randomised gdpr first, randomised cma next, then randomised fraud last
-    questions = questionhandler.loadQuestions("questions.json")
+    questions = questionhandler.loadQuestions()
     gdprQuestions = []
     cmaQuestions = []
     fraudQuestions = []
@@ -118,7 +119,7 @@ def complianceGraph():
             dateString = file.replace(".json", "") 
             fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
             complianceValue = loadOldCompliance(os.path.join(jsonFolder, file))
-            if fileDate <= datetime.datetime.now():  
+            if fileDate <= datetime.datetime.now() and complianceValue <= 100 and complianceValue >= 0:  
                 fileData.append((fileDate, complianceValue))
         except ValueError:
             pass
@@ -188,7 +189,7 @@ def averagesGraph():
             dateString = file.replace(".json", "") 
             fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
             gdpr, cma, fraud = loadOldAverages(os.path.join(jsonFolder, file))
-            if fileDate <= datetime.datetime.now():  
+            if fileDate <= datetime.datetime.now() and gdpr < 5.0 and cma < 5.0 and fraud < 5.0:  
                 fileData.append((fileDate, gdpr, cma, fraud))
         except ValueError:
             pass
@@ -477,11 +478,13 @@ def jsonFolderCheck():
     if os.path.exists(jsonFolder) == False:
         os.makedirs(jsonFolder)
 
-#Function to erase all JSON files from the TestResults
+#Function to erase all read-only JSON files from the TestResults
 def deleteJsonFiles():
     for file in os.listdir("TestResults"):
         if file.endswith(".json"):
-            os.remove(os.path.join("TestResults", file))
+            fileName = os.path.join("TestResults", file)
+            os.chmod(fileName, stat.S_IWRITE)
+            os.remove(fileName)
 
 #Function for exporting the question data as a json format, with the name as the current datetime
 def download():
@@ -497,8 +500,10 @@ def download():
         "averagecma": averagesData[1],
         "averagefraud": averagesData[2]
     }
+    #Dumps all the download data in the json file and sets the file permission to read-only
     with open(jsonFilename, "w") as file:
         json.dump(downloadData, file)
+    os.chmod(jsonFilename, stat.S_IREAD)
 
 #Function to create/update a rolling average of the compliance loss for each of the laws
 def averageLossUpdate(newCompliance, oldCompliance, questionType):
