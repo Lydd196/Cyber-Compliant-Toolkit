@@ -33,6 +33,7 @@ The software consists of the following files:
 - `questions.json` – Contains all the question data used in the softare.
 - `README.md` – Documentation containing project information and installation guide.
 - `LICENCE` – License details for the project.
+- `.gitignore` - File containing generated files that should not be committed to the repository.
 
 ---
 
