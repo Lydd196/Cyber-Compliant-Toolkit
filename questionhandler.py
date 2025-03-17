@@ -56,15 +56,15 @@ def showQuestion(window, questionData, questionNumber, questionAmount, goPreviou
     submitButton = ctk.CTkButton(window, text="Submit", command=submit, font=normalFont)
     submitButton.pack(pady=10)
 
+    #Button for going to previous question, only appears after question 1
+    if questionNumber > 1:
+        goBackButton = ctk.CTkButton(window, text="<", font=normalFont, command=goPreviousCallback)
+        goBackButton.place(relx=0.02, rely=0.12, anchor = tk.W)
+
     #Include external hyperlink for further reading based on question data from json file
     linkLabel = ctk.CTkLabel(window, text="Click here to learn more information on this topic!", font=linkFont)
     linkLabel.pack()
     linkLabel.bind("<Button-1>", lambda event:openUrl(questionData["link"]))
-
-    #Button for going to previous question, only appears after question 1
-    if questionNumber > 1:
-        goBackButton = ctk.CTkButton(window, text="<", font=normalFont, command=goPreviousCallback)
-        goBackButton.pack(pady=50)
 
     def enterSkip():
         if submitButton.winfo_exists() == True:

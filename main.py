@@ -18,6 +18,7 @@ window.geometry("1920x1080")
 window._state_before_windows_set_titlebar_color = "zoomed"
 window.resizable(False, False)
 ctk.set_appearance_mode("Dark")
+ctk.set_default_color_theme("dark-blue")
 
 #Initial values such as averages, compliance value, etc
 complianceLevel = 100
