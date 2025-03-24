@@ -32,7 +32,7 @@ The software consists of the following files:
 - `questionhandler.py` – Handles the logic for displaying and loading the questions.
 - `questions.json` – Contains all the question data used in the softare.
 - `README.md` – Documentation containing project information and installation guide.
-- `LICENCE` – License details for the project.
+- `LICENCE` – Licence details for the project.
 - `.gitignore` - Specifies files that should not be committed to the repository, such as cache, test results, or executable distribution files.
 
 ---
