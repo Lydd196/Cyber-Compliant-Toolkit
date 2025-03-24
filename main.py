@@ -120,7 +120,7 @@ def complianceGraph():
             dateString = file.replace(".json", "") 
             fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
             complianceValue = loadOldCompliance(os.path.join(jsonFolder, file))
-            if fileDate <= datetime.datetime.now() and complianceValue <= 100 and complianceValue >= 0:  
+            if fileDate <= datetime.datetime.now() and isinstance(complianceValue, int) and complianceValue <= 100 and complianceValue >= 0:  
                 fileData.append((fileDate, complianceValue))
         except ValueError:
             pass
@@ -143,7 +143,7 @@ def complianceGraph():
     figure, axes = plt.subplots(figsize=(15, 6))
     figure.patch.set_facecolor("#2c2c2c") 
     axes.set_facecolor("#2c2c2c")   
-    axes.plot(dates, complianceLevels, marker="o", linestyle="-", linewidth = 2.5, color="blue", label="Compliance Level")
+    axes.plot(dates, complianceLevels, marker="o", markersize=10, linestyle="-", linewidth = 2.5, color="blue", label="Compliance Level")
     axes.set_xlabel("Date", fontsize=18, fontname="Times New Roman", color="white")
     axes.set_ylabel("Compliance Level (%)", fontsize=18, fontname="Times New Roman", color="white")
     axes.set_title("Compliance Levels Over Time", fontsize=18, fontname="Times New Roman", color="white")
@@ -190,7 +190,7 @@ def averagesGraph():
             dateString = file.replace(".json", "") 
             fileDate = datetime.datetime.strptime(dateString, "%Y-%m-%d-%H-%M-%S")
             gdpr, cma, fraud = loadOldAverages(os.path.join(jsonFolder, file))
-            if fileDate <= datetime.datetime.now() and gdpr < 5.0 and cma < 5.0 and fraud < 5.0:  
+            if fileDate <= datetime.datetime.now() and isinstance(gdpr, float) == True and gdpr < 5.0 and gdpr >= 0.0 and isinstance(cma, float) == True and cma < 5.0 and cma >= 0.0 and isinstance(fraud, float) == True and fraud < 5.0 and fraud >= 0.0:  
                 fileData.append((fileDate, gdpr, cma, fraud))
         except ValueError:
             pass
@@ -217,9 +217,9 @@ def averagesGraph():
     figure, axes = plt.subplots(figsize=(15, 6))
     figure.patch.set_facecolor("#2c2c2c") 
     axes.set_facecolor("#2c2c2c")   
-    axes.plot(dates, gdprAverages, marker="o", linestyle="-", linewidth = 2.5, color="blue", label="GDPR")
-    axes.plot(dates, cmaAverages, marker="o", linestyle="-", linewidth = 2.5, color="orange", label="Computer Misuse Act")
-    axes.plot(dates, fraudAverages, marker="o", linestyle="-", linewidth = 2.5, color="purple", label="Fraud Act")
+    axes.plot(dates, gdprAverages, marker="o", markersize=10, linestyle="-", linewidth = 2.5, color="blue", label="GDPR")
+    axes.plot(dates, cmaAverages, marker="o", markersize=10, linestyle="-", linewidth = 2.5, color="orange", label="Computer Misuse Act")
+    axes.plot(dates, fraudAverages, marker="o", markersize=10, linestyle="-", linewidth = 2.5, color="purple", label="Fraud Act")
     axes.invert_yaxis()
     axes.set_xlabel("Date", fontsize=18, fontname="Times New Roman", color="white")
     axes.set_ylabel("Average Compliance Loss Per Question", fontsize=18, fontname="Times New Roman", color="white")
@@ -305,7 +305,7 @@ def showResults():
         resultDescriptionLabel.configure(text= "We believe that overall, your accountancy firm is not compliant at all with cyber laws")
         resultDescriptionLabel.pack(pady=10)  
 
-    #Average loss thresholds are calculated by (x/y* (100-z))/x where x is the amount of that question type, y is the total number of questions and z is dependant on the condition (50 for serious breach and 80 for minor breach (MAY CHANGE))
+    #Average loss thresholds are calculated by (100-y)/x where x is the total number of questions and y is dependant on the condition (50 for serious breach and 80 for minor breach (MAY CHANGE))
     #--------------------THIS AVERAGE SYSTEM MUST BE CHANGED IF NEW QUESTIONS ARE ADDED---------------------------
     if lawAverages[0] > 0.66 or lawAverages[1] > 0.66 or lawAverages[2] > 0.66:
         breachesTitleLabel = ctk.CTkLabel(window, text= "Potential Breaches", font=subheadingFont)
@@ -421,17 +421,27 @@ def reviewWrongQuestions(wrongList):
 def openUrl(link):
    webbrowser.open_new_tab(link)
 
-#Function to load the a quizzes' compliance value -----SUBJECT TO CHANGE------
+#Function to load the a quizzes' compliance value, if the old file does not have a "compliance" variable, it returns nothing and is ignored
 def loadOldCompliance(oldFile):
     with open(oldFile, "r") as file:
         oldFileData = json.load(file)
-    return oldFileData["compliance"]
+    oldCompliance = oldFileData.get("compliance")
+    if oldCompliance == None:
+        return
+    else:
+        return oldCompliance
 
-#Function to load a quizzes' loss averages
+#Function to load a quizzes' loss averages, if the old file does not have at least one of the old average variable, it returns and empty list and is ignored
 def loadOldAverages(oldFile):
     with open(oldFile, "r") as file:
         oldFileData = json.load(file)
-    return [oldFileData["averagegdpr"], oldFileData["averagecma"], oldFileData["averagefraud"]]
+    oldGDPR = oldFileData.get("averagegdpr")
+    oldCMA = oldFileData.get("averagecma")
+    oldFraud = oldFileData.get("averagefraud")
+    if oldGDPR == None or oldCMA == None or oldFraud == None:
+        return []
+    else:
+        return [oldGDPR, oldCMA, oldFraud]
 
 #Function for getting the closest json file to the current date
 def getClosestJsonFile(directory):
@@ -495,12 +505,8 @@ def download():
     jsonFilename = datetimeString + ".json"
     jsonFilename = os.path.join(jsonFolder, jsonFilename)
     averagesData = returnLawAverages()
-    downloadData = {
-        "compliance": complianceLevel,
-        "averagegdpr": averagesData[0],
-        "averagecma": averagesData[1],
-        "averagefraud": averagesData[2]
-    }
+    downloadData = {"compliance": complianceLevel, "averagegdpr": averagesData[0], "averagecma": averagesData[1], "averagefraud": averagesData[2]}
+    
     #Dumps all the download data in the json file and sets the file permission to read-only
     with open(jsonFilename, "w") as file:
         json.dump(downloadData, file)
@@ -535,7 +541,7 @@ titleLabel.pack(pady=25)
 descriptionLabel = ctk.CTkLabel(window, text="Find out how compliant your accountancy business is with cyber laws", font=normalFont)
 descriptionLabel.pack(pady=15)
 
-#Create start and close buttons
+#Create start, graph, delete and close buttons
 startButton = ctk.CTkButton(window, text="Start", command=start, font=normalFont)
 startButton.pack(pady=8)
 graphButton = ctk.CTkButton(window, text="Show Graph", command=complianceGraph, font=normalFont)
