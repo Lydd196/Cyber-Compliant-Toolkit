@@ -52,7 +52,7 @@
     },
     {
       "id": 6,
-      "text": "Does your accountancy firm delete client data, such as name and bank account information, that is innacurate and outdated?\n",
+      "text": "Does your accountancy firm delete client data, such as name and bank account information, that is inaccurate and outdated?\n",
       "options": ["Yes, but only after they notify us that it is outdated", "No, we keep it for our records"],
       "deduction": [0, -4],
       "type": "GDPR Principles",
