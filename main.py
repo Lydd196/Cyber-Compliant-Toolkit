@@ -102,6 +102,7 @@ window.protocol("WM_DELETE_WINDOW", close)
 #Function to create the compliance graph on the main page, with a button to go to the average loss graph
 def complianceGraph():
     global canvas, swapGraphButton
+    jsonFolderCheck()
     if canvas != None:
         canvas.get_tk_widget().destroy()
     if swapGraphButton != None:
@@ -172,6 +173,7 @@ def complianceGraph():
 #Function to create the compliance graph on the main page, with a button to go to the compliance graph
 def averagesGraph():
     global canvas, swapGraphButton
+    jsonFolderCheck()
     if canvas != None:
         canvas.get_tk_widget().destroy()
     if swapGraphButton != None:
@@ -491,6 +493,7 @@ def jsonFolderCheck():
 
 #Function to erase all read-only JSON files from the TestResults
 def deleteJsonFiles():
+    jsonFolderCheck()
     for file in os.listdir("TestResults"):
         if file.endswith(".json"):
             fileName = os.path.join("TestResults", file)
@@ -550,6 +553,7 @@ deleteButton = ctk.CTkButton(window, text="Delete Previous Data", command=delete
 deleteButton.pack(pady=8)
 closeButton = ctk.CTkButton(window, text="Close", command=close, font=normalFont)
 closeButton.pack(pady=8)
+jsonFolderCheck()
 
 #Run the main loop
 window.mainloop()
