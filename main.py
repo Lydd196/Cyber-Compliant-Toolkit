@@ -262,8 +262,8 @@ def deleteGraph():
 #Function to show the results and automatically downloads a JSON file
 def showResults():
     global firstAccess, closestFile
+    jsonFolderCheck()
     if firstAccess == True:
-        jsonFolderCheck()
         closestFile = getClosestJsonFile(jsonFolder)
         download()
         firstAccess = False
